@@ -1,0 +1,100 @@
+IMPOSED COST GAME WITH 18 CARDS
+(26 July 2022)
+Components
+18 x cards: 4 x 2-sided Project cards; 2 x 1-sided Base cards; 6 x 1-sided Function cards, 6 x 1-sided Action cards
+1 x Game Mat: sheet of card with HN influence track, Victory Point track, 4 x boxes for Project cards, Sequence of Play reminder if it fits
+8 x 10-sided dice (d10)
+1 x cube or meeple for tracking Host Nation (HN) influence
+x1, x10 and +100 markers for Victory Point track (use cubes)
+
+Setting up the game
+•	Players agree who will play what side and how many Projects will be completed before the end of the game (4 or 5 will give a short game, more than 8 a long and somewhat repetitive game).
+•	Each player takes 1 Base card and places it in front of them.
+•	Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. Place a die showing the “0” value in each of the Time and Budget boxes on its card.
+•	Shuffle the 12 remaining Function Cards and put them face down in a draw pile.
+
+Sequence of Play
+The game is played in turns. Each turn, the players will move through the following Phases in order:
+•	Draw Cards Phase. Each player draws 1 card and adds it to their hand. A player’s hand may be any size. When the draw pile runs out, shuffle the discard pile and it becomes the new draw pile.
+•	Operations Phase. The player with the HN Influence marker on “their” side of the Track plays first (if the cube is dead centre, Blue player goes first). A player may play a Function card, executing one of its two functions, or use an Action card from their Network, or pass. Normally a player will play 1 card from their hand or use 1 Action card at a time; the only exceptions are when a player plays the Influence HN or Build/Manage Network card function they may play an Action Card at the same time. When played a Function card or revealed Action card is discarded; a concealed Action card is revealed. A player may always pass; a player with no cards in their hand and no Action cards in their Network must pass. This Phase ends when both players pass in succession.
+•	Projects Phase. Any Projects that have met or exceeded the Time and Budget minimal values printed on their card are now completed and scored. See below for process. Remove completed Project cards and dice from their box on the Game Mat; if more Projects remain to be played, the Red player will now replace Project cards in the empty boxes (the player may choose the new project and which box it goes into).
+•	HN Influence Phase. Raise (if on the Blue side) or reduce (if on the Red side) Blue’s Victory Point level by a number equal to the HN Influence value on the Track.
+•	Turn End Phase. If all Projects planned to be played in the game have been completed, end the game and determine Victory Level. If not:
+◦	raise the Time value of all Projects in play by 1, unless the Project’s Budget value is currently 0 (zero); then
+◦	start a new turn with the Draw Cards Phase.
+
+Project Cards
+There are 4 Project cards in the game. Each card is double-sided, so there is a total of 8 different infrastructure projects that can be worked on during the game. During the game, up to 4 Projects at a time will be placed in the 4 boxes labelled ABCD on the Game Mat, representing infrastructure projects currently being worked on.
+
+Small Port
+Min time: 4
+Min budget: 3
+When complete: +1 value to any project in play	Large Port
+Min time: 6
+Min budget: 4
+When complete: +2 value to any 1 project or +1 value to each of 2 projects in play
+Small Airport
+Min time: 3
+Min budget: 3
+When complete: +1 value any project in play	Large Airport
+Min time: 3
+Min budget: 6
+When complete: +2 value to any 1 project or +1 value to each of 2 projects in play
+Mine
+Min time: 4
+Min budget: 3
+When complete: Blue gains half (round up) of the Victory Points they would normally get	Highway System
+Min time: 4
+Min budget: 4
+When complete: Blue loses, not gains Victory Points equal to difference between Completion and Planned Costs of Project
+Finance System
+Min time: 2
+Min budget: 4
+When complete: move HN Influence 1 box	Administrative System
+Min time: 4
+Min budget: 5
+When complete:  move HN Influence 2 boxes
+
+Base Cards and Networks
+•	There are 2 Base cards in the game: 1 x “Country Team” (red); and 1 x Jedburgh team (blue). Each side of card is coded A B C D for the matching box on the Game Mat which contains a Project card.
+•	Action cards can be placed along the side of a card for use on Projects corresponding to the lettered box. The total assembly of 1 Base plus any number of Action cards is called a Network. 
+•	When more than 1 Action card is placed against a side of card, they are stacked and only the topmost card in the stack can be used to affect a Project or be affected by a Degrade Network or Use HN Influence function. Reveal and Conceal cards may be used on any cards in the Network. Any Action card may be moved in a Build/Manage Network, but it must become the topmost card on the side it is moved to. When rearranging the entire Network after executing a Maintain Network card, all cards may be rearranged as the player pleases but they retain their revealed or concealed status.
+
+Function Cards and their, uh, functions
+There are 6 Function cards in the game. Five of them have two functions and the player must choose one of them to execute when playing the card. All Function cards are discarded after play.
+
+1	Influence HN. Play alone for “1” value, or with 1 Action card from hand or Network (may be any card if from Network). Move cube total number of boxes towards “your” side. Discard Action card if used.	Use HN Influence. If the HN Influence cube is on “your” side of the track, use as either an Action card of equal value to HN Influence value on 1 Project, or as a Degrade Network card. 
+2	Reveal. Reveal (flip face up) up to 2 cards in enemy Network. Any cards in Network may be revealed. 	Conceal. Conceal (flip face down) up to 2 cards in own Network. Any cards in Network may be concealed. 
+2	Build/Manage Network. Add up to 2 Action cards from hand to Network (place concealed, on any side and anywhere in stack) or move 1 Action card to any other side of Base card (Action card becomes topmost card on that side and retains revealed/concealed status). 	Degrade Network. Discard 1 Action card from enemy Network. Card must be both revealed and topmost in its stack.  
+1	Maintain Network. Must execute immediately when drawn. Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 2 cards if Network is 6 cards or more. Discard any Action card or cards from Network if no cards in hand. After discarding card(s), may rearrange up to all Action cards in own Network; they retain their revealed/concealed status.
+
+Action cards
+•	There are 6 Action cards in the game: 3 x “1” value; 2 x “2” value, and 1 x “3” value. An Action card must already be in a player’s network to be played on a Project; they may not be played directly out of hand. The card must also be topmost in its stack.
+•	When playing an Action card, reveal it if it was concealed; if it was already revealed, discard it. Apply the value of the Action card to the Project in the box matching the letter side of the Base card the Action card is on, by raising or lowering the value shown on the die face or faces on the Project card. 
+•	The Time value of a Project may be raised or lowered by Action card play. The Budget value may only be increased. A die may not be adjusted below its minimum or above its maximum value (that is, 0 and 9 for d10).
+•	A player may change either or both die face values if applying a “2” or “3” value Action card, but the total number of changes must be equal to the value of the card.
+
+Completing a project
+•	During the Projects Phase, if both dice on a Project card show values that equal or exceed the minimal values printed on the card, the project is completed. Note the die values, calculate the project’s Completion Cost, and award the Blue player any Victory Points they are due. Remove the Project card and dice. Note that when a project is completed, there is an additional effect that is applied immediately (and which may cause further projects to be completed, in the same Phase).
+•	Projects that are completed may be “recycled” and placed in empty boxes until the total number of completed Projects for the game is reached. In either case the Red player may choose which Project is to be placed; place the two dice showing their initial values of 0 (zero).
+
+Victory Points and Victory Scale
+•	Victory Points. Only the Blue player gets Victory Points. The Victory Point value of a completed project is equal to its Completion Cost (the two die values multiplied together at completion) minus its Planned Cost (the two minimal values printed on the card multiplied together). Record accumulated Victory Points on the track on the Game Mat. Place a marker in the “+ 100” box when passing this total.
+
+Example: a Small Port is completed. The die values are 5 for Time and 4 for Budget, for a Completion Cost of (5 x 4 =) 20. The Planned Cost of the project is (4 x 3 =) 12. The Blue player adds 8 Victory Points and the Red player adds 1 to either die value of any Project in play. They choose Administrative System; adding 1 to the Budget value completes it on time and on budget, so the Project is immediately scored. Blue does not get any Victory Points and the Red player moves the HN Influence Track marker 2 boxes to the left.
+
+•	Victory Scale. Add the total Planned Costs of all Projects that were completed. Compare this total to the number of Victory Points. Red wins if Blue’s Victory Points are less than 2.0 times this total. Blue wins a Tactical Victory if they have 2.0 to 2.99 times the total, and a Strategic Victory if they have 3.0 times the total or more. We will likely have to vary these ratios after some playtesting.
+
+Production Notes
+1 deck of 54 cards will make 3 game kits.
+Use card sleeves and put paper slips in one or both (for Project) sides.
+
+Design Notes
+This is intended to be a very short, very simple game situation where an Olvanan “country team”, in trying to build a series of infrastructure projects in an unnamed target country, faces off against a US-sponsored Jedburgh team attempting to covertly and indirectly delay the progress and raise the cost of these projects. The country team represents an overt group of diplomats, banking and venture company representatives, technicians and other experts deployed in a coordinated way to a target country to efficiently realize Olvana’s ambitions – we realize this may be overstating things a bit here – and the Jedburgh team works through a net of secretive relationships, useful individuals and organizations, and exploitation of distrust and dissatisfaction. 
+
+Playing Action cards to build or bollix Projects through adjusting their Time and Budget values can represent a number of things. First, note that Action cards when placed in a Network may be used for their value up to twice – first it is revealed, and then discarded when used for the second time. In this case the enemy revealing one of your concealed Action cards does not always mean that it is somehow brought to light or scrutiny, it means that the amount of effort or resources the card represents, albeit abstract, has been halved – and the next time it is used it will be discarded. Meanwhile, lowering a Project’s Time value corresponds to delays in its completion, for a variety of reasons: fomenting a strike, incurring bureaucratic delays in completing reviews or granting access or permits, etc.. However, the assumption in the Turn End Phase is that work on a project proceeds unless its budget is zero (indicating it has not really been started yet). Meanwhile, project budgets can only ever be increased; any money already spent is a sunk cost (so think of the Highway System Project, which actually loses Victory points for the Blue player when completed, as a stand-in for any number of make-work projects and initiatives that simply inject money into the local economy and would be viewed positively by the locals and their government).
+
+Design: Brian Train
+Development: Duc Duclos
+Suggestions: Christian Ramthun
+Graphics: The Noun Project (https://thenounproject.com/)
