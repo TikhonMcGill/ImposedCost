@@ -1,15 +1,23 @@
-Components
-18 x cards: 4 x 2-sided Project cards; 2 x 1-sided Base cards; 6 x 1-sided Function cards, 6 x 1-sided Action cards
-1 x Game Mat: sheet of card with HN influence track, Victory Point track, 4 x boxes for Project cards, Sequence of Play reminder if it fits
-8 x 10-sided dice (d10)
-1 x cube or meeple for tracking Host Nation (HN) influence
-x1, x10 and +100 markers for Victory Point track (use cubes)
+Components:
+	1. 18 Cards: 
+		1. 4 2-sided Project cards
+		2. 2 1-sided Base cards
+		3. 6 1-sided Function cards
+		4. 6 1-sided Action cards
+	2. Game Mat: 
+		Sheet of card with HN influence track, Victory Point track,
+		4 Boxes for Project cards, Sequence of Play reminder if it fits
+	3. 8 10-sided dice (d10)
+	3. 1 cube or meeple for tracking Host Nation (HN) influence
+	4. x1, x10 and +100 markers for Victory Point track (use cubes)
 
-Setting up the game
-•	Players agree who will play what side and how many Projects will be completed before the end of the game (4 or 5 will give a short game, more than 8 a long and somewhat repetitive game).
-•	Each player takes 1 Base card and places it in front of them.
-•	Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. Place a die showing the “0” value in each of the Time and Budget boxes on its card.
-•	Shuffle the 12 remaining Function Cards and put them face down in a draw pile.
+Setting up the game:
+	1. Players agree who will play what side and how many Projects will be completed before the end of the game 
+	(4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game).
+	2. Each player takes 1 Base card and places it in front of them.
+	3. Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
+	Place a die showing the “0” value in each of the Time and Budget boxes on its card.
+	4. Shuffle the 12 remaining Function Cards and put them face down in a draw pile.
 
 Sequence of Play
 The game is played in turns. Each turn, the players will move through the following Phases in order:
@@ -83,14 +91,13 @@ Example: a Small Port is completed. The die values are 5 for Time and 4 for Budg
 
 •	Victory Scale. Add the total Planned Costs of all Projects that were completed. Compare this total to the number of Victory Points. Red wins if Blue’s Victory Points are less than 2.0 times this total. Blue wins a Tactical Victory if they have 2.0 to 2.99 times the total, and a Strategic Victory if they have 3.0 times the total or more. We will likely have to vary these ratios after some playtesting.
 
-Production Notes
-1 deck of 54 cards will make 3 game kits.
-Use card sleeves and put paper slips in one or both (for Project) sides.
+Action cards when placed in a Network may be used for their value up to twice – first it is revealed, 
+and then discarded when used for the second time. 
 
-Design Notes
-This is intended to be a very short, very simple game situation where an Olvanan “country team”, in trying to build a series of infrastructure projects in an unnamed target country, faces off against a US-sponsored Jedburgh team attempting to covertly and indirectly delay the progress and raise the cost of these projects. The country team represents an overt group of diplomats, banking and venture company representatives, technicians and other experts deployed in a coordinated way to a target country to efficiently realize Olvana’s ambitions – we realize this may be overstating things a bit here – and the Jedburgh team works through a net of secretive relationships, useful individuals and organizations, and exploitation of distrust and dissatisfaction. 
-
-Playing Action cards to build or bollix Projects through adjusting their Time and Budget values can represent a number of things. First, note that Action cards when placed in a Network may be used for their value up to twice – first it is revealed, and then discarded when used for the second time. In this case the enemy revealing one of your concealed Action cards does not always mean that it is somehow brought to light or scrutiny, it means that the amount of effort or resources the card represents, albeit abstract, has been halved – and the next time it is used it will be discarded. Meanwhile, lowering a Project’s Time value corresponds to delays in its completion, for a variety of reasons: fomenting a strike, incurring bureaucratic delays in completing reviews or granting access or permits, etc.. However, the assumption in the Turn End Phase is that work on a project proceeds unless its budget is zero (indicating it has not really been started yet). Meanwhile, project budgets can only ever be increased; any money already spent is a sunk cost (so think of the Highway System Project, which actually loses Victory points for the Blue player when completed, as a stand-in for any number of make-work projects and initiatives that simply inject money into the local economy and would be viewed positively by the locals and their government).
+However, the assumption in the Turn End Phase is that work on a project proceeds unless its budget is zero (indicating it has not really been started yet). 
+Meanwhile, project budgets can only ever be increased; any money already spent is a sunk cost (so think of the Highway System Project, 
+which actually loses Victory points for the Blue player when completed, as a stand-in for any number of make-work projects and initiatives 
+that simply inject money into the local economy and would be viewed positively by the locals and their government).
 
 __________________________
 Cards
