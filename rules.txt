@@ -29,8 +29,11 @@ Sequence of Play:
 		raise the Time value of all Projects in play by 1, unless the Project’s Budget value is currently 0 (zero); then
 		start a new turn with the Draw Cards Phase.
 
-Project Cards
-There are 4 Project cards in the game. Each card is double-sided, so there is a total of 8 different infrastructure projects that can be worked on during the game. During the game, up to 4 Projects at a time will be placed in the 4 boxes labelled ABCD on the Game Mat, representing infrastructure projects currently being worked on.
+Project Cards:
+	1. There are 4 Project cards in the game. 
+	2. Each card is double-sided, so there is a total of 8 different infrastructure projects that can be worked on during the game. 
+	3. During the game, up to 4 Projects at a time will be placed in the 4 boxes labelled ABCD on the Game Mat, 
+	representing infrastructure projects currently being worked on.
 
 Small Port
 Min time: 4
