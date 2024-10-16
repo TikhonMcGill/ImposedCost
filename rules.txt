@@ -72,9 +72,21 @@ All Projects:
 		When complete:  move HN Influence 2 boxes
 
 Base Cards and Networks
-•	There are 2 Base cards in the game: 1 x “Country Team” (red); and 1 x Jedburgh team (blue). Each side of card is coded A B C D for the matching box on the Game Mat which contains a Project card.
-•	Action cards can be placed along the side of a card for use on Projects corresponding to the lettered box. The total assembly of 1 Base plus any number of Action cards is called a Network. 
-•	When more than 1 Action card is placed against a side of card, they are stacked and only the topmost card in the stack can be used to affect a Project or be affected by a Degrade Network or Use HN Influence function. Reveal and Conceal cards may be used on any cards in the Network. Any Action card may be moved in a Build/Manage Network, but it must become the topmost card on the side it is moved to. When rearranging the entire Network after executing a Maintain Network card, all cards may be rearranged as the player pleases but they retain their revealed or concealed status.
+	There are 2 Base cards in the game: 
+		1 x “Country Team” (red);
+		1 x Jedburgh team (blue). 
+	Each side of card is coded A B C D for the matching box on the Game Mat which contains a Project card.
+	Action cards can be placed along the side of a card for use on Projects corresponding to the lettered box. 
+	The total assembly of 1 Base plus any number of Action cards is called a Network. 
+
+When more than 1 Action card is placed against a side of card, 
+they are stacked and only the topmost card in the stack can be used to affect 
+a Project or be affected by a Degrade Network or Use HN Influence function. 
+Reveal and Conceal cards may be used on any cards in the Network. 
+Any Action card may be moved in a Build/Manage Network, 
+but it must become the topmost card on the side it is moved to. 
+When rearranging the entire Network after executing a Maintain Network card, 
+all cards may be rearranged as the player pleases but they retain their revealed or concealed status.
 
 Function Cards and their, uh, functions
 There are 6 Function cards in the game. Five of them have two functions and the player must choose one of them to execute when playing the card. All Function cards are discarded after play.
