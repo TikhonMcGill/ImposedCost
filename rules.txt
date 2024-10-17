@@ -88,13 +88,40 @@ but it must become the topmost card on the side it is moved to.
 When rearranging the entire Network after executing a Maintain Network card, 
 all cards may be rearranged as the player pleases but they retain their revealed or concealed status.
 
-Function Cards and their, uh, functions
-There are 6 Function cards in the game. Five of them have two functions and the player must choose one of them to execute when playing the card. All Function cards are discarded after play.
-
-1	Influence HN. Play alone for “1” value, or with 1 Action card from hand or Network (may be any card if from Network). Move cube total number of boxes towards “your” side. Discard Action card if used.	Use HN Influence. If the HN Influence cube is on “your” side of the track, use as either an Action card of equal value to HN Influence value on 1 Project, or as a Degrade Network card. 
-2	Reveal. Reveal (flip face up) up to 2 cards in enemy Network. Any cards in Network may be revealed. 	Conceal. Conceal (flip face down) up to 2 cards in own Network. Any cards in Network may be concealed. 
-2	Build/Manage Network. Add up to 2 Action cards from hand to Network (place concealed, on any side and anywhere in stack) or move 1 Action card to any other side of Base card (Action card becomes topmost card on that side and retains revealed/concealed status). 	Degrade Network. Discard 1 Action card from enemy Network. Card must be both revealed and topmost in its stack.  
-1	Maintain Network. Must execute immediately when drawn. Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 2 cards if Network is 6 cards or more. Discard any Action card or cards from Network if no cards in hand. After discarding card(s), may rearrange up to all Action cards in own Network; they retain their revealed/concealed status.
+Function Cards:
+	There are 6 Function cards in the game. 
+	Five of them have two functions and the player must choose one of them to execute when playing the card. 
+	All Function cards are discarded after play.
+	
+	They are:
+		1x Influence HN:
+			Play alone for “1” value, or with 1 Action card from hand or Network 
+			(may be any card if from Network). 
+			Move cube total number of boxes towards “your” side. 
+			Discard Action card if used.
+			Use HN Influence. 
+			If the HN Influence cube is on “your” side of the track, use as either 
+			an Action card of equal value to HN Influence value on 1 Project, or as a Degrade Network card. 
+		2x Reveal/Conceal:
+			Reveal: (flip face up) up to 2 cards in enemy Network. Any cards in Network may be revealed. 
+			Conceal: 
+				Conceal (flip face down) up to 2 cards in own Network. 
+				Any cards in Network may be concealed. 
+		2x Build/Manage Network:
+			Add up to 2 Action cards from hand to Network 
+			(place concealed, on any side and anywhere in stack) 
+			or move 1 Action card to any other side of Base card 
+			(Action card becomes topmost card on that side and retains revealed/concealed status). 
+			Degrade Network. 
+			Discard 1 Action card from enemy Network.
+			Card must be both revealed and topmost in its stack.  
+		1x Maintain Network. 
+			Must execute immediately when drawn. 
+			Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 
+			2 cards if Network is 6 cards or more. 
+			Discard any Action card or cards from Network if no cards in hand. 
+			After discarding card(s), may rearrange up to all Action cards in own Network; 
+			they retain their revealed/concealed status.
 
 Action cards
 •	There are 6 Action cards in the game: 3 x “1” value; 2 x “2” value, and 1 x “3” value. An Action card must already be in a player’s network to be played on a Project; they may not be played directly out of hand. The card must also be topmost in its stack.
