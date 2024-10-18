@@ -123,11 +123,22 @@ Function Cards:
 			After discarding card(s), may rearrange up to all Action cards in own Network; 
 			they retain their revealed/concealed status.
 
-Action cards
-•	There are 6 Action cards in the game: 3 x “1” value; 2 x “2” value, and 1 x “3” value. An Action card must already be in a player’s network to be played on a Project; they may not be played directly out of hand. The card must also be topmost in its stack.
-•	When playing an Action card, reveal it if it was concealed; if it was already revealed, discard it. Apply the value of the Action card to the Project in the box matching the letter side of the Base card the Action card is on, by raising or lowering the value shown on the die face or faces on the Project card. 
-•	The Time value of a Project may be raised or lowered by Action card play. The Budget value may only be increased. A die may not be adjusted below its minimum or above its maximum value (that is, 0 and 9 for d10).
-•	A player may change either or both die face values if applying a “2” or “3” value Action card, but the total number of changes must be equal to the value of the card.
+Action cards:
+	There are 6 Action cards in the game: 
+		3 x “1” value; 
+		2 x “2” value, 
+		and 1 x “3” value. 
+	An Action card must already be in a player’s network to be played on a Project; 
+	they may not be played directly out of hand. 
+	The card must also be topmost in its stack.
+	When playing an Action card, reveal it if it was concealed; if it was already revealed, discard it. 
+	Apply the value of the Action card to the Project in the box matching the letter side of the Base card the 
+	Action card is on, by raising or lowering the value shown on the die face or faces on the Project card. 
+	The Time value of a Project may be raised or lowered by Action card play. 
+	The Budget value may only be increased. 
+	A die may not be adjusted below its minimum or above its maximum value (that is, 0 and 9 for d10).
+	A player may change either or both die face values if applying a “2” or “3” value Action card, 
+	but the total number of changes must be equal to the value of the card.
 
 Completing a project
 •	During the Projects Phase, if both dice on a Project card show values that equal or exceed the minimal values printed on the card, the project is completed. Note the die values, calculate the project’s Completion Cost, and award the Blue player any Victory Points they are due. Remove the Project card and dice. Note that when a project is completed, there is an additional effect that is applied immediately (and which may cause further projects to be completed, in the same Phase).
