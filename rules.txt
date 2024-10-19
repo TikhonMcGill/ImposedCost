@@ -140,9 +140,17 @@ Action cards:
 	A player may change either or both die face values if applying a “2” or “3” value Action card, 
 	but the total number of changes must be equal to the value of the card.
 
-Completing a project
-•	During the Projects Phase, if both dice on a Project card show values that equal or exceed the minimal values printed on the card, the project is completed. Note the die values, calculate the project’s Completion Cost, and award the Blue player any Victory Points they are due. Remove the Project card and dice. Note that when a project is completed, there is an additional effect that is applied immediately (and which may cause further projects to be completed, in the same Phase).
-•	Projects that are completed may be “recycled” and placed in empty boxes until the total number of completed Projects for the game is reached. In either case the Red player may choose which Project is to be placed; place the two dice showing their initial values of 0 (zero).
+Completing a Project:
+	During the Projects Phase, if both dice on a Project card show values 
+	that equal or exceed the minimal values printed on the card, the project is completed. 
+	Note the die values, calculate the project’s Completion Cost, and award the Blue player any 
+	Victory Points they are due. Remove the Project card and dice. 
+	Note that when a project is completed, there is an additional effect that is applied immediately 
+	(and which may cause further projects to be completed, in the same Phase).
+	Projects that are completed may be “recycled” and placed in empty boxes until the total number of 
+	completed Projects for the game is reached. 
+	In either case the Red player may choose which Project is to be placed; 
+	place the two dice showing their initial values of 0 (zero).
 
 Victory Points and Victory Scale
 •	Victory Points. Only the Blue player gets Victory Points. The Victory Point value of a completed project is equal to its Completion Cost (the two die values multiplied together at completion) minus its Planned Cost (the two minimal values printed on the card multiplied together). Record accumulated Victory Points on the track on the Game Mat. Place a marker in the “+ 100” box when passing this total.
