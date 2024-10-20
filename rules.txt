@@ -152,8 +152,14 @@ Completing a Project:
 	In either case the Red player may choose which Project is to be placed; 
 	place the two dice showing their initial values of 0 (zero).
 
-Victory Points and Victory Scale
-•	Victory Points. Only the Blue player gets Victory Points. The Victory Point value of a completed project is equal to its Completion Cost (the two die values multiplied together at completion) minus its Planned Cost (the two minimal values printed on the card multiplied together). Record accumulated Victory Points on the track on the Game Mat. Place a marker in the “+ 100” box when passing this total.
+Victory Points and Victory Scale:
+	Victory Points:
+		Only the Blue player gets Victory Points.
+		The Victory Point value of a completed project is equal to its Completion Cost 
+		(the two die values multiplied together at completion) 
+		minus its Planned Cost (the two minimal values printed on the card multiplied together). 
+		Record accumulated Victory Points on the track on the Game Mat. 
+		Place a marker in the “+ 100” box when passing this total.
 
 Example: a Small Port is completed. The die values are 5 for Time and 4 for Budget, for a Completion Cost of (5 x 4 =) 20. The Planned Cost of the project is (4 x 3 =) 12. The Blue player adds 8 Victory Points and the Red player adds 1 to either die value of any Project in play. They choose Administrative System; adding 1 to the Budget value completes it on time and on budget, so the Project is immediately scored. Blue does not get any Victory Points and the Red player moves the HN Influence Track marker 2 boxes to the left.
 
