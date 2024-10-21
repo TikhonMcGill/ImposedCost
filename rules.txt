@@ -161,7 +161,14 @@ Victory Points and Victory Scale:
 		Record accumulated Victory Points on the track on the Game Mat. 
 		Place a marker in the “+ 100” box when passing this total.
 
-Example: a Small Port is completed. The die values are 5 for Time and 4 for Budget, for a Completion Cost of (5 x 4 =) 20. The Planned Cost of the project is (4 x 3 =) 12. The Blue player adds 8 Victory Points and the Red player adds 1 to either die value of any Project in play. They choose Administrative System; adding 1 to the Budget value completes it on time and on budget, so the Project is immediately scored. Blue does not get any Victory Points and the Red player moves the HN Influence Track marker 2 boxes to the left.
+Example: 
+	A Small Port is completed. The die values are 5 for Time and 4 for Budget, for a Completion Cost of 5 x 4 = 20. 
+	The Planned Cost of the project is 4 x 3 = 12. 
+	The Blue player adds 8 Victory Points and the Red player adds 1 to either die value of any Project in play. 
+	They choose Administrative System; adding 1 to the Budget value completes it on time and on budget, 
+	so the Project is immediately scored. 
+	Blue does not get any Victory Points and the Red player moves the HN Influence Track marker 2 boxes 
+	to the left.
 
 •	Victory Scale. Add the total Planned Costs of all Projects that were completed. Compare this total to the number of Victory Points. Red wins if Blue’s Victory Points are less than 2.0 times this total. Blue wins a Tactical Victory if they have 2.0 to 2.99 times the total, and a Strategic Victory if they have 3.0 times the total or more. We will likely have to vary these ratios after some playtesting.
 
