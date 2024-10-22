@@ -170,16 +170,23 @@ Example:
 	Blue does not get any Victory Points and the Red player moves the HN Influence Track marker 2 boxes 
 	to the left.
 
-•	Victory Scale. Add the total Planned Costs of all Projects that were completed. Compare this total to the number of Victory Points. Red wins if Blue’s Victory Points are less than 2.0 times this total. Blue wins a Tactical Victory if they have 2.0 to 2.99 times the total, and a Strategic Victory if they have 3.0 times the total or more. We will likely have to vary these ratios after some playtesting.
+Victory Scale. 
+Add the total Planned Costs of all Projects that were completed. 
+Compare this total to the number of Victory Points. 
+Red wins if Blue’s Victory Points are less than 2.0 times this total. 
+Blue wins a Tactical Victory if they have 2.0 to 2.99 times the total, 
+and a Strategic Victory if they have 3.0 times the total or more. 
+We will likely have to vary these ratios after some playtesting.
 
 Action cards when placed in a Network may be used for their value up to twice – first it is revealed, 
 and then discarded when used for the second time. 
 
-However, the assumption in the Turn End Phase is that work on a project proceeds unless its budget is zero (indicating it has not really been started yet). 
-Meanwhile, project budgets can only ever be increased; any money already spent is a sunk cost (so think of the Highway System Project, 
-which actually loses Victory points for the Blue player when completed, as a stand-in for any number of make-work projects and initiatives 
-that simply inject money into the local economy and would be viewed positively by the locals and their government).
-
+However, the assumption in the Turn End Phase is that work on a project proceeds unless its budget is zero 
+(indicating it has not really been started yet). 
+Meanwhile, project budgets can only ever be increased; any money already spent is a sunk cost 
+(so think of the Highway System Project, which actually loses Victory points for the Blue player when completed, 
+as a stand-in for any number of make-work projects and initiatives that simply inject money into the 
+local economy and would be viewed positively by the locals and their government).
 __________________________
 Cards
 
