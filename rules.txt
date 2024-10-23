@@ -322,26 +322,29 @@ Time value may be raised or lowered;
 
 
 Sequence of Play:
-	Draw Cards Phase. Draw 1 card and add to hand. 
-Hand may be any size. When draw pile runs out, 
-shuffle discard pile and it becomes new draw pile. 
-Operations Phase. Player with HN Influence plays 
-first (if none, Blue first). May play a Function Card 
-(choose 1 function), use an Action Card from their 
-Network, or pass. A player may always pass; a player 
-with no cards in their hand and no Action Cards in 
-their Network must pass. Phase ends when both 
-players pass in succession.
- Projects Phase. Projects that have met or exceeded 
-time and budget values are now completed and 
-scored. Execute completion effect of card. Remove 
-completed Project cards; if more Projects remain to be
- played, Red will choose and replace Project cards in 
-empty boxes.
- HN Influence Phase. Raise (if on Blue side) or lower
- (if on Red side) Blue’s Victory Point level by a 
-number equal to the HN Influence value.
- Turn End Phase. If all Projects to be played in the 
-game have been completed, end game and determine 
-Victory Level. If not, +1 Time of all Projects with 1+ 
-Budget and start new turn
+	Draw Cards Phase:
+		Draw 1 card and add to hand. 
+		Hand may be any size. When draw pile runs out, 
+		shuffle discard pile and it becomes new draw pile. 
+		Operations Phase. Player with HN Influence plays 
+		first (if none, Blue first). May play a Function Card 
+		(choose 1 function), use an Action Card from their 
+		Network, or pass. A player may always pass; a player 
+		with no cards in their hand and no Action Cards in 
+		their Network must pass. Phase ends when both 
+		players pass in succession.
+	Projects Phase:
+		Projects that have met or exceeded 
+		time and budget values are now completed and 
+		scored. Execute completion effect of card. Remove 
+		completed Project cards; if more Projects remain to be
+ 		played, Red will choose and replace Project cards in 
+		empty boxes.
+ 	HN Influence Phase:
+		Raise (if on Blue side) or lower (if on Red side) Blue’s Victory Point level by a 
+		number equal to the HN Influence value.
+ 	Turn End Phase:
+		If all Projects to be played in the 
+		game have been completed, end game and determine 
+		Victory Level. If not, +1 Time of all Projects with 1+ 
+		Budget and start new turn
