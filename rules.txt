@@ -8,12 +8,10 @@ Components:
 		Sheet of card with HN influence track, Victory Point track,
 		4 Boxes for Project cards, Sequence of Play reminder if it fits
 	3. 8 10-sided dice (d10)
-	3. 1 cube or meeple for tracking Host Nation (HN) influence
-	4. x1, x10 and +100 markers for Victory Point track (use cubes)
+	4. 1 cube or meeple for tracking Host Nation (HN) influence
+	5. x1, x10 and +100 markers for Victory Point track (use cubes)
 
 Setting up the game:
-	1. Players agree who will play what side and how many Projects will be completed before the end of the game 
-	(4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game).
 	2. Each player takes 1 Base card and places it in front of them.
 	3. Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
 	Place a die showing the “0” value in each of the Time and Budget boxes on its card.
@@ -319,7 +317,6 @@ Time value may be raised or lowered;
  Points
 
 22. Administrative System - Time = 4, Budget = 5, On Completion: Move HN Influence 2 boxes
-
 
 Sequence of Play:
 	Draw Cards Phase:
