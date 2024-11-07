@@ -5,17 +5,18 @@ Components:
 		3. 6 1-sided Function cards
 		4. 6 1-sided Action cards
 	2. Game Mat: 
-		Sheet of card with HN influence track, Victory Point track,
+		Sheet of card with Victory Point track,
 		4 Boxes for Project cards, Sequence of Play reminder if it fits
 	3. 8 10-sided dice (d10)
-	4. 1 cube or meeple for tracking Host Nation (HN) influence
-	5. x1, x10 and +100 markers for Victory Point track (use cubes)
+	4. x1, x10 and +100 markers for Victory Point track (use cubes)
+
+BOOKMARK
 
 Setting up the game:
-	2. Each player takes 1 Base card and places it in front of them.
-	3. Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
+	1. Each player takes 1 Base card and places it in front of them.
+	2. Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
 	Place a die showing the “0” value in each of the Time and Budget boxes on its card.
-	4. Shuffle the 12 remaining Function Cards and put them face down in a draw pile.
+	3. Shuffle the 12 remaining Function Cards and put them face down in a draw pile.
 
 Sequence of Play:
 	The game is played in turns. Each turn, the players will move through the following Phases in order:
