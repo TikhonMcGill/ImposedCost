@@ -10,8 +10,6 @@ Components:
 	3. 8 10-sided dice (d10)
 	4. x1, x10 and +100 markers for Victory Point track (use cubes)
 
-BOOKMARK
-
 Setting up the game:
 	1. Each player takes 1 Base card and places it in front of them.
 	2. Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
@@ -20,19 +18,48 @@ Setting up the game:
 
 Sequence of Play:
 	The game is played in turns. Each turn, the players will move through the following Phases in order:
-		1. Draw Cards Phase. Each player draws 1 card and adds it to their hand. A player’s hand may be any size. When the draw pile runs out, shuffle the discard pile and it becomes the new draw pile.
-		2. Operations Phase. The player with the HN Influence marker on “their” side of the Track plays first (if the cube is dead centre, Blue player goes first). A player may play a Function card, executing one of its two functions, or use an Action card from their Network, or pass. Normally a player will play 1 card from their hand or use 1 Action card at a time; the only exceptions are when a player plays the Influence HN or Build/Manage Network card function they may play an Action Card at the same time. When played a Function card or revealed Action card is discarded; a concealed Action card is revealed. A player may always pass; a player with no cards in their hand and no Action cards in their Network must pass. This Phase ends when both players pass in succession.
-		3. Projects Phase. Any Projects that have met or exceeded the Time and Budget minimal values printed on their card are now completed and scored. See below for process. Remove completed Project cards and dice from their box on the Game Mat; if more Projects remain to be played, the Red player will now replace Project cards in the empty boxes (the player may choose the new project and which box it goes into).
-		4. HN Influence Phase. Raise (if on the Blue side) or reduce (if on the Red side) Blue’s Victory Point level by a number equal to the HN Influence value on the Track.
-		5. Turn End Phase. If all Projects planned to be played in the game have been completed, end the game and determine Victory Level. If not:
-		raise the Time value of all Projects in play by 1, unless the Project’s Budget value is currently 0 (zero); then
-		start a new turn with the Draw Cards Phase.
+		1. Draw Cards Phase:
+			- Each player draws 1 card and adds it to their hand. 
+			- A player’s hand may be any size. 
+			- When the draw pile runs out, shuffle the discard pile and it becomes the new draw pile.
+		2. Operations Phase:
+			- The player with the HN Influence marker on “their” side of the Track plays first 
+			(if the cube is dead centre, Blue player goes first). 
+			- A player may play a Function card, executing one of its two functions, 
+			or use an Action card from their Network, or pass. 
+			- Normally a player will play 1 card from their hand or use 1 Action card at a time; 
+			the only exceptions are when a player plays the Influence HN or Build/Manage Network 
+			card function they may play an Action Card at the same time. 
+			- When played a Function card or revealed Action card is discarded; 
+			a concealed Action card is revealed. 
+			- A player may always pass; a player with no cards in their hand and no Action cards in 
+			their Network must pass. 
+			- This Phase ends when both players pass in succession.
+		3. Projects Phase:
+			- Any Projects that have met or exceeded the Time and Budget minimal values printed on 
+			their card are now completed and scored. 
+			- See below for process. 
+			- Remove completed Project cards and dice from their box on the Game Mat; 
+			if more Projects remain to be played, the Red player will now replace Project cards 
+			in the empty boxes (the player may choose the new project and which box it goes into).
+		4. HN Influence Phase:
+			- Raise (if on the Blue side) or reduce (if on the Red side) Blue’s Victory Point level by
+			 a number equal to the HN Influence value on the Track.
+		5. Turn End Phase:
+			- If all Projects planned to be played in the game have been completed, 
+			end the game and determine Victory Level. 
+			- If not:
+				- Raise the Time value of all Projects in play by 1, unless the Project’s Budget value 
+				is currently 0 (zero); then start a new turn with the Draw Cards Phase.
 
 Project Cards:
 	1. There are 4 Project cards in the game. 
-	2. Each card is double-sided, so there is a total of 8 different infrastructure projects that can be worked on during the game. 
+	2. Each card is double-sided, so there is a total of 8 different infrastructure projects 
+	that can be worked on during the game. 
 	3. During the game, up to 4 Projects at a time will be placed in the 4 boxes labelled ABCD on the Game Mat, 
 	representing infrastructure projects currently being worked on.
+
+BOOKMARK
 
 All Projects:
 	Small Port:
