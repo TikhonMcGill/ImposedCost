@@ -59,8 +59,6 @@ Project Cards:
 	3. During the game, up to 4 Projects at a time will be placed in the 4 boxes labelled ABCD on the Game Mat, 
 	representing infrastructure projects currently being worked on.
 
-BOOKMARK
-
 All Projects:
 	Small Port:
 		Min time: 4
@@ -70,7 +68,6 @@ All Projects:
 		Min time: 6
 		Min budget: 4
 		When complete: +2 value to any 1 project or +1 value to each of 2 projects in play
-	
 	Small Airport
 		Min time: 3
 		Min budget: 3
@@ -96,6 +93,8 @@ All Projects:
 		Min time: 4
 		Min budget: 5
 		When complete:  move HN Influence 2 boxes
+
+BOOKMARK
 
 Base Cards and Networks
 	There are 2 Base cards in the game: 
