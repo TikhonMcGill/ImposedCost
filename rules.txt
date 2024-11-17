@@ -1,3 +1,5 @@
+BOOKMARK
+
 Components:
 	1. 18 Cards: 
 		1. 4 2-sided Project cards
@@ -93,8 +95,6 @@ All Projects:
 		Min time: 4
 		Min budget: 5
 		When complete:  move HN Influence 2 boxes
-
-BOOKMARK
 
 Base Cards and Networks
 	There are 2 Base cards in the game: 
