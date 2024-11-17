@@ -1,0 +1,4 @@
+Administrative:
+	- Create ideas.txt
+	- Create next_plans.txt
+	- Organize txts into "admin" folder
