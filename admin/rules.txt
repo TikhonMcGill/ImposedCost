@@ -1,5 +1,3 @@
-BOOKMARK
-
 Components:
 	1. 18 Cards: 
 		1. 4 2-sided Project cards

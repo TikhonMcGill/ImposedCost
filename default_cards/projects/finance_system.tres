@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://5kjlbcyjr00l"]
+
+[ext_resource type="Script" path="res://project_card.gd" id="1_l0vev"]
+
+[resource]
+script = ExtResource("1_l0vev")
+min_time = 2
+min_budget = 4
+card_name = "Finance System"
+card_description = "When complete: move HN Influence 1 box"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://boyma0p02kcbl"]
+
+[ext_resource type="Script" path="res://project_card.gd" id="1_ug2ef"]
+
+[resource]
+script = ExtResource("1_ug2ef")
+min_time = 4
+min_budget = 3
+card_name = "Small Port"
+card_description = "When complete: +1 value to any project in play"

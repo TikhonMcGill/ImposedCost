@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://nmkhwfglvn7r"]
+
+[ext_resource type="Script" path="res://project_card.gd" id="1_6yijg"]
+
+[resource]
+script = ExtResource("1_6yijg")
+min_time = 4
+min_budget = 3
+card_name = "Mine"
+card_description = "When complete: Blue gains half (round up) of the Victory Points they would normally get"
