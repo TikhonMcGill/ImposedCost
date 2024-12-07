@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://cy6lcskh1cuer"]
 
-[ext_resource type="Script" path="res://project_card.gd" id="1_0ob3a"]
+[ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_0ob3a"]
 
 [resource]
 script = ExtResource("1_0ob3a")
