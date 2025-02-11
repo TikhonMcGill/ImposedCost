@@ -1,6 +1,4 @@
 Cards:
-	- Create Base Card Resource
-	- Create all Relevant Card Types as saved Resources
 	- Add a "Card Image" Texture as member of Card Class
 	- Using PDF, create Placeholder Images for each Card Class
 

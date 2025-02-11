@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="BaseCard" load_steps=2 format=3 uid="uid://2dwe45d8ksx"]
+
+[ext_resource type="Script" path="res://assets/scripts/base_card.gd" id="1_gt4ki"]
+
+[resource]
+script = ExtResource("1_gt4ki")
+card_name = "Country Team"
+card_description = ""
