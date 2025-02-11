@@ -1,5 +1,4 @@
 Cards:
-	- Add a "Card Image" Texture as member of Card Class
 	- Using PDF, create Placeholder Images for each Card Class
 
 Gameplay
