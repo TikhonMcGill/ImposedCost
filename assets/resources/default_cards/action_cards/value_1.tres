@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ActionCard" load_steps=2 format=3 uid="uid://1lk18ql5qrjc"]
+
+[ext_resource type="Script" path="res://assets/scripts/action_card.gd" id="1_yd75u"]
+
+[resource]
+script = ExtResource("1_yd75u")
+value = 1
+card_name = "Value 1"
+card_description = ""
