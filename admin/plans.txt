@@ -1,8 +1,9 @@
 Cards:
-	- Create Function Card Resource
 	- Create Action Card Resource
 	- Create Base Card Resource
 	- Create all Relevant Card Types as saved Resources
+	- Add a "Card Image" Texture as member of Card Class
+	- Using PDF, create Placeholder Images for each Card Class
 
 Gameplay
 	- Implement Ramifications of Project Card Completion
@@ -102,7 +103,7 @@ Function Cards:
 			(Action card becomes topmost card on that side and retains revealed/concealed status). 
 			Degrade Network. 
 			Discard 1 Action card from enemy Network.
-			Card must be both revealed and topmost in its stack.  
+			Card must be both revealed and topmost in its stack.
 		1x Maintain Network. 
 			Must execute immediately when drawn. 
 			Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 

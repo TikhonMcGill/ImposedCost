@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FunctionCard" load_steps=2 format=3 uid="uid://cnp8ku437jq08"]
+
+[ext_resource type="Script" path="res://assets/scripts/function_card.gd" id="1_uk02a"]
+
+[resource]
+script = ExtResource("1_uk02a")
+card_name = "Influence Host Nation"
+card_description = "Play alone for “1” value, or with 1 Action card from hand or Network (may be any card if from Network). Move cube total number of boxes towards “your” side. Discard Action card if used.Use HN Influence. If the HN Influence cube is on “your” side of the track, use as either an Action card of equal value to HN Influence value on 1 Project, or as a Degrade Network card. "

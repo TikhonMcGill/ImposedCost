@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="FunctionCard" load_steps=2 format=3 uid="uid://b82w25ds73ca2"]
+
+[ext_resource type="Script" path="res://assets/scripts/function_card.gd" id="1_p2bk3"]
+
+[resource]
+script = ExtResource("1_p2bk3")
+card_name = "Maintain Network"
+card_description = "Must execute immediately when drawn. Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 2 cards if Network is 6 cards or more. Discard any Action card or cards from Network if no cards in hand. After discarding card(s), may rearrange up to all Action cards in own Network; they retain their revealed/concealed status."
