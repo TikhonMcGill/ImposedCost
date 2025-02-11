@@ -3,7 +3,6 @@ Cards:
 	- Create Action Card Resource
 	- Create Base Card Resource
 	- Create all Relevant Card Types as saved Resources
-	- Add Project Card Names to Game
 
 Gameplay
 	- Implement Ramifications of Project Card Completion
@@ -57,10 +56,7 @@ Sequence of Play:
 				is currently 0 (zero); then start a new turn with the Draw Cards Phase.
 
 Project Cards:
-	1. There are 4 Project cards in the game. 
-	2. Each card is double-sided, so there is a total of 8 different infrastructure projects 
-	that can be worked on during the game. 
-	3. During the game, up to 4 Projects at a time will be placed in the 4 boxes labelled ABCD on the Game Mat, 
+	1. During the game, up to 4 Projects at a time will be placed in the 4 boxes labelled ABCD on the Game Mat, 
 	representing infrastructure projects currently being worked on.
 
 Base Cards and Networks

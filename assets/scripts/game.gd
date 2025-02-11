@@ -40,6 +40,22 @@ var red_hand: Array[Card] = [] ##The Hand of the Red Player
 var turn: int = 1 ##The Current Turn
 var phase: PHASE = PHASE.DRAW_CARDS ##The Current Phase of the Game
 
+#region Project Cards
+
+const PROJECT_ADMINISTRATIVE_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/administrative_system.tres")
+const PROJECT_FINANCE_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/finance_system.tres")
+const PROJECT_HIGHWAY_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/highway_system.tres")
+
+const PROJECT_SMALL_AIRPORT: ProjectCard = preload("res://assets/resources/default_cards/projects/small_airport.tres")
+const PROJECT_LARGE_AIRPORT: ProjectCard = preload("res://assets/resources/default_cards/projects/large_airport.tres")
+
+const PROJECT_SMALL_PORT: ProjectCard = preload("res://assets/resources/default_cards/projects/small_port.tres")
+const PROJECT_LARGE_PORT: ProjectCard = preload("res://assets/resources/default_cards/projects/large_port.tres")
+
+const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/projects/mine.tres")
+
+#endregion
+
 ##Draw a Card, assuming it is in the Draw Pile
 func draw_card(card: Card, player: PLAYER) -> void:
 	assert(card in draw_pile,"Card %s not in Draw Pile" % card.card_name)
