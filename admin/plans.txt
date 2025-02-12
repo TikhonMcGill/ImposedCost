@@ -1,5 +1,14 @@
-Cards:
-	- Using PDF, create Placeholder Images for each Card Class
+Plans:
+	Using PDF, create Placeholder Images for each Card Class:
+		- Create Images for Action Cards
+		- Create Images for Base Cards
+		- Create Images for Function Cards
+		- Create Images for Project Cards
+	- Create Main Menu, making it default
+	- Create Game Scene
+	- Make Main Menu Transfer to Game Scene
+	- Rename "Game" to "GameState" for Resource
+	- In GameState, set correct starting cards
 
 Gameplay
 	- Implement Ramifications of Project Card Completion
