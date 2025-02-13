@@ -1,7 +1,4 @@
 Plans:
-	- Create Game Scene
-	- Make Main Menu Transfer to Game Scene
-	- Rename "Game" to "GameState" for Resource
 	- In GameState, set correct starting cards
 
 Gameplay
