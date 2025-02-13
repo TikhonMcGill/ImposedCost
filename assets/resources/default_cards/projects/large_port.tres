@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://cy6lcskh1cuer"]
+[gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://cy6lcskh1cuer"]
 
 [ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_0ob3a"]
+[ext_resource type="Texture2D" uid="uid://c31uafb86f35y" path="res://assets/resources/default_cards/projects/large_port.png" id="1_40ox1"]
 
 [resource]
 script = ExtResource("1_0ob3a")
@@ -8,3 +9,4 @@ min_time = 6
 min_budget = 4
 card_name = "Large Port"
 card_description = "When complete: +2 value to any 1 project or +1 value to each of 2 projects in play"
+card_image = ExtResource("1_40ox1")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ActionCard" load_steps=3 format=3 uid="uid://gaa57k8bfdr7"]
+
+[ext_resource type="Texture2D" uid="uid://di8wtu8j8u2v6" path="res://assets/resources/default_cards/action_cards/action_2.png" id="1_e6no5"]
+[ext_resource type="Script" path="res://assets/scripts/action_card.gd" id="1_qsjbc"]
+
+[resource]
+script = ExtResource("1_qsjbc")
+value = 2
+card_name = "Value 2"
+card_description = ""
+card_image = ExtResource("1_e6no5")

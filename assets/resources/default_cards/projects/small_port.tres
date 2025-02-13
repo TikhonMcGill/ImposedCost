@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://boyma0p02kcbl"]
+[gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://boyma0p02kcbl"]
 
+[ext_resource type="Texture2D" uid="uid://c4nb6bj4h2smb" path="res://assets/resources/default_cards/projects/small_port.png" id="1_qf3tl"]
 [ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_ug2ef"]
 
 [resource]
@@ -8,3 +9,4 @@ min_time = 4
 min_budget = 3
 card_name = "Small Port"
 card_description = "When complete: +1 value to any project in play"
+card_image = ExtResource("1_qf3tl")

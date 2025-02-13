@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="FunctionCard" load_steps=2 format=3 uid="uid://xigyuo4vs6th"]
+[gd_resource type="Resource" script_class="FunctionCard" load_steps=3 format=3 uid="uid://xigyuo4vs6th"]
 
+[ext_resource type="Texture2D" uid="uid://cpody0m523gsw" path="res://assets/resources/default_cards/function_cards/reveal_conceal.png" id="1_gud8f"]
 [ext_resource type="Script" path="res://assets/scripts/function_card.gd" id="1_s6dlm"]
 
 [resource]
 script = ExtResource("1_s6dlm")
 card_name = "Reveal/Conceal"
 card_description = "Reveal: (flip face up) up to 2 cards in enemy Network. Any cards in Network may be revealed. Conceal: Conceal (flip face down) up to 2 cards in own Network. Any cards in Network may be concealed. "
+card_image = ExtResource("1_gud8f")

@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://5kjlbcyjr00l"]
+[gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://5kjlbcyjr00l"]
 
 [ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_l0vev"]
+[ext_resource type="Texture2D" uid="uid://0jhwhf6tq861" path="res://assets/resources/default_cards/projects/finance_system.png" id="1_uqpvn"]
 
 [resource]
 script = ExtResource("1_l0vev")
@@ -8,3 +9,4 @@ min_time = 2
 min_budget = 4
 card_name = "Finance System"
 card_description = "When complete: move HN Influence 1 box"
+card_image = ExtResource("1_uqpvn")

@@ -1,8 +1,10 @@
-[gd_resource type="Resource" script_class="FunctionCard" load_steps=2 format=3 uid="uid://tboydcudocwk"]
+[gd_resource type="Resource" script_class="FunctionCard" load_steps=3 format=3 uid="uid://tboydcudocwk"]
 
+[ext_resource type="Texture2D" uid="uid://dklhbfx32bpkq" path="res://assets/resources/default_cards/function_cards/build_manage_network.png" id="1_mj0n6"]
 [ext_resource type="Script" path="res://assets/scripts/function_card.gd" id="1_x41hr"]
 
 [resource]
 script = ExtResource("1_x41hr")
 card_name = "Build/Manage Network"
 card_description = "Add up to 2 Action cards from hand to Network (place concealed, on any side and anywhere in stack) or move 1 Action card to any other side of Base card (Action card becomes topmost card on that side and retains revealed/concealed status). Degrade Network. Discard 1 Action card from enemy Network.Card must be both revealed and topmost in its stack."
+card_image = ExtResource("1_mj0n6")

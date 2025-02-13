@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://g7e8p2lw8os7"]
+[gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://g7e8p2lw8os7"]
 
 [ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_3te33"]
+[ext_resource type="Texture2D" uid="uid://v54dn2yogqe4" path="res://assets/resources/default_cards/projects/highway_system.png" id="1_cyvnf"]
 
 [resource]
 script = ExtResource("1_3te33")
@@ -8,3 +9,4 @@ min_time = 4
 min_budget = 4
 card_name = "Highway System"
 card_description = "When complete: Blue loses, not gains Victory Points equal to difference between Completion and Planned Costs of Project"
+card_image = ExtResource("1_cyvnf")

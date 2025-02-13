@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="ProjectCard" load_steps=2 format=3 uid="uid://i6lrvyomlfpb"]
+[gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://i6lrvyomlfpb"]
 
 [ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_orkaw"]
+[ext_resource type="Texture2D" uid="uid://4pkoletixx5v" path="res://assets/resources/default_cards/projects/small_airport.png" id="1_x38s0"]
 
 [resource]
 script = ExtResource("1_orkaw")
@@ -8,3 +9,4 @@ min_time = 3
 min_budget = 3
 card_name = "Small Airport"
 card_description = "When complete: +1 value any project in play"
+card_image = ExtResource("1_x38s0")
