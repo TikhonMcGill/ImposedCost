@@ -1,6 +1,3 @@
-Plans:
-	- In GameState, set correct starting cards
-
 Gameplay
 	- Implement Ramifications of Project Card Completion
 		(Flesh out, refer to descriptions)
@@ -79,7 +76,7 @@ Function Cards:
 	All Function cards are discarded after play.
 	
 	They are:
-		1x Influence HN:
+		Influence HN:
 			Play alone for “1” value, or with 1 Action card from hand or Network 
 			(may be any card if from Network). 
 			Move cube total number of boxes towards “your” side. 
@@ -87,12 +84,12 @@ Function Cards:
 			Use HN Influence. 
 			If the HN Influence cube is on “your” side of the track, use as either 
 			an Action card of equal value to HN Influence value on 1 Project, or as a Degrade Network card. 
-		2x Reveal/Conceal:
+		Reveal/Conceal:
 			Reveal: (flip face up) up to 2 cards in enemy Network. Any cards in Network may be revealed. 
 			Conceal: 
 				Conceal (flip face down) up to 2 cards in own Network. 
 				Any cards in Network may be concealed. 
-		2x Build/Manage Network:
+		Build/Manage Network:
 			Add up to 2 Action cards from hand to Network 
 			(place concealed, on any side and anywhere in stack) 
 			or move 1 Action card to any other side of Base card 
@@ -100,7 +97,7 @@ Function Cards:
 			Degrade Network. 
 			Discard 1 Action card from enemy Network.
 			Card must be both revealed and topmost in its stack.
-		1x Maintain Network. 
+		Maintain Network. 
 			Must execute immediately when drawn. 
 			Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 
 			2 cards if Network is 6 cards or more. 

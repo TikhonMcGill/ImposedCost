@@ -40,8 +40,20 @@ var red_hand: Array[Card] = [] ##The Hand of the Red Player
 var turn: int = 1 ##The Current Turn
 var phase: PHASE = PHASE.DRAW_CARDS ##The Current Phase of the Game
 
-#region Project Cards
+#region Function Cards
+const FUNCTION_BUILD_MANAGE_NETWORK: FunctionCard = preload("res://assets/resources/default_cards/function_cards/build_manage_network.tres")
+const FUNCTION_INFLUENCE_HOST_NATION: FunctionCard = preload("res://assets/resources/default_cards/function_cards/influence_host_nation.tres")
+const FUNCTION_MAINTAIN_NETWORK: FunctionCard = preload("res://assets/resources/default_cards/function_cards/maintain_network.tres")
+const FUNCTION_REVEAL_CONCEAL: FunctionCard = preload("res://assets/resources/default_cards/function_cards/reveal_conceal.tres")
+#endregion
 
+#region Action Cards
+const ACTION_1: ActionCard = preload("res://assets/resources/default_cards/action_cards/action_1.tres")
+const ACTION_2: ActionCard = preload("res://assets/resources/default_cards/action_cards/action_2.tres")
+const ACTION_3: ActionCard = preload("res://assets/resources/default_cards/action_cards/action_3.tres")
+#endregion
+
+#region Project Cards
 const PROJECT_ADMINISTRATIVE_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/administrative_system.tres")
 const PROJECT_FINANCE_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/finance_system.tres")
 const PROJECT_HIGHWAY_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/highway_system.tres")
@@ -53,8 +65,41 @@ const PROJECT_SMALL_PORT: ProjectCard = preload("res://assets/resources/default_
 const PROJECT_LARGE_PORT: ProjectCard = preload("res://assets/resources/default_cards/projects/large_port.tres")
 
 const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/projects/mine.tres")
-
 #endregion
+
+##Set up the Game
+func setup_game() -> void:
+	#TODO Select the Base Cards, determining who's who
+	
+	#TODO Let the Country Team select 4 Projects to Play
+	
+	#Set up the Starting Draw Pile
+	var starting_pile: Array[Card] = []
+	
+	#Add Function Cards to Pile
+	starting_pile.append(FUNCTION_INFLUENCE_HOST_NATION)
+	
+	starting_pile.append(FUNCTION_REVEAL_CONCEAL)
+	starting_pile.append(FUNCTION_REVEAL_CONCEAL)
+	
+	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK)
+	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK)
+	
+	starting_pile.append(FUNCTION_MAINTAIN_NETWORK)
+	
+	#Add Action Cards to Pile
+	starting_pile.append(ACTION_1)
+	starting_pile.append(ACTION_1)
+	starting_pile.append(ACTION_1)
+	starting_pile.append(ACTION_2)
+	starting_pile.append(ACTION_2)
+	starting_pile.append(ACTION_3)
+	
+	assert(len(starting_pile) == 12, "Starting Draw Pile not 12 Cards")
+	
+	#Shuffle the Pile, making the Draw Pile it
+	starting_pile.shuffle()
+	draw_pile = starting_pile
 
 ##Draw a Card, assuming it is in the Draw Pile
 func draw_card(card: Card, player: PLAYER) -> void:
