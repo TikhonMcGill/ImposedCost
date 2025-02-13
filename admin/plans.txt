@@ -1,3 +1,12 @@
+- Create ENUM for Game State, starting at "SETUP", encompassing all the phases
+- Create "Move" Class
+- Create "get_possible_moves" method, which returns an array of Moves
+- Create a "do_move" method, which carries out the selected move
+- Create a "move_taken" signal, emitted when the move is taken
+- Create a "Player" Class, with a "take_move" method, which emits a "player_move_taken" method, applying
+	the relevant Move to the GameState
+- Plan out the "SETUP" Phase (e.g. with placing Projects, selecting players, etc.)
+
 Gameplay
 	- Implement Ramifications of Project Card Completion
 		(Flesh out, refer to descriptions)
