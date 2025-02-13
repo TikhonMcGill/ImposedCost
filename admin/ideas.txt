@@ -1,3 +1,5 @@
 Gamerule - whether or not to shuffle discard pile
 
 Nother gamerule - whether to get first, or random card, from draw pile
+
+Add HaWo to credits, somehow

@@ -1,4 +1,4 @@
-class_name Game
+class_name GameState
 extends Resource
 
 ##A Resource representing the Game State

@@ -1,5 +1,4 @@
 Plans:
-	- Create Main Menu, making it default
 	- Create Game Scene
 	- Make Main Menu Transfer to Game Scene
 	- Rename "Game" to "GameState" for Resource
