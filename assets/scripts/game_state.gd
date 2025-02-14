@@ -4,15 +4,16 @@ extends Resource
 ##A Resource representing the Game State
 
 signal card_drawn(card: Card) ##Emitted when a Card is drawn
+signal move_taken ##Emitted when a Move has been Taken
 
 const SMALL_PORT: String = "Small Port"
 const LARGE_PORT: String = "Large Port"
 
 const SMALL_AIRPORT: String = "Small Airport"
 
-enum PLAYER {
-	BLUE,
-	RED
+enum TEAM{
+	COUNTRY,
+	JEDBURGH
 }
 
 enum PHASE {
@@ -33,7 +34,7 @@ var discard_pile: Array[Card] ##The Discard Pile
 
 var host_nation_influence: int = 0 ##The Influence of each team in the Host Nation - negative = Red Influence, Positive = Blue Influence
 
-var current_player: PLAYER = PLAYER.BLUE ##The Current Player
+var current_turn_team: TEAM = TEAM.COUNTRY ##The Team whose Current Turn it is
 
 var blue_hand: Array[Card] = [] ##The Hand of the Blue Player
 var red_hand: Array[Card] = [] ##The Hand of the Red Player
@@ -101,15 +102,15 @@ func setup_game() -> void:
 	draw_pile = starting_pile
 
 ##Draw a Card, assuming it is in the Draw Pile
-func draw_card(card: Card, player: PLAYER) -> void:
+func draw_card(card: Card, team: TEAM) -> void:
 	assert(card in draw_pile,"Card %s not in Draw Pile" % card.card_name)
 	
 	draw_pile.erase(card)
 	
-	if player == PLAYER.BLUE:
-		blue_hand.append(card)
-	else:
+	if team == TEAM.COUNTRY:
 		red_hand.append(card)
+	else:
+		blue_hand.append(card)
 	
 	#If the Draw Pile is empty, shuffle the discard pile and add it to the draw pile
 	if len(draw_pile) == 0:
@@ -119,13 +120,21 @@ func draw_card(card: Card, player: PLAYER) -> void:
 	discard_pile = []
 
 ##Draw Random Card
-func draw_random_card(player: PLAYER) -> void:
-	draw_card(draw_pile[0], player)
+func draw_random_card(team: TEAM) -> void:
+	draw_card(draw_pile[0], team)
 
 ##Do Draw Cards Phase
 func do_draw_cards_phase() -> void:
-	draw_random_card(PLAYER.BLUE)
-	draw_random_card(PLAYER.RED)
+	draw_random_card(TEAM.COUNTRY)
+	draw_random_card(TEAM.JEDBURGH)
+
+##TODO Get all Possible Game Moves
+func get_possible_moves() -> Array[Move]:
+	return []
+
+##TODO Carry out the Selected Move
+func do_move(move: Move) -> void:
+	pass
 
 ##Do Operations Phase
 func do_operations_phase() -> void:

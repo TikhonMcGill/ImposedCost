@@ -1,13 +1,4 @@
-- Create "get_possible_moves" method, which returns an array of Moves
-- Create a "do_move" method, which carries out the selected move
-- Create a "move_taken" signal, emitted when the move is taken
-- Create a "Player" Class, with a "take_move" method, which emits a "player_move_taken" method, applying
-	the relevant Move to the GameState
 - Plan out the "SETUP" Phase:
-	- Remove "PLAYER" Enum in GameState
-	- Create "TEAM" Enum in GameState - "TEAM.COUNTRY", "TEAM.JEDBURGH"
-	- Attach "GameState.TEAM" to Player class, as "my_team"
-	- If not already, have "team_turn" value, which is "TEAM" type
 	- In Main Menu, determine who is the Starting Player, in settings - add each Player Type
 	(Human, Random, Utility, Minimax)
 	- Create a "GameManager" Singleton, determining the Player Type of each side, based on Starting
