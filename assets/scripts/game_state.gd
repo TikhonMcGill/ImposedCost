@@ -16,6 +16,7 @@ enum PLAYER {
 }
 
 enum PHASE {
+	SETUP,
 	DRAW_CARDS,
 	OPERATIONS,
 	PROJECTS,
@@ -69,8 +70,6 @@ const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/
 
 ##Set up the Game
 func setup_game() -> void:
-	#TODO Select the Base Cards, determining who's who
-	
 	#TODO Let the Country Team select 4 Projects to Play
 	
 	#Set up the Starting Draw Pile
