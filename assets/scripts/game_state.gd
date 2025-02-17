@@ -17,7 +17,7 @@ enum TEAM{
 }
 
 enum PHASE {
-	SETUP,
+	SETUP, ##In the Setup Phase, the Country Team Player places 4 Project Cards in the ABCD Boxes
 	DRAW_CARDS,
 	OPERATIONS,
 	PROJECTS,

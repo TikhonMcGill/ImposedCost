@@ -1,8 +1,4 @@
 - Plan out the "SETUP" Phase:
-	- In Main Menu, determine who is the Starting Player, in settings - add each Player Type
-	(Human, Random, Utility, Minimax)
-	- Create a "GameManager" Singleton, determining the Player Type of each side, based on Starting
-	Settings
 	- Based on GameManager, set up Players for each Team (i.e. instantiate relevant players, 
 	set teams)
 	- First player = Country Team, selecting Possible Project Cards to Place
