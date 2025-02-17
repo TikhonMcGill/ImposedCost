@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cl5rbc50mn6yi"]
+
+[ext_resource type="Script" path="res://assets/scenes/game/player/random_player/random_player.gd" id="1_dkykb"]
+
+[node name="RandomPlayer" type="Node"]
+script = ExtResource("1_dkykb")
