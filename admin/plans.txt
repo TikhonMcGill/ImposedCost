@@ -3,9 +3,19 @@
 	set teams)
 	- First player = Country Team, selecting Possible Project Cards to Place
 
-Gameplay
-	- Implement Ramifications of Project Card Completion
-		(Flesh out, refer to descriptions)
+Minimum Viable Product:
+	- 4 Projects at Game Start
+	- Once all 4 Projects complete, end game
+	- UI-Based Human Player
+	- Random Player
+
+Finalization:
+	- Customizable No. Projects
+	- Utility-Based Player
+	- MAYBE Minimax
+	- MIT-Licensed GitHub Project
+	- Link on LinkedIn as well
+	- Send to Brian, HaWo
 
 Components:
 	1. 18 Cards: 
@@ -334,6 +344,3 @@ Sequence of Play:
 		game have been completed, end game and determine 
 		Victory Level. If not, +1 Time of all Projects with 1+ 
 		Budget and start new turn
-
-Game:
-	- Implement the Correct Starting State for the Game, using the Resources
