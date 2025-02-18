@@ -6,11 +6,6 @@ extends Resource
 signal card_drawn(card: Card) ##Emitted when a Card is drawn
 signal move_taken ##Emitted when a Move has been Taken
 
-const SMALL_PORT: String = "Small Port"
-const LARGE_PORT: String = "Large Port"
-
-const SMALL_AIRPORT: String = "Small Airport"
-
 enum TEAM{
 	COUNTRY,
 	JEDBURGH
@@ -40,7 +35,7 @@ var blue_hand: Array[Card] = [] ##The Hand of the Blue Player
 var red_hand: Array[Card] = [] ##The Hand of the Red Player
 
 var turn: int = 1 ##The Current Turn
-var phase: PHASE = PHASE.DRAW_CARDS ##The Current Phase of the Game
+var phase: PHASE = PHASE.DRAW_CARDS ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
 
 #region Function Cards
 const FUNCTION_BUILD_MANAGE_NETWORK: FunctionCard = preload("res://assets/resources/default_cards/function_cards/build_manage_network.tres")
@@ -71,8 +66,6 @@ const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/
 
 ##Set up the Game
 func setup_game() -> void:
-	#TODO Let the Country Team select 4 Projects to Play
-	
 	#Set up the Starting Draw Pile
 	var starting_pile: Array[Card] = []
 	
@@ -130,6 +123,12 @@ func do_draw_cards_phase() -> void:
 
 ##TODO Get all Possible Game Moves
 func get_possible_moves() -> Array[Move]:
+	#In the Setup Phase, the only Possible Moves are the different Combinations of Project Cards
+	#that the Country Team could place down, so we return all possible combinations of those
+	if phase == PHASE.SETUP:
+		var combinations: Array = []
+		
+	
 	return []
 
 ##TODO Carry out the Selected Move

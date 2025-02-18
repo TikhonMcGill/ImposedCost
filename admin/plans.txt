@@ -1,7 +1,14 @@
-- Plan out the "SETUP" Phase:
-	- Based on GameManager, set up Players for each Team (i.e. instantiate relevant players, 
-	set teams)
-	- First player = Country Team, selecting Possible Project Cards to Place
+This Week:
+	- Implement getting Combinations of Project Cards to Place Down
+	- Implement these Combinations as SelectProjectMoves
+	- In Game, create box for Project Cards, ABCD, and Label for Time, Budget Values
+	- When Move for Selecting Projects Taken, set Projects (implicitly make ABCD = 1st,
+	2nd, 3rd, 4th Elements of Array), and set their Values to 0, using built-in resource or otherwise
+	- Create "project_set" signal, with "ProjectCard" and "int" as value (for index)
+	- Using this signal, populate the Box with Project Cards' Images and their Values in labels
+	- Make the Labels for Projects update with time, budget values (test in in-game editor)
+	- Launch Game 5 Times, watching Random Player randomly allocate Project Cards, per the different
+	combinations
 
 Minimum Viable Product:
 	- 4 Projects at Game Start
@@ -13,9 +20,12 @@ Finalization:
 	- Customizable No. Projects
 	- Utility-Based Player
 	- MAYBE Minimax
+	- Icon
+	- Splashscreen
 	- MIT-Licensed GitHub Project
 	- Link on LinkedIn as well
 	- Send to Brian, HaWo
+	- (Look into Game Dev Constitution, if exists)
 
 Components:
 	1. 18 Cards: 
@@ -30,10 +40,8 @@ Components:
 	4. x1, x10 and +100 markers for Victory Point track (use cubes)
 
 Setting up the game:
-	1. Each player takes 1 Base card and places it in front of them.
-	2. Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
+	1. Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
 	Place a die showing the “0” value in each of the Time and Budget boxes on its card.
-	3. Shuffle the 12 remaining Function Cards and put them face down in a draw pile.
 
 Sequence of Play:
 	The game is played in turns. Each turn, the players will move through the following Phases in order:
