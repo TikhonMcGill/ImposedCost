@@ -123,7 +123,7 @@ func count_combinations(n: int, k: int, with_replacement: bool = false, order_ma
 
 
 # Example usage:
-func _ready() -> void:
+func _init() -> void:
 	var test_array = [1, 2, 3]
 	var k = 2
 	
