@@ -188,7 +188,3 @@ func test_combinatorics_counts() -> void:
 	
 	count = count_combinations(3, 1, false, false)
 	assert(count == 3)
-
-func _init() -> void:
-	test_combinatorics()
-	test_combinatorics_counts()
