@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 GameManager="*res://assets/scripts/game_manager.gd"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=2
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
