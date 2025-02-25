@@ -8,7 +8,7 @@ const GAME_PATH: String = "res://assets/scenes/game/game.tscn"
 @onready var jedburgh_player_select: OptionButton = $PanelContainer/MarginContainer/VBoxContainer/JedburghPlayerSelect
 @onready var jedburgh_name_edit: LineEdit = $PanelContainer/MarginContainer/VBoxContainer/JedburghNameEdit
 
-func _on_play_button_pressed():
+func _on_play_button_pressed() -> void:
 	if country_name_edit.text == "":
 		country_name_edit.text = "Country Team"
 		return
@@ -25,10 +25,10 @@ func _on_play_button_pressed():
 	
 	get_tree().change_scene_to_file(GAME_PATH)
 
-func _select_country_player(index: int):
+func _select_country_player(index: int) -> void:
 	pass
 
-func _select_jedburgh_player(index : int):
+func _select_jedburgh_player(index : int) -> void:
 	pass
 
 func _on_country_player_select_item_selected(index: int) -> void:
