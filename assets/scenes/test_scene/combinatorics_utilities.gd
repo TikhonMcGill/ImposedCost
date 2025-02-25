@@ -114,89 +114,87 @@ func test_combinatorics() -> void:
 	
 	#Get all combinations of 2 elements without replacement, order doesn't matter
 	var combinations: Array = generate_combinations(test_array, k, false, false)
-	print("Combinations without replacement:", combinations)
+	assert(combinations == [[1, 2], [1, 3], [2, 3]])
 	#Output: [[1, 2], [1, 3], [2, 3]]
 	
 	#Get all combinations of 2 elements with replacement, order doesn't matter
 	combinations = generate_combinations(test_array, k, true, false)
-	print("Combinations with replacement:", combinations)
+	assert(combinations == [[1, 1], [1, 2], [1, 3], [2, 2], [2, 3], [3, 3]])
 	#Output: [[1, 1], [1, 2], [1, 3], [2, 2], [2, 3], [3, 3]]
 	
 	#Get all permutations of 2 elements without replacement (order matters)
 	combinations = generate_combinations(test_array, k, false, true)
-	print("Permutations without replacement:", combinations)
+	assert(combinations == [[1, 2], [2, 1], [1, 3], [3, 1], [2, 3], [3, 2]])
 	#Output: [[1, 2], [2, 1], [1, 3], [3, 1], [2, 3], [3, 2]]
 	
 	#Get all permutations of 2 elements with replacement (order matters)
 	combinations = generate_combinations(test_array, k, true, true)
-	print("Permutations with replacement:", combinations)
+	assert(combinations == [[1, 1], [1, 2], [2, 1], [1, 3], [3, 1], [2, 2], [2, 3], [3, 2], [3, 3]])
 	#Output: [[1, 1], [1, 2], [2, 1], [1, 3], [3, 1], [2, 2], [2, 3], [3, 2], [3, 3]]
-	
-	#Additional test cases:
-	print("")
 	
 	#Test Case 1: Single-element combinations (k=1)
 	var single_elements: Array = generate_combinations(test_array, 1, false, false)
-	print("Single-element combinations:", single_elements)
+	assert(single_elements == [[1], [2], [3]])
 	#Output: [[1], [2], [3]]
 	
 	#Test Case 2: All possible combinations (k=3)
 	var all_elements: Array = generate_combinations(test_array, 3, false, false)
-	print("All elements combination:", all_elements)
+	assert(all_elements == [[1, 2, 3]])
 	#Output: [[1, 2, 3]]
 	
 	#Test Case 3: String array with k=2
 	var string_array: Array = ["A", "B", "C", "D"]
 	var string_combinations: Array = generate_combinations(string_array, 2, false, true)
-	print("String permutations:", string_combinations)
+	assert(string_combinations == [["A", "B"], ["B", "A"], ["A", "C"], ["C", "A"], ["A", "D"], ["D", "A"], ["B", "C"], ["C", "B"], ["B", "D"], ["D", "B"], ["C", "D"], ["D", "C"]])
 	#Output: [[A, B], [B, A], [A, C], [C, A], [A, D], [D, A], [B, C], [C, B], [B, D], [D, B], [C, D], [D, C]]
 	
 	#Test Case 4: Empty array (should return empty result)
 	var empty_array: Array = []
 	var empty_result: Array = generate_combinations(empty_array, 2, false, false)
-	print("Empty array result:", empty_result)
+	assert(empty_result.is_empty() == true)
 	#Output: []
 	
 	#Test Case 5: k > array size with replacement
 	var larger_k: Array = generate_combinations(test_array, 4, true, false)
-	print("k > n with replacement:", larger_k)
+	assert(larger_k == [[1, 1, 1, 1], [1, 1, 1, 2], [1, 1, 1, 3], [1, 1, 2, 2], [1, 1, 2, 3], [1, 1, 3, 3], [1, 2, 2, 2], [1, 2, 2, 3], [1, 2, 3, 3], [1, 3, 3, 3], [2, 2, 2, 2], [2, 2, 2, 3], [2, 2, 3, 3], [2, 3, 3, 3], [3, 3, 3, 3]])
 	#Output: [[1, 1, 1, 1], [1, 1, 1, 2], [1, 1, 1, 3], ...]
 
 ##Test Cases for counting combinations/permutations
 func test_combinatorics_counts() -> void:
-	print("\nTesting count_combinations function:")
-	
 	var n: int = 3  #Size of array [1, 2, 3]
 	var j: int = 2  #Choose 2 elements
 	
 	#Count combinations without replacement (order doesn't matter)
 	var count: int = count_combinations(n, j, false, false)
-	print("Number of combinations without replacement (n=3, k=2): ", count)
+	assert(count == 3)
 	#Output: 3 ([1,2], [1,3], [2,3])
 	
 	#Count combinations with replacement (order doesn't matter)
 	count = count_combinations(n, j, true, false)
-	print("Number of combinations with replacement (n=3, k=2): ", count)
+	assert(count == 6)
 	#Output: 6 ([1,1], [1,2], [1,3], [2,2], [2,3], [3,3])
 	
 	#Count permutations without replacement (order matters)
 	count = count_combinations(n, j, false, true)
-	print("Number of permutations without replacement (n=3, k=2): ", count)
+	assert(count == 6)
 	#Output: 6 ([1,2], [2,1], [1,3], [3,1], [2,3], [3,2])
 	
 	#Count permutations with replacement (order matters)
 	count = count_combinations(n, j, true, true)
-	print("Number of permutations with replacement (n=3, k=2): ", count)
+	assert(count == 9)
 	#Output: 9 ([1,1], [1,2], [2,1], [1,3], [3,1], [2,2], [2,3], [3,2], [3,3])
 	
 	#Test some edge cases
-	print("Count when k > n without replacement (n=3, k=4): ", count_combinations(3, 4, false, false))
+	count = count_combinations(3, 4, false, false)
+	assert(count == 0)
 	#Output: 0 (impossible)
 	
-	print("Count when k > n with replacement (n=3, k=4): ", count_combinations(3, 4, true, false))
+	count = count_combinations(3, 4, true, false)
+	assert(count == 15)
 	#Output: 15 (possible with replacement)
 	
-	print("Count for single elements (n=3, k=1): ", count_combinations(3, 1, false, false))
+	count = count_combinations(3, 1, false, false)
+	assert(count == 3)
 	#Output: 3 ([1], [2], [3])
 
 func _init() -> void:
