@@ -120,6 +120,14 @@ func test_combinatorics() -> void:
 	combinations = generate_combinations(test_array, k, true, false)
 	assert(combinations == [[1, 1], [1, 2], [1, 3], [2, 2], [2, 3], [3, 3]])
 	
+	#Get all combinations of 2 elements with replacement and with order mattering
+	combinations = generate_combinations(test_array, k, true, true)
+	assert(combinations == [
+		[1, 1], [1, 2], [2, 1],
+		[1, 3], [3, 1], [2, 2],
+		[2, 3], [3, 2], [3, 3]
+	])
+	
 	#Get all permutations of 2 elements without replacement (order matters)
 	combinations = generate_combinations(test_array, k, false, true)
 	assert(combinations == [[1, 2], [2, 1], [1, 3], [3, 1], [2, 3], [3, 2]])
