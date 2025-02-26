@@ -1,7 +1,4 @@
 This Week:
-	- Implement getting Combinations of Project Cards to Place Down
-	- Implement these Combinations as SelectProjectMoves
-	- In Game, create box for Project Cards, ABCD, and Label for Time, Budget Values
 	- When Move for Selecting Projects Taken, set Projects (implicitly make ABCD = 1st,
 	2nd, 3rd, 4th Elements of Array), and set their Values to 0, using built-in resource or otherwise
 	- Create "project_set" signal, with "ProjectCard" and "int" as value (for index)

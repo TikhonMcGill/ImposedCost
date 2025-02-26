@@ -1,6 +1,81 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhuq1yrd5xvgf"]
+[gd_scene load_steps=3 format=3 uid="uid://bhuq1yrd5xvgf"]
 
 [ext_resource type="Script" path="res://assets/scenes/game/game.gd" id="1_u5a5u"]
+[ext_resource type="Texture2D" uid="uid://b7gejfpcrvx6y" path="res://icon.svg" id="2_pnjer"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_u5a5u")
+
+[node name="GameBoard" type="VSplitContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GameBoard"]
+layout_mode = 2
+
+[node name="ProjectAContainer" type="VBoxContainer" parent="GameBoard/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="GameBoard/HBoxContainer/ProjectAContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_pnjer")
+stretch_mode = 5
+
+[node name="TimeLabel" type="Label" parent="GameBoard/HBoxContainer/ProjectAContainer"]
+layout_mode = 2
+
+[node name="BudgetLabel" type="Label" parent="GameBoard/HBoxContainer/ProjectAContainer"]
+layout_mode = 2
+
+[node name="ProjectBContainer" type="VBoxContainer" parent="GameBoard/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="GameBoard/HBoxContainer/ProjectBContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_pnjer")
+stretch_mode = 5
+
+[node name="TimeLabel" type="Label" parent="GameBoard/HBoxContainer/ProjectBContainer"]
+layout_mode = 2
+
+[node name="BudgetLabel" type="Label" parent="GameBoard/HBoxContainer/ProjectBContainer"]
+layout_mode = 2
+
+[node name="ProjectCContainer" type="VBoxContainer" parent="GameBoard/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="GameBoard/HBoxContainer/ProjectCContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_pnjer")
+stretch_mode = 5
+
+[node name="TimeLabel" type="Label" parent="GameBoard/HBoxContainer/ProjectCContainer"]
+layout_mode = 2
+
+[node name="BudgetLabel" type="Label" parent="GameBoard/HBoxContainer/ProjectCContainer"]
+layout_mode = 2
+
+[node name="ProjectDContainer" type="VBoxContainer" parent="GameBoard/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="TextureRect" type="TextureRect" parent="GameBoard/HBoxContainer/ProjectDContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = ExtResource("2_pnjer")
+stretch_mode = 5
+
+[node name="TimeLabel" type="Label" parent="GameBoard/HBoxContainer/ProjectDContainer"]
+layout_mode = 2
+
+[node name="BudgetLabel" type="Label" parent="GameBoard/HBoxContainer/ProjectDContainer"]
+layout_mode = 2

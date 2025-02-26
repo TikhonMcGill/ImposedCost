@@ -4,7 +4,7 @@ extends Resource
 ##A Resource representing the Game State
 
 signal card_drawn(card: Card) ##Emitted when a Card is drawn
-signal move_taken ##Emitted when a Move has been Taken
+signal move_taken(move: Move) ##Emitted when a Move has been Taken
 
 enum TEAM{
 	COUNTRY,
@@ -19,23 +19,6 @@ enum PHASE {
 	HN_INFLUENCE,
 	TURN_END
 }
-
-@export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
-
-var victory_level: int = 0 ##The No. Victory Points Blue has
-
-var draw_pile: Array[Card] ##The Draw Pile
-var discard_pile: Array[Card] ##The Discard Pile
-
-var host_nation_influence: int = 0 ##The Influence of each team in the Host Nation - negative = Red Influence, Positive = Blue Influence
-
-var current_turn_team: TEAM = TEAM.COUNTRY ##The Team whose Current Turn it is
-
-var blue_hand: Array[Card] = [] ##The Hand of the Blue Player
-var red_hand: Array[Card] = [] ##The Hand of the Red Player
-
-var turn: int = 1 ##The Current Turn
-var phase: PHASE = PHASE.DRAW_CARDS ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
 
 #region Function Cards
 const FUNCTION_BUILD_MANAGE_NETWORK: FunctionCard = preload("res://assets/resources/default_cards/function_cards/build_manage_network.tres")
@@ -63,6 +46,27 @@ const PROJECT_LARGE_PORT: ProjectCard = preload("res://assets/resources/default_
 
 const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/projects/mine.tres")
 #endregion
+
+@export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
+
+var combinatorics: CombinatoricsUtilities = CombinatoricsUtilities.new() ## Utilities for Calculating Combinatorics Calculations
+
+var victory_level: int = 0 ##The No. Victory Points Blue has
+
+var draw_pile: Array[Card] ##The Draw Pile
+var discard_pile: Array[Card] ##The Discard Pile
+
+var host_nation_influence: int = 0 ##The Influence of each team in the Host Nation - negative = Red Influence, Positive = Blue Influence
+
+var current_turn_team: TEAM = TEAM.COUNTRY ##The Team whose Current Turn it is
+
+var blue_hand: Array[Card] = [] ##The Hand of the Blue Player
+var red_hand: Array[Card] = [] ##The Hand of the Red Player
+
+var turn: int = 1 ##The Current Turn
+var phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
+
+var projects: Array[Project] = [] ##All Projects left to be played
 
 ##Set up the Game
 func setup_game() -> void:
@@ -126,14 +130,38 @@ func get_possible_moves() -> Array[Move]:
 	#In the Setup Phase, the only Possible Moves are the different Combinations of Project Cards
 	#that the Country Team could place down, so we return all possible combinations of those
 	if phase == PHASE.SETUP:
-		var combinations: Array = []
+		var possible_arrangements: Array[Move] = []
 		
+		var all_projects: Array = [
+			PROJECT_ADMINISTRATIVE_SYSTEM,
+			PROJECT_FINANCE_SYSTEM,
+			PROJECT_HIGHWAY_SYSTEM,
+			PROJECT_LARGE_AIRPORT,
+			PROJECT_LARGE_PORT,
+			PROJECT_MINE,
+			PROJECT_SMALL_AIRPORT,
+			PROJECT_SMALL_PORT
+		]
+		
+		var all_combinations: Array = combinatorics.generate_combinations(all_projects, 4, false, true)
+		
+		for a: Array in all_combinations:
+			var new_move: SelectProjectsMove = SelectProjectsMove.new()
+			new_move.projects_to_select.assign(a)
+			possible_arrangements.append(new_move)
+		
+		return possible_arrangements
 	
 	return []
 
 ##TODO Carry out the Selected Move
 func do_move(move: Move) -> void:
-	pass
+	if move is SelectProjectsMove:
+		for p: ProjectCard in move.projects_to_select:
+			var new_project: Project = Project.new(p.min_time, p.min_budget, p.card_name)
+			projects.append(new_project)
+	
+	move_taken.emit(move)
 
 ##Do Operations Phase
 func do_operations_phase() -> void:
