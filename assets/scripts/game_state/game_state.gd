@@ -158,8 +158,11 @@ func get_possible_moves() -> Array[Move]:
 func do_move(move: Move) -> void:
 	if move is SelectProjectsMove:
 		for p: ProjectCard in move.projects_to_select:
-			var new_project: Project = Project.new(p.min_time, p.min_budget, p)
+			var new_project: Project = Project.new(p)
 			projects.append(new_project)
+		
+		#Move onto Operations Phase once game Set Up
+		phase = PHASE.OPERATIONS
 	
 	move_taken.emit(move)
 

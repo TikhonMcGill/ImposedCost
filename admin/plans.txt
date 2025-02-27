@@ -1,10 +1,3 @@
-This Week:
-	- Create "project_set" signal, with "ProjectCard" and "int" as value (for index)
-	- Using this signal, populate the Box with Project Cards' Images and their Values in labels
-	- Make the Labels for Projects update with time, budget values (test in in-game editor)
-	- Launch Game 5 Times, watching Random Player randomly allocate Project Cards, per the different
-	combinations
-
 Minimum Viable Product:
 	- 4 Projects at Game Start
 	- Once all 4 Projects complete, end game
@@ -35,14 +28,14 @@ Components:
 	4. x1, x10 and +100 markers for Victory Point track (use cubes)
 
 Setting up the game:
-	1. Red (Country Team) player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
+	1. Country Team player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
 	Place a die showing the “0” value in each of the Time and Budget boxes on its card.
 
 Sequence of Play:
 	The game is played in turns. Each turn, the players will move through the following Phases in order:
 		- Operations Phase:
 			- The player with the HN Influence marker on “their” side of the Track plays first 
-			(if the cube is dead centre, Blue player goes first). 
+			(if the cube is dead centre, Jedburgh player goes first). 
 			- A player may play a Function card, executing one of its two functions, 
 			or use an Action card from their Network, or pass. 
 			- Normally a player will play 1 card from their hand or use 1 Action card at a time; 
@@ -58,7 +51,7 @@ Sequence of Play:
 			their card are now completed and scored. 
 			- See below for process. 
 			- Remove completed Project cards and dice from their box on the Game Mat; 
-			if more Projects remain to be played, the Red player will now replace Project cards 
+			if more Projects remain to be played, the Country player will now replace Project cards 
 			in the empty boxes (the player may choose the new project and which box it goes into).
 		- Turn End Phase:
 			- If all Projects planned to be played in the game have been completed, 
@@ -143,18 +136,18 @@ Action cards:
 Completing a Project:
 	During the Projects Phase, if both dice on a Project card show values 
 	that equal or exceed the minimal values printed on the card, the project is completed. 
-	Note the die values, calculate the project’s Completion Cost, and award the Blue player any 
+	Note the die values, calculate the project’s Completion Cost, and award the Jedburgh player any 
 	Victory Points they are due. Remove the Project card and dice. 
 	Note that when a project is completed, there is an additional effect that is applied immediately 
 	(and which may cause further projects to be completed, in the same Phase).
 	Projects that are completed may be “recycled” and placed in empty boxes until the total number of 
 	completed Projects for the game is reached. 
-	In either case the Red player may choose which Project is to be placed; 
+	In either case the Country player may choose which Project is to be placed; 
 	place the two dice showing their initial values of 0 (zero).
 
 Victory Points and Victory Scale:
 	Victory Points:
-		Only the Blue player gets Victory Points.
+		Only the Jedburgh player gets Victory Points.
 		The Victory Point value of a completed project is equal to its Completion Cost 
 		(the two die values multiplied together at completion) 
 		minus its Planned Cost (the two minimal values printed on the card multiplied together). 
@@ -164,17 +157,17 @@ Victory Points and Victory Scale:
 Example: 
 	A Small Port is completed. The die values are 5 for Time and 4 for Budget, for a Completion Cost of 5 x 4 = 20. 
 	The Planned Cost of the project is 4 x 3 = 12. 
-	The Blue player adds 8 Victory Points and the Red player adds 1 to either die value of any Project in play. 
+	The Jedburgh player adds 8 Victory Points and the Country player adds 1 to either die value of any Project in play. 
 	They choose Administrative System; adding 1 to the Budget value completes it on time and on budget, 
 	so the Project is immediately scored. 
-	Blue does not get any Victory Points and the Red player moves the HN Influence Track marker 2 boxes 
+	Jedburgh does not get any Victory Points and the Country player moves the HN Influence Track marker 2 boxes 
 	to the left.
 
 Victory Scale. 
 Add the total Planned Costs of all Projects that were completed. 
 Compare this total to the number of Victory Points. 
-Red wins if Blue’s Victory Points are less than 2.0 times this total. 
-Blue wins a Tactical Victory if they have 2.0 to 2.99 times the total, 
+Country wins if Blue’s Victory Points are less than 2.0 times this total. 
+Jedburgh wins a Tactical Victory if they have 2.0 to 2.99 times the total, 
 and a Strategic Victory if they have 3.0 times the total or more. 
 We will likely have to vary these ratios after some playtesting.
 
@@ -184,7 +177,7 @@ and then discarded when used for the second time.
 However, the assumption in the Turn End Phase is that work on a project proceeds unless its budget is zero 
 (indicating it has not really been started yet). 
 Meanwhile, project budgets can only ever be increased; any money already spent is a sunk cost 
-(so think of the Highway System Project, which actually loses Victory points for the Blue player when completed, 
+(so think of the Highway System Project, which actually loses Victory points for the Jedburgh player when completed, 
 as a stand-in for any number of make-work projects and initiatives that simply inject money into the 
 local economy and would be viewed positively by the locals and their government).
 __________________________
@@ -192,7 +185,7 @@ Cards
 
 1. Small Port - Time = 4, Budget = 3, On Completion: +1 to 1 Value of Any Project
 2. Small Airport - Time = 3, Budget = 3, On Completion: +1 to 1 Value of Any Project
-3. Mine - Time = 4, Budget = 3, On Completion: Blue Gains 1/2 VP (round up)
+3. Mine - Time = 4, Budget = 3, On Completion: Jedburgh Gains 1/2 VP (round up)
 4. Finance System - Time = 2, Budge = 4, On Completion: Move HN Influence 1 Box
 5. Country Team (A top, B right, C bottom, D left) - Stack Action cards along sides of
 card for use on Projects corresponding to the lettered box
@@ -314,7 +307,7 @@ Time value may be raised or lowered;
  values of 1 Project, or +1
  to 1 value of 2 Projects
 
-21. Highway System - Time = 4, Budget = 4,  On completion: Blue
+21. Highway System - Time = 4, Budget = 4,  On completion: Jedburgh
  loses, not gains Victory
  Points
 
@@ -326,7 +319,7 @@ Sequence of Play:
 		Hand may be any size. When draw pile runs out, 
 		shuffle discard pile and it becomes new draw pile. 
 		Operations Phase. Player with HN Influence plays 
-		first (if none, Blue first). May play a Function Card 
+		first (if none, Jedburgh first). May play a Function Card 
 		(choose 1 function), use an Action Card from their 
 		Network, or pass. A player may always pass; a player 
 		with no cards in their hand and no Action Cards in 
@@ -337,10 +330,10 @@ Sequence of Play:
 		time and budget values are now completed and 
 		scored. Execute completion effect of card. Remove 
 		completed Project cards; if more Projects remain to be
- 		played, Red will choose and replace Project cards in 
+ 		played, Country will choose and replace Project cards in 
 		empty boxes.
  	HN Influence Phase:
-		Raise (if on Blue side) or lower (if on Red side) Blue’s Victory Point level by a 
+		Raise (if on Jedburgh side) or lower (if on Country side) Blue’s Victory Point level by a 
 		number equal to the HN Influence value.
  	Turn End Phase:
 		If all Projects to be played in the 

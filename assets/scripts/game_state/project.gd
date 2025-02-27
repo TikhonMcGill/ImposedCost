@@ -3,11 +3,14 @@ extends Resource
 
 ##A Resource representing an Imposed Cost Project that is in play
 
-var time: int ##The Time Value of the Project
-var budget: int ##The Budget Value of the Project
+var time: int = 0 ##The Time Value of the Project, 0 at start
+var budget: int = 0 ##The Budget Value of the Project, 0 at start
 var project_card: ProjectCard ##The Project Card used as the Blueprint for the Project
 
-func _init(min_time: int, min_budget: int, _card: ProjectCard) -> void:
-	time = min_time
-	budget = min_budget
+func _init(_card: ProjectCard) -> void:
 	project_card = _card
+
+##Determine whether the Project is Complete
+##Any Projects that meet or exceed Time AND Budget minimal values of their Card are Complete 
+func is_project_complete() -> bool:
+	return time >= project_card.min_time and budget >= project_card.min_budget

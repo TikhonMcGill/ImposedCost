@@ -5,6 +5,7 @@
 
 [node name="ProjectContainer" type="VBoxContainer"]
 size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_7lc6d")
 
 [node name="ProjectLabel" type="Label" parent="."]
