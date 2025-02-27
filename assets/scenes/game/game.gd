@@ -7,11 +7,6 @@ var game_state: GameState = GameState.new()
 var country_team_player: Player
 var jedburgh_team_player: Player
 
-@onready var project_a_container: VBoxContainer = $GameBoard/HBoxContainer/ProjectAContainer
-@onready var project_b_container: VBoxContainer = $GameBoard/HBoxContainer/ProjectBContainer
-@onready var project_c_container: VBoxContainer = $GameBoard/HBoxContainer/ProjectCContainer
-@onready var project_d_container: VBoxContainer = $GameBoard/HBoxContainer/ProjectDContainer
-
 func _ready() -> void:
 	_setup_game()
 
@@ -30,7 +25,8 @@ func _setup_players() -> void:
 	jedburgh_team_player.my_game = game_state
 
 func handle_move_taken(move: Move) -> void:
-	pass
+	if move is SelectProjectsMove:
+		var projects: Array[Project] 
 
 func _setup_game() -> void:
 	randomize()

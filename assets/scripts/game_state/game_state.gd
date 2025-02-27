@@ -158,7 +158,7 @@ func get_possible_moves() -> Array[Move]:
 func do_move(move: Move) -> void:
 	if move is SelectProjectsMove:
 		for p: ProjectCard in move.projects_to_select:
-			var new_project: Project = Project.new(p.min_time, p.min_budget, p.card_name)
+			var new_project: Project = Project.new(p.min_time, p.min_budget, p)
 			projects.append(new_project)
 	
 	move_taken.emit(move)
@@ -196,13 +196,3 @@ func do_next_phase() -> void:
 	elif phase == PHASE.TURN_END:
 		do_turn_end_phase()
 		phase = PHASE.DRAW_CARDS
-
-class Project:
-	var time: int
-	var budget: int
-	var project_name: String
-	
-	func _init(min_time: int, min_budget: int, _project_name: String) -> void:
-		time = min_time
-		budget = min_budget
-		project_name = _project_name

@@ -1,6 +1,4 @@
 This Week:
-	- When Move for Selecting Projects Taken, set Projects (implicitly make ABCD = 1st,
-	2nd, 3rd, 4th Elements of Array), and set their Values to 0, using built-in resource or otherwise
 	- Create "project_set" signal, with "ProjectCard" and "int" as value (for index)
 	- Using this signal, populate the Box with Project Cards' Images and their Values in labels
 	- Make the Labels for Projects update with time, budget values (test in in-game editor)
