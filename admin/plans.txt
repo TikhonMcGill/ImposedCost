@@ -1,3 +1,16 @@
+Plans:
+	- Implement Draw Cards Phase, with all ramifications (cards when drawn do stuff etc.)
+	- Implement Operations Phase, with all corollaries
+	- Implement Projects Phase, with all corollaries
+	- Implement HN Influence Phase, with all corollaries
+	- Implement Game End Phase, with Victory Level Calculation etc.
+
+Long-Term Timeline:
+	- Implementation of full Game State and changes, to follow the rules
+	- Implementation of GUI-Based Gameplay by Human Player
+	- Creation of Utility Computer Player, based on my understanding of the game
+	- Polish of the Game as I see fit (refer to Finalization part of plan)
+
 Minimum Viable Product:
 	- 4 Projects at Game Start
 	- Once all 4 Projects complete, end game

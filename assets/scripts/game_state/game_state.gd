@@ -17,7 +17,8 @@ enum PHASE {
 	OPERATIONS,
 	PROJECTS,
 	HN_INFLUENCE,
-	TURN_END
+	TURN_END,
+	GAME_END
 }
 
 #region Function Cards
