@@ -1,3 +1,15 @@
+Draw Cards Phase:
+	- Add a bunch of Print Statements, namely:
+		- "Game Set up" in "Setup game"
+		- Prints for SelectProjectsMove:
+			"Country Team Selected the Following Projects: " (list of Project Card Names)
+	- Create new "DrawCardMove" Resource, extending Move, with no arguments
+	- get_possible_moves should return a single element, "DrawCardMove"
+	- In "do_move", if DrawCardMove is the move, draw_random_card using method,
+	and need some kind of checker that both Players drew cards (maybe split into two
+	enum states?), and set the phase to Operations Phase
+	- Add a print that a Player drew a card, with type of player (Country Team, Jedburgh Team)
+
 Plans:
 	- Implement Draw Cards Phase, with all ramifications (cards when drawn do stuff etc.)
 	- Implement Operations Phase, with all corollaries
@@ -18,11 +30,15 @@ Minimum Viable Product:
 	- Random Player
 
 Finalization:
+	- Set color for Players, by default Red for Country, blue for Jedburgh, and update
+	Themes etc. accordingly
+	- Add own font
 	- Customizable No. Projects
 	- Utility-Based Player
 	- MAYBE Minimax
 	- Icon
 	- Splashscreen
+	- Look through ideas, determine what to add
 	- MIT-Licensed GitHub Project
 	- Link on LinkedIn as well
 	- Send to Brian, HaWo
@@ -39,10 +55,6 @@ Components:
 		4 Boxes for Project cards, Sequence of Play reminder if it fits
 	3. 8 10-sided dice (d10)
 	4. x1, x10 and +100 markers for Victory Point track (use cubes)
-
-Setting up the game:
-	1. Country Team player places 1 Project card of their choice in each box (A B C D) on the Game Mat. 
-	Place a die showing the “0” value in each of the Time and Budget boxes on its card.
 
 Sequence of Play:
 	The game is played in turns. Each turn, the players will move through the following Phases in order:

@@ -101,7 +101,7 @@ func setup_game() -> void:
 
 ##Draw a Card, assuming it is in the Draw Pile
 func draw_card(card: Card, team: TEAM) -> void:
-	assert(card in draw_pile,"Card %s not in Draw Pile" % card.card_name)
+	assert(card in draw_pile, "Card %s not in Draw Pile" % card.card_name)
 	
 	draw_pile.erase(card)
 	
@@ -120,11 +120,6 @@ func draw_card(card: Card, team: TEAM) -> void:
 ##Draw Random Card
 func draw_random_card(team: TEAM) -> void:
 	draw_card(draw_pile[0], team)
-
-##Do Draw Cards Phase
-func do_draw_cards_phase() -> void:
-	draw_random_card(TEAM.COUNTRY)
-	draw_random_card(TEAM.JEDBURGH)
 
 ##TODO Get all Possible Game Moves
 func get_possible_moves() -> Array[Move]:
@@ -166,37 +161,3 @@ func do_move(move: Move) -> void:
 		phase = PHASE.OPERATIONS
 	
 	move_taken.emit(move)
-
-##Do Operations Phase
-func do_operations_phase() -> void:
-	pass
-
-##Do Projects Phase
-func do_projects_phase() -> void:
-	pass
-
-##Do HN Influence Phase
-func do_hn_influence_phase() -> void:
-	victory_level += host_nation_influence
-
-##Do Turn End Phase
-func do_turn_end_phase() -> void:
-	pass
-
-##Do the Next Phase of the Game
-func do_next_phase() -> void:
-	if phase == PHASE.DRAW_CARDS:
-		do_draw_cards_phase()
-		phase = PHASE.OPERATIONS
-	elif phase == PHASE.OPERATIONS:
-		do_operations_phase()
-		phase = PHASE.PROJECTS
-	elif phase == PHASE.PROJECTS:
-		do_projects_phase()
-		phase = PHASE.HN_INFLUENCE
-	elif phase == PHASE.HN_INFLUENCE:
-		do_hn_influence_phase()
-		phase = PHASE.TURN_END
-	elif phase == PHASE.TURN_END:
-		do_turn_end_phase()
-		phase = PHASE.DRAW_CARDS
