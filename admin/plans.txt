@@ -1,5 +1,4 @@
 Draw Cards Phase:
-	- Create new "DrawCardMove" Resource, extending Move, with no arguments
 	- get_possible_moves should return a single element, "DrawCardMove"
 	- In "do_move", if DrawCardMove is the move, draw_random_card using method,
 	and need some kind of checker that both Players drew cards (maybe split into two
