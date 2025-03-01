@@ -28,16 +28,18 @@ func _setup_players() -> void:
 	country_team_player.my_game = game_state
 	jedburgh_team_player.my_game = game_state
 	
+	country_team_player.my_team = GameState.TEAM.COUNTRY
+	jedburgh_team_player.my_team = GameState.TEAM.JEDBURGH
+	
 	country_team_player.player_move_taken.connect(handle_country_player_move)
 	jedburgh_team_player.player_move_taken.connect(handle_jedburgh_player_move)
 
 #Handle a Move being taken by the Game
 func handle_move_taken(move: Move) -> void:
-	print(move)
 	if move is SelectProjectsMove:
 		var projects: Array[Project] = game_state.projects
 		
-		assert(len(projects) == 4, "Project Sizes that aren't 4 not Supported Yet")
+		assert(len(projects) == 4, "Project Sizes != 4 not Supported Yet")
 		
 		var letter_indices: PackedStringArray = ["A","B","C","D"]
 		
@@ -45,24 +47,23 @@ func handle_move_taken(move: Move) -> void:
 		for i: int in range(len(projects)):
 			var new_cont: ProjectContainer = create_project_container(projects[i])
 			new_cont.project_label.text = "Project %s" % letter_indices[i]
+	
+	do_next_move()
+
+#Do the next move
+func do_next_move() -> void:
+	if country_team_player.is_my_turn() == true:
+		country_team_player.take_turn()
+	else:
+		jedburgh_team_player.take_turn()
 
 #Handle the Country Team Player taking their Move
 func handle_country_player_move(move: Move) -> void:
 	game_state.do_move(move)
-	
-	#if country_team_player.is_my_turn() == true:
-		#country_team_player.take_turn()
-	#else:
-		#jedburgh_team_player.take_turn()
 
 #Handle the Jedburgh Team Player taking their Move
 func handle_jedburgh_player_move(move: Move) -> void:
 	game_state.do_move(move)
-	
-	#if jedburgh_team_player.is_my_turn() == true:
-		#jedburgh_team_player.take_turn()
-	#else:
-		#country_team_player.take_turn()
 
 func create_project_container(project: Project) -> ProjectContainer:
 	var new_container: ProjectContainer = PROJECT_CONTAINER_SCENE.instantiate()

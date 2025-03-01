@@ -8,4 +8,9 @@ func take_turn() -> void:
 		return
 	
 	var moves: Array[Move] = my_game.get_possible_moves()
+	
+	if len(moves) == 0:
+		print("No moves for Random Player, returning...")
+		return
+	
 	player_move_taken.emit(moves.pick_random())

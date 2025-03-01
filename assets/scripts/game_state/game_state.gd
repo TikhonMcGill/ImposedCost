@@ -13,8 +13,10 @@ enum TEAM{
 
 enum PHASE {
 	SETUP, ##In the Setup Phase, the Country Team Player places 4 Project Cards in the ABCD Boxes
-	DRAW_CARDS,
-	OPERATIONS,
+	DRAW_CARDS_JEDBURGH, ##Part 1 of the Draw Cards Phase - Jedburgh Drawing a Card
+	DRAW_CARDS_COUNTRY, ##Part 2 of the Draw Cards Phase - Country Drawing a Card
+	OPERATIONS_COUNTRY, ##Country Team's Turn in the Operations Phase
+	OPERATIONS_JEDBURGH, ##Jedburgh's Turn in the Operations Phase
 	PROJECTS,
 	HN_INFLUENCE,
 	TURN_END,
@@ -61,8 +63,8 @@ var host_nation_influence: int = 0 ##The Influence of each team in the Host Nati
 
 var current_turn_team: TEAM = TEAM.COUNTRY ##The Team whose Current Turn it is
 
-var blue_hand: Array[Card] = [] ##The Hand of the Blue Player
-var red_hand: Array[Card] = [] ##The Hand of the Red Player
+var country_hand: Array[Card] = [] ##The Hand of the Country Team Player
+var jedburgh_hand: Array[Card] = [] ##The Hand of the Jedburgh Team Player
 
 var turn: int = 1 ##The Current Turn
 var phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
@@ -108,15 +110,18 @@ func draw_card(card: Card, team: TEAM) -> void:
 	draw_pile.erase(card)
 	
 	if team == TEAM.COUNTRY:
-		red_hand.append(card)
+		print("Country Team Drew Card: %s" % card.card_name)
+		country_hand.append(card)
 	else:
-		blue_hand.append(card)
+		print("Jedburgh Team Drew Card: %s" % card.card_name)
+		jedburgh_hand.append(card)
 	
 	#If the Draw Pile is empty, shuffle the discard pile and add it to the draw pile
 	if len(draw_pile) == 0:
 		discard_pile.shuffle()
 		for c in discard_pile:
 			draw_pile.append(c)
+	
 	discard_pile = []
 
 ##Draw Random Card
@@ -149,6 +154,8 @@ func get_possible_moves() -> Array[Move]:
 			possible_arrangements.append(new_move)
 		
 		return possible_arrangements
+	elif phase == PHASE.DRAW_CARDS_JEDBURGH or phase == PHASE.DRAW_CARDS_COUNTRY:
+		return [DrawCardMove.new()]
 	
 	return []
 
@@ -166,7 +173,33 @@ func do_move(move: Move) -> void:
 		
 		print("Projects Selected: %s" % ", ".join(projects_selected))
 		
-		#Move onto Operations Phase once game Set Up
-		phase = PHASE.OPERATIONS
+		
+		print("Moving onto Draw Cards Phase!")
+		
+		#Move onto Draw Cards Phase once game Set Up
+		phase = PHASE.DRAW_CARDS_JEDBURGH
+		current_turn_team = TEAM.JEDBURGH
+		
+	elif move is DrawCardMove:
+		print("Drawing Card!")
+		draw_random_card(current_turn_team)
+		
+		#If it is Jedburgh that drew a card, time for the Country Team to do so as well
+		if phase == PHASE.DRAW_CARDS_JEDBURGH:
+			phase = PHASE.DRAW_CARDS_COUNTRY
+			current_turn_team = TEAM.COUNTRY
+		#Otherwise, if it was the Country Team that drew a card, move onto Operations phase
+		elif phase == PHASE.DRAW_CARDS_COUNTRY:
+			print("Draw Cards Phase over!")
+			
+			#Determine who plays first in the Operations Phase
+			if host_nation_influence < 0:
+				print("Country Team plays first in Operations Phase!")
+				phase = PHASE.OPERATIONS_COUNTRY
+				current_turn_team = TEAM.COUNTRY
+			else:
+				print("Jedburgh Team plays first in Operations Phase!")
+				phase = PHASE.OPERATIONS_JEDBURGH
+				current_turn_team = TEAM.JEDBURGH
 	
 	move_taken.emit(move)

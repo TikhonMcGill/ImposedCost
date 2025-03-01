@@ -15,3 +15,5 @@ as placeholders
 To extract pure symbols from card images convert by following equation:
 	1. The higher the brightness, the smaller the alpha
 	2. E.g. if V = 0, Alpha = 1, if V = 1, Alpha = 0
+
+Gamerule for which country takes card first, jedburgh or country
