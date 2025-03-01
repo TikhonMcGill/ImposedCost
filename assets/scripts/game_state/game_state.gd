@@ -98,6 +98,8 @@ func setup_game() -> void:
 	#Shuffle the Pile, making the Draw Pile it
 	starting_pile.shuffle()
 	draw_pile = starting_pile
+	
+	print("Game set up")
 
 ##Draw a Card, assuming it is in the Draw Pile
 func draw_card(card: Card, team: TEAM) -> void:
@@ -153,9 +155,16 @@ func get_possible_moves() -> Array[Move]:
 ##TODO Carry out the Selected Move
 func do_move(move: Move) -> void:
 	if move is SelectProjectsMove:
+		print("SelectProjectsMove Played")
+		
+		var projects_selected: PackedStringArray = []
+		
 		for p: ProjectCard in move.projects_to_select:
 			var new_project: Project = Project.new(p)
 			projects.append(new_project)
+			projects_selected.append(p.card_name)
+		
+		print("Projects Selected: %s" % ", ".join(projects_selected))
 		
 		#Move onto Operations Phase once game Set Up
 		phase = PHASE.OPERATIONS

@@ -1,8 +1,4 @@
 Draw Cards Phase:
-	- Add a bunch of Print Statements, namely:
-		- "Game Set up" in "Setup game"
-		- Prints for SelectProjectsMove:
-			"Country Team Selected the Following Projects: " (list of Project Card Names)
 	- Create new "DrawCardMove" Resource, extending Move, with no arguments
 	- get_possible_moves should return a single element, "DrawCardMove"
 	- In "do_move", if DrawCardMove is the move, draw_random_card using method,
