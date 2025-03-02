@@ -1,5 +1,21 @@
+Maintain Network Implementation:
+	- Execute Immediately when Drawn
+	- Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 
+	- 2 cards if Network is 6 cards or more. 
+	- Discard any Action card or cards from Network if no cards in hand. 
+	- After discarding card(s), may rearrange up to all Action cards in own Network; 
+	they retain their revealed/concealed status.
+	- Put into Discard Pile when finished
+
 Implement Consequences of Cards Drawn:
-	- (Flesh out, based on card descriptions)
+	- (Function) Influence Host Nation / Use Host Nation Influence
+		
+	- (Function) Reveal/Conceal
+	- (Function) Build/Manage/Degrade Network
+	- (Function) Maintain Network
+	- Action 1
+	- Action 2
+	- Action 3
 
 Plans:
 	- Implement Draw Cards Phase, with all ramifications (cards when drawn do stuff etc.)
@@ -126,13 +142,6 @@ Function Cards:
 			Degrade Network. 
 			Discard 1 Action card from enemy Network.
 			Card must be both revealed and topmost in its stack.
-		Maintain Network. 
-			Must execute immediately when drawn. 
-			Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 
-			2 cards if Network is 6 cards or more. 
-			Discard any Action card or cards from Network if no cards in hand. 
-			After discarding card(s), may rearrange up to all Action cards in own Network; 
-			they retain their revealed/concealed status.
 
 Action cards:
 	There are 6 Action cards in the game: 
@@ -247,17 +256,6 @@ OR Degrade Network - Discard 1 Action card from enemy
  Network. Card must be both revealed and
  the topmost card on that side of Base card.
 
-12. Maintain Network - MUST EXECUTE IMMEDIATELY WHEN DRAWN
-
-Must discard 1 card from hand if total
- Network (including Base card) is 5 cards
- or fewer, 2 cards if 6 cards or more.
- Discard Action cards from Network
- (anywhere in Network) if no cards in hand.
- After discarding card(s), may rearrange up
- to all Action cards in own Network; they
- retain revealed/concealed status.
-
 13. Action 1 - Must be in Network and topmost card in
  stack. Change value of 1 die of Project
  matching letter on side of Base card the
@@ -336,8 +334,8 @@ Sequence of Play:
 		Draw 1 card and add to hand. 
 		Hand may be any size. When draw pile runs out, 
 		shuffle discard pile and it becomes new draw pile. 
-		Operations Phase. Player with HN Influence plays 
-		first (if none, Jedburgh first). May play a Function Card 
+	Operations Phase: 
+		Player with HN Influence plays first (if none, Jedburgh first). May play a Function Card 
 		(choose 1 function), use an Action Card from their 
 		Network, or pass. A player may always pass; a player 
 		with no cards in their hand and no Action Cards in 
