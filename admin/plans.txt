@@ -1,7 +1,7 @@
 Maintain Network Implementation:
 	- Execute Immediately when Drawn
 	- Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 
-	- 2 cards if Network is 6 cards or more. 
+	2 cards if Network is 6 cards or more. 
 	- Discard any Action card or cards from Network if no cards in hand. 
 	- After discarding card(s), may rearrange up to all Action cards in own Network; 
 	they retain their revealed/concealed status.
@@ -9,7 +9,6 @@ Maintain Network Implementation:
 
 Implement Consequences of Cards Drawn:
 	- (Function) Influence Host Nation / Use Host Nation Influence
-		
 	- (Function) Reveal/Conceal
 	- (Function) Build/Manage/Degrade Network
 	- (Function) Maintain Network
@@ -29,29 +28,6 @@ Long-Term Timeline:
 	- Implementation of GUI-Based Gameplay by Human Player
 	- Creation of Utility Computer Player, based on my understanding of the game
 	- Polish of the Game as I see fit (refer to Finalization part of plan)
-
-Minimum Viable Product:
-	- 4 Projects at Game Start
-	- Once all 4 Projects complete, end game
-	- UI-Based Human Player
-	- Random Player
-
-Finalization:
-	- Set color for Players, by default Red for Country, blue for Jedburgh, and update
-	Themes etc. accordingly
-	- Add own font, maybe a theme as well
-	- Customizable No. Projects
-	- Utility-Based Player
-	- MAYBE Minimax
-	- Icon
-	- Splashscreen
-	- Look through ideas, determine what to add
-	- MIT-Licensed GitHub Project
-	- Link on LinkedIn as well
-	- Send to Brian, HaWo
-	- (Look into Game Dev Constitution, if exists)
-	- Organize plans into something worth discussing
-	- Call with Brian, HaWo, discuss my implementation
 
 Components:
 	1. 18 Cards: 

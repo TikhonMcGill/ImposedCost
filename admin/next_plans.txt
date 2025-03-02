@@ -1,0 +1,22 @@
+Minimum Viable Product:
+	- 4 Projects at Game Start
+	- Once all 4 Projects complete, end game
+	- UI-Based Human Player
+	- Random Player
+
+Finalization:
+	- Set color for Players, by default Red for Country, blue for Jedburgh, and update
+	Themes etc. accordingly
+	- Add own font, maybe a theme as well
+	- Customizable No. Projects
+	- Utility-Based Player
+	- MAYBE Minimax
+	- Icon
+	- Splashscreen
+	- Look through ideas, determine what to add
+	- MIT-Licensed GitHub Project
+	- Link on LinkedIn as well
+	- Send to Brian, HaWo
+	- (Look into Game Dev Constitution, if exists)
+	- Organize plans into something worth discussing
+	- Call with Brian, HaWo, discuss my implementation
