@@ -23,6 +23,13 @@ enum PHASE {
 	GAME_END
 }
 
+#region Cards
+
+#region Base Cards
+const BASE_COUNTRY: BaseCard = preload("res://assets/resources/default_cards/base_cards/country_team.tres")
+const BASE_JEDBURGH: BaseCard = preload("res://assets/resources/default_cards/base_cards/jedburgh_team.tres")
+#endregion
+
 #region Function Cards
 const FUNCTION_BUILD_MANAGE_NETWORK: FunctionCard = preload("res://assets/resources/default_cards/function_cards/build_manage_network.tres")
 const FUNCTION_INFLUENCE_HOST_NATION: FunctionCard = preload("res://assets/resources/default_cards/function_cards/influence_host_nation.tres")
@@ -50,6 +57,8 @@ const PROJECT_LARGE_PORT: ProjectCard = preload("res://assets/resources/default_
 const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/projects/mine.tres")
 #endregion
 
+#endregion
+
 @export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
 
 var combinatorics: CombinatoricsUtilities = CombinatoricsUtilities.new() ## Utilities for Calculating Combinatorics Calculations
@@ -65,6 +74,9 @@ var current_turn_team: TEAM = TEAM.COUNTRY ##The Team whose Current Turn it is
 
 var country_hand: Array[Card] = [] ##The Hand of the Country Team Player
 var jedburgh_hand: Array[Card] = [] ##The Hand of the Jedburgh Team Player
+
+var country_network: Array[Card] = [BASE_COUNTRY] ##The Network of the Country Team Player (initially just their base, later on Action Cards)
+var jedburgh_network: Array[Card] = [BASE_JEDBURGH] ##The Network of the Jedburgh Team Player (initially just their base, later on Action Cards)
 
 var turn: int = 1 ##The Current Turn
 var phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
@@ -127,6 +139,17 @@ func draw_card(card: Card, team: TEAM) -> void:
 ##Draw Random Card
 func draw_random_card(team: TEAM) -> void:
 	draw_card(draw_pile[0], team)
+
+##Discard a Particular Card from a Particular Team Player's Hand
+func discard_card(card: Card, team: TEAM) -> void:
+	if team == TEAM.COUNTRY:
+		assert(card in country_hand,"Card to be discarded by Country Player not in Country Player's hand")
+		country_hand.erase(card)
+		discard_pile.append(card)
+	elif team == TEAM.JEDBURGH:
+		assert(card in jedburgh_hand,"Card to be discarded by Jedburgh Player not in Jedburgh Player's hand")
+		jedburgh_hand.erase(card)
+		discard_pile.append(card)
 
 ##TODO Get all Possible Game Moves
 func get_possible_moves() -> Array[Move]:

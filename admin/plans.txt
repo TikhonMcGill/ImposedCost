@@ -1,11 +1,42 @@
 Maintain Network Implementation:
-	- Execute Immediately when Drawn
-	- Must discard 1 card from hand if total cards in Network (including Base card) is 5 cards or fewer, 
-	2 cards if Network is 6 cards or more. 
-	- Discard any Action card or cards from Network if no cards in hand. 
-	- After discarding card(s), may rearrange up to all Action cards in own Network; 
-	they retain their revealed/concealed status.
-	- Put into Discard Pile when finished
+	- Add 2 New Phases - MAINTAIN_NETWORK_COUNTRY, MAINTAIN_NETWORK_JEDBURGH
+	- Update draw_random_card to return Card
+	- Create Helper Funcs to get Current Player's Hand, Network, Name "Player Name (Color)" e.g. "Jedburgh (Blue)"
+	If card == FUNCTION_MAINTAIN_NETWORK:
+		- Discard it immediately
+		- If the player who drew has hand of size 0, discard all ActionCards from Network
+		(iterate through it, use "is ActionCard" to determine)
+		Otherwise, transfer to MAINTAIN_NETWORK_COUNTRY or MAINTAIN_NETWORK_JEDBURGH, depending
+		on situation, and set the relevant player's turn
+	- Create new "MaintainNetworkMove", with array "cards_to_discard", typed with Card, as
+	well as "new_network_order", an Array of Cards as well
+	Update get_possible_moves:
+		- Have a list "discard_arrangements", an Array (of Arrays)
+		If relevant Player's network size > 5:
+			- Using CombinatoricsUtilities, calculate all 2-card
+			Combinations using Player's Hand, WITHOUT replacement, order DOESN'T Matter
+			- Add to discard_arrangements
+			- Add a Print Statement - "*PLAYER*'s Network > 5, needs to discard 2 Cards
+		Otherwise:
+			- Iterate through each card in Hand, adding one-element Arrays to discard_arrangements
+			- Add a Print Statement - "*PLAYER*'s Network <= 5, needs to Discard 1 Card"
+		Finally:
+			- Construct Array of Project Cards from Network without Base
+			- Using CombinatoricsUtilities, get all combinations, WITHOUT replacement, order DOES
+			Matter, of newly-ordered Action Cards in Network, put into array "network_rearrangements"
+			- Iterate through each element of discard_arrangements, creating DiscardMoves
+			with each network_rearrangements element (so squared)
+			- Return these DiscardMoves
+	Update do_move:
+		- If is DiscardCardsMove, call discard_card method for each element of cards_to_discard,
+		with current team player's hand removing said cards
+		- Update the Relevant Player's Network to the new order of the Network (clear the
+		array except first element - base - then append the new array)
+		- If Phase == MAINTAIN_NETWORK_COUNTRY, move onto OPERATIONS
+		- If Phase == MAINTAIN_NETWORK_JEDBURGH, move onto DRAW_CARDS_COUNTRY
+		- Print Cards Discarded by relevant Player, and Phase moved onto
+		- Print the Previous Arrangement of the Network
+		- Print the New Arrangement of the Network
 
 Implement Consequences of Cards Drawn:
 	- (Function) Influence Host Nation / Use Host Nation Influence
