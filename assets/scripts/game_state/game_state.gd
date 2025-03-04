@@ -15,6 +15,8 @@ enum PHASE {
 	SETUP, ##In the Setup Phase, the Country Team Player places 4 Project Cards in the ABCD Boxes
 	DRAW_CARDS_JEDBURGH, ##Part 1 of the Draw Cards Phase - Jedburgh Drawing a Card
 	DRAW_CARDS_COUNTRY, ##Part 2 of the Draw Cards Phase - Country Drawing a Card
+	MAINTAIN_NETWORK_JEDBURGH, ##Jedburgh Drew the "Maintain Network" Card, and its effects are executed,
+	MAINTAIN_NETWORK_COUNTRY, ##The Country Team drew the "Maintain Network" Card, and its effects are executed
 	OPERATIONS_COUNTRY, ##Country Team's Turn in the Operations Phase
 	OPERATIONS_JEDBURGH, ##Jedburgh's Turn in the Operations Phase
 	PROJECTS,
@@ -78,8 +80,8 @@ var jedburgh_hand: Array[Card] = [] ##The Hand of the Jedburgh Team Player
 var country_network: Array[Card] = [BASE_COUNTRY] ##The Network of the Country Team Player (initially just their base, later on Action Cards)
 var jedburgh_network: Array[Card] = [BASE_JEDBURGH] ##The Network of the Jedburgh Team Player (initially just their base, later on Action Cards)
 
-var turn: int = 1 ##The Current Turn
-var phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
+var current_turn: int = 1 ##The Current Turn
+var current_phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
 
 var projects: Array[Project] = [] ##All Projects left to be played
 
@@ -116,7 +118,7 @@ func setup_game() -> void:
 	print("Game set up")
 
 ##Draw a Card, assuming it is in the Draw Pile
-func draw_card(card: Card, team: TEAM) -> void:
+func draw_card(card: Card, team: TEAM) -> Card:
 	assert(card in draw_pile, "Card %s not in Draw Pile" % card.card_name)
 	
 	draw_pile.erase(card)
@@ -124,9 +126,11 @@ func draw_card(card: Card, team: TEAM) -> void:
 	if team == TEAM.COUNTRY:
 		print("Country Team Drew Card: %s" % card.card_name)
 		country_hand.append(card)
+		return card
 	else:
 		print("Jedburgh Team Drew Card: %s" % card.card_name)
 		jedburgh_hand.append(card)
+		return card
 	
 	#If the Draw Pile is empty, shuffle the discard pile and add it to the draw pile
 	if len(draw_pile) == 0:
@@ -135,10 +139,33 @@ func draw_card(card: Card, team: TEAM) -> void:
 			draw_pile.append(c)
 	
 	discard_pile = []
+	
+	return null
 
 ##Draw Random Card
-func draw_random_card(team: TEAM) -> void:
-	draw_card(draw_pile[0], team)
+func draw_random_card(team: TEAM) -> Card:
+	return draw_card(draw_pile[0], team)
+
+##Get the Current Player's Name, as "Player Name (Color)", e.g. "Jedburgh (Blue)"
+func get_current_player_name() -> String:
+	if current_turn_team == TEAM.COUNTRY:
+		return GameManager.country_team_name + " (Red)"
+	else:
+		return GameManager.jedburgh_team_name + " (Blue)"
+
+##Get the Current Player's Network
+func get_current_player_network() -> Array[Card]:
+	if current_turn_team == TEAM.COUNTRY:
+		return country_network
+	else:
+		return jedburgh_network
+
+##Get the Current Player's Hand
+func get_current_player_hand() -> Array[Card]:
+	if current_turn_team == TEAM.COUNTRY:
+		return country_hand
+	else:
+		return jedburgh_hand
 
 ##Discard a Particular Card from a Particular Team Player's Hand
 func discard_card(card: Card, team: TEAM) -> void:
@@ -155,7 +182,7 @@ func discard_card(card: Card, team: TEAM) -> void:
 func get_possible_moves() -> Array[Move]:
 	#In the Setup Phase, the only Possible Moves are the different Combinations of Project Cards
 	#that the Country Team could place down, so we return all possible combinations of those
-	if phase == PHASE.SETUP:
+	if current_phase == PHASE.SETUP:
 		var possible_arrangements: Array[Move] = []
 		
 		var all_projects: Array = [
@@ -177,7 +204,7 @@ func get_possible_moves() -> Array[Move]:
 			possible_arrangements.append(new_move)
 		
 		return possible_arrangements
-	elif phase == PHASE.DRAW_CARDS_JEDBURGH or phase == PHASE.DRAW_CARDS_COUNTRY:
+	elif current_phase == PHASE.DRAW_CARDS_JEDBURGH or current_phase == PHASE.DRAW_CARDS_COUNTRY:
 		return [DrawCardMove.new()]
 	
 	return []
@@ -200,29 +227,43 @@ func do_move(move: Move) -> void:
 		print("Moving onto Draw Cards Phase!")
 		
 		#Move onto Draw Cards Phase once game Set Up
-		phase = PHASE.DRAW_CARDS_JEDBURGH
-		current_turn_team = TEAM.JEDBURGH
-		
+		transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
 	elif move is DrawCardMove:
 		print("Drawing Card!")
-		draw_random_card(current_turn_team)
+		var card: Card = draw_random_card(current_turn_team)
+		
+		#If the Maintain Network Card is drawn, its effects are executed immediately
+		if card == FUNCTION_MAINTAIN_NETWORK:
+			discard_card(card, current_turn_team)
+			
+			if len(get_current_player_hand()) == 0:
+				for a: Card in get_current_player_network():
+					if a is ActionCard:
+						discard_card(a, current_turn_team)
+			else:
+				if current_turn_team == TEAM.JEDBURGH:
+					transfer_to_phase(PHASE.MAINTAIN_NETWORK_JEDBURGH, TEAM.JEDBURGH)
+				else:
+					transfer_to_phase(PHASE.MAINTAIN_NETWORK_COUNTRY, TEAM.COUNTRY)
 		
 		#If it is Jedburgh that drew a card, time for the Country Team to do so as well
-		if phase == PHASE.DRAW_CARDS_JEDBURGH:
-			phase = PHASE.DRAW_CARDS_COUNTRY
-			current_turn_team = TEAM.COUNTRY
+		if current_phase == PHASE.DRAW_CARDS_JEDBURGH:
+			transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
 		#Otherwise, if it was the Country Team that drew a card, move onto Operations phase
-		elif phase == PHASE.DRAW_CARDS_COUNTRY:
+		elif current_phase == PHASE.DRAW_CARDS_COUNTRY:
 			print("Draw Cards Phase over!")
 			
 			#Determine who plays first in the Operations Phase
 			if host_nation_influence < 0:
 				print("Country Team plays first in Operations Phase!")
-				phase = PHASE.OPERATIONS_COUNTRY
-				current_turn_team = TEAM.COUNTRY
+				transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
 			else:
 				print("Jedburgh Team plays first in Operations Phase!")
-				phase = PHASE.OPERATIONS_JEDBURGH
-				current_turn_team = TEAM.JEDBURGH
+				transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
 	
 	move_taken.emit(move)
+
+##Transfer to a Phase, with a Specific Player's turn
+func transfer_to_phase(phase: PHASE, player: TEAM) -> void:
+	current_phase = phase
+	current_turn_team = player

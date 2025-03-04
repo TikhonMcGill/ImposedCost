@@ -1,13 +1,4 @@
 Maintain Network Implementation:
-	- Add 2 New Phases - MAINTAIN_NETWORK_COUNTRY, MAINTAIN_NETWORK_JEDBURGH
-	- Update draw_random_card to return Card
-	- Create Helper Funcs to get Current Player's Hand, Network, Name "Player Name (Color)" e.g. "Jedburgh (Blue)"
-	If card == FUNCTION_MAINTAIN_NETWORK:
-		- Discard it immediately
-		- If the player who drew has hand of size 0, discard all ActionCards from Network
-		(iterate through it, use "is ActionCard" to determine)
-		Otherwise, transfer to MAINTAIN_NETWORK_COUNTRY or MAINTAIN_NETWORK_JEDBURGH, depending
-		on situation, and set the relevant player's turn
 	- Create new "MaintainNetworkMove", with array "cards_to_discard", typed with Card, as
 	well as "new_network_order", an Array of Cards as well
 	Update get_possible_moves:

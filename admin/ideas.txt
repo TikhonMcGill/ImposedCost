@@ -19,3 +19,5 @@ To extract pure symbols from card images convert by following equation:
 Gamerule for which country draws card first, jedburgh or country
 
 Gamerule for whether or not to allow "passing" in the Draw Cards Phase
+
+A LOT deeper search than before - Minimax might be unsuitable without optimizations (that aren't just alpha-beta)
