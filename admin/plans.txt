@@ -1,15 +1,3 @@
-Maintain Network Implementation:
-	Update do_move:
-		- If is DiscardCardsMove, call discard_card method for each element of cards_to_discard,
-		with current team player's hand removing said cards
-		- Update the Relevant Player's Network to the new order of the Network (clear the
-		array except first element - base - then append the new array)
-		- If Phase == MAINTAIN_NETWORK_COUNTRY, move onto OPERATIONS
-		- If Phase == MAINTAIN_NETWORK_JEDBURGH, move onto DRAW_CARDS_COUNTRY
-		- Print Cards Discarded by relevant Player, and Phase moved onto
-		- Print the Previous Arrangement of the Network
-		- Print the New Arrangement of the Network
-
 Implement Consequences of Cards Drawn:
 	- (Function) Influence Host Nation / Use Host Nation Influence
 	- (Function) Reveal/Conceal

@@ -294,6 +294,38 @@ func do_move(move: Move) -> void:
 			else:
 				print("Jedburgh Team plays first in Operations Phase!")
 				transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+	elif move is MaintainNetworkMove:
+		#Discard all Cards to be Discarded
+		
+		print("%s Discarded the following Cards:" % get_current_player_name())
+		for discard: Card in move.cards_to_discard:
+			print(discard.card_name)
+			discard_card(discard, current_turn_team)
+		
+		print("Previous Arrangement of Network: ")
+		for c: Card in get_current_player_network():
+			print(c.card_name)
+		
+		if current_turn_team == TEAM.COUNTRY:
+			country_network = country_network.slice(1) + move.new_network_order
+			
+			print("Country Player Maintained Network, moving onto Operations Phase!")
+			
+			#Determine who plays first in the Operations Phase
+			if host_nation_influence < 0:
+				print("Country Team plays first in Operations Phase!")
+				transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
+			else:
+				print("Jedburgh Team plays first in Operations Phase!")
+				transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+		else:
+			jedburgh_network = country_network.slice(1) + move.new_network_order
+			print("Jedburgh Player Maintained Network, moving onto Country Draw Cards Phase!")
+			transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
+		
+		print("New Arrangement of Network: ")
+		for c: Card in get_current_player_network():
+			print(c.card_name)
 	
 	move_taken.emit(move)
 
