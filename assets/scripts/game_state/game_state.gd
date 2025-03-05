@@ -206,6 +206,40 @@ func get_possible_moves() -> Array[Move]:
 		return possible_arrangements
 	elif current_phase == PHASE.DRAW_CARDS_JEDBURGH or current_phase == PHASE.DRAW_CARDS_COUNTRY:
 		return [DrawCardMove.new()]
+	elif current_phase == PHASE.MAINTAIN_NETWORK_COUNTRY or current_phase == PHASE.MAINTAIN_NETWORK_JEDBURGH:
+		var possible_maintenances: Array[Move] = []
+		
+		var network_without_base: Array = get_current_player_network().slice(1)
+		
+		var network_rearrangements: Array = combinatorics.generate_combinations(
+			network_without_base, len(network_without_base), false, true
+		)
+		
+		if len(get_current_player_network()) > 5:
+			print("Network of %s is more than 5 Cards, needs to Discard 2 Cards from hand" % get_current_player_name())
+			#Generate all possible 2-Card Discardments
+			var discard_arrangements: Array = combinatorics.generate_combinations(network_without_base, 2, false, false)
+			
+			#Generate all possible Maintain Network Moves
+			for d: Array in discard_arrangements:
+				for r: Array in network_rearrangements:
+					var new_move: MaintainNetworkMove = MaintainNetworkMove.new()
+					new_move.cards_to_discard.assign(d)
+					new_move.new_network_order.assign(r)
+					possible_maintenances.append(new_move)
+		
+		else:
+			print("Network of %s is 5 or less Cards, needs to Discard 1 Card from hand" % get_current_player_name())
+			
+			#Generate all possible Maintain Network Moves
+			for d: Card in network_without_base:
+				for r: Array in network_rearrangements:
+					var new_move: MaintainNetworkMove = MaintainNetworkMove.new()
+					new_move.cards_to_discard.assign([d])
+					new_move.new_network_order.assign(r)
+					possible_maintenances.append(new_move)
+		
+		return possible_maintenances
 	
 	return []
 

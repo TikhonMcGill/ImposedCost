@@ -1,21 +1,4 @@
 Maintain Network Implementation:
-	Update get_possible_moves:
-		- Have a list "discard_arrangements", an Array (of Arrays)
-		If relevant Player's network size > 5:
-			- Using CombinatoricsUtilities, calculate all 2-card
-			Combinations using Player's Hand, WITHOUT replacement, order DOESN'T Matter
-			- Add to discard_arrangements
-			- Add a Print Statement - "*PLAYER*'s Network > 5, needs to discard 2 Cards
-		Otherwise:
-			- Iterate through each card in Hand, adding one-element Arrays to discard_arrangements
-			- Add a Print Statement - "*PLAYER*'s Network <= 5, needs to Discard 1 Card"
-		Finally:
-			- Construct Array of Project Cards from Network without Base
-			- Using CombinatoricsUtilities, get all combinations, WITHOUT replacement, order DOES
-			Matter, of newly-ordered Action Cards in Network, put into array "network_rearrangements"
-			- Iterate through each element of discard_arrangements, creating DiscardMoves
-			with each network_rearrangements element (so squared)
-			- Return these DiscardMoves
 	Update do_move:
 		- If is DiscardCardsMove, call discard_card method for each element of cards_to_discard,
 		with current team player's hand removing said cards
