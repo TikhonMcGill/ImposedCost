@@ -267,13 +267,22 @@ func do_move(move: Move) -> void:
 		var card: Card = draw_random_card(current_turn_team)
 		
 		#If the Maintain Network Card is drawn, its effects are executed immediately
-		if card == FUNCTION_MAINTAIN_NETWORK:
+		if card.card_name == "Maintain Network":
+			print("%s drew Maintain Network!" % get_current_player_name())
+			
 			discard_card(card, current_turn_team)
 			
 			if len(get_current_player_hand()) == 0:
+				print("%s has no cards in their hand, so discarding Action Cards!" % get_current_player_name())
+				var discarded: int = 0
+				
 				for a: Card in get_current_player_network():
 					if a is ActionCard:
 						discard_card(a, current_turn_team)
+						discarded += 1
+				
+				print("Discarded %d Action Cards!" % discarded)
+				
 			else:
 				if current_turn_team == TEAM.JEDBURGH:
 					transfer_to_phase(PHASE.MAINTAIN_NETWORK_JEDBURGH, TEAM.JEDBURGH)
