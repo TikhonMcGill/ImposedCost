@@ -2,15 +2,21 @@ extends Node
 
 #Singleton
 
-enum PLAYER{
-	HUMAN,
-	RANDOM,
-	UTILITY,
-	MINIMAX
-} #Player Types
+const SETTINGS_PATH: String = "user://settings.tres" #Path to the Game Settings, where Settings are saved
 
-var country_team_player: PLAYER #The Player Type of the Country Team
-var country_team_name: String #The Name of the Country Team Player
+var settings: GameSettings = GameSettings.new()
 
-var jedburgh_team_player: PLAYER #The Player Type of the Jedburgh Team
-var jedburgh_team_name: String #The Name of the Jedburgh Team Player
+func _ready() -> void:
+	_load_settings()
+
+#Save Game Settings
+func save_settings() -> void:
+	ResourceSaver.save(settings, SETTINGS_PATH)
+
+#Load Game Settings
+func _load_settings() -> void:
+	if FileAccess.file_exists(SETTINGS_PATH) == false:
+		save_settings()
+		return
+	
+	settings = ResourceLoader.load(SETTINGS_PATH)

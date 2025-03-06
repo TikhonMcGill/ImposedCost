@@ -149,9 +149,9 @@ func draw_random_card(team: TEAM) -> Card:
 ##Get the Current Player's Name, as "Player Name (Color)", e.g. "Jedburgh (Blue)"
 func get_current_player_name() -> String:
 	if current_turn_team == TEAM.COUNTRY:
-		return GameManager.country_team_name + " (Red)"
+		return GameManager.settings.country_team_name + " (Red)"
 	else:
-		return GameManager.jedburgh_team_name + " (Blue)"
+		return GameManager.settings.jedburgh_team_name + " (Blue)"
 
 ##Get the Current Player's Network
 func get_current_player_network() -> Array[Card]:

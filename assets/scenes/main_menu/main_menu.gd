@@ -8,6 +8,9 @@ const GAME_PATH: String = "res://assets/scenes/game/game.tscn"
 @onready var jedburgh_player_select: OptionButton = $PanelContainer/MarginContainer/VBoxContainer/JedburghPlayerSelect
 @onready var jedburgh_name_edit: LineEdit = $PanelContainer/MarginContainer/VBoxContainer/JedburghNameEdit
 
+func _ready() -> void:
+	_populate_settings()
+
 func _on_play_button_pressed() -> void:
 	if country_name_edit.text == "":
 		country_name_edit.text = "Country Team"
@@ -17,13 +20,26 @@ func _on_play_button_pressed() -> void:
 		jedburgh_name_edit.text = "Jedburgh Team"
 		return
 	
-	GameManager.country_team_player = country_player_select.selected
-	GameManager.country_team_name = country_name_edit.text
-	
-	GameManager.jedburgh_team_player = jedburgh_player_select.selected
-	GameManager.jedburgh_team_name = jedburgh_name_edit.text
+	_set_settings()
+	GameManager.save_settings()
 	
 	get_tree().change_scene_to_file(GAME_PATH)
+
+#Populate the UI Based on Game Settings
+func _populate_settings() -> void:
+	country_player_select.selected = GameManager.settings.country_team_player
+	country_name_edit.text = GameManager.settings.country_team_name
+	
+	jedburgh_player_select.selected = GameManager.settings.jedburgh_team_player
+	jedburgh_name_edit.text = GameManager.settings.jedburgh_team_name
+
+#Set Game Settings based on UI
+func _set_settings() -> void:
+	GameManager.settings.country_team_player = country_player_select.selected
+	GameManager.settings.country_team_name = country_name_edit.text
+	
+	GameManager.settings.jedburgh_team_player = jedburgh_player_select.selected
+	GameManager.settings.jedburgh_team_name = jedburgh_name_edit.text
 
 func _select_country_player(index: int) -> void:
 	pass

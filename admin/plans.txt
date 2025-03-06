@@ -1,6 +1,3 @@
-Quick plans:
-	- Save Starting Settings, in JSON file, to not reset each time
-
 Implement Operations Phase:
 	- Operations Phase:
 		- A player may play a Function card, executing one of its two functions, 
