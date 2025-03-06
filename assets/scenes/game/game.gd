@@ -16,14 +16,32 @@ func _ready() -> void:
 
 #Based on GameManager set Players, set up the Players for each Team
 func _setup_players() -> void:
-	var random_player_1: RandomPlayer = RANDOM_PLAYER_SCENE.instantiate()
-	add_child(random_player_1)
+	assert(
+		GameManager.country_team_player in [GameManager.PLAYER.RANDOM],
+		"Human, Utility, Minimax not Implemented yet"
+	)
+	
+	assert(
+		GameManager.jedburgh_team_player in [GameManager.PLAYER.RANDOM],
+		"Human, Utility, Minimax not Implemented yet"
+	)
+	
+	var country_player: Player
+	var jedburgh_player: Player
+	
+	if GameManager.country_team_player == GameManager.PLAYER.RANDOM:
+		country_player = RANDOM_PLAYER_SCENE.instantiate()
+	
+	if GameManager.jedburgh_team_player == GameManager.PLAYER.RANDOM:
+		jedburgh_player = RANDOM_PLAYER_SCENE.instantiate()
 	
 	var random_player_2: RandomPlayer = RANDOM_PLAYER_SCENE.instantiate()
-	add_child(random_player_2)
 	
-	country_team_player = random_player_1
-	jedburgh_team_player = random_player_2
+	add_child(country_player)
+	add_child(jedburgh_player)
+	
+	country_team_player = country_player
+	jedburgh_team_player = jedburgh_player
 	
 	country_team_player.my_game = game_state
 	jedburgh_team_player.my_game = game_state

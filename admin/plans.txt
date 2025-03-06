@@ -1,6 +1,5 @@
 Quick plans:
 	- Save Starting Settings, in JSON file, to not reset each time
-	- Give failed asserts for when any player except Random is initialized (Not Implemented Yet)
 
 Implement Operations Phase:
 	- Operations Phase:
