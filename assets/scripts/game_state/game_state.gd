@@ -61,6 +61,12 @@ const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/
 
 #endregion
 
+#region Card Names
+
+const MAINTAIN_NETWORK_NAME: String = "Maintain Network"
+
+#endregion
+
 @export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
 
 var combinatorics: CombinatoricsUtilities = CombinatoricsUtilities.new() ## Utilities for Calculating Combinatorics Calculations
@@ -77,8 +83,8 @@ var current_turn_team: TEAM = TEAM.COUNTRY ##The Team whose Current Turn it is
 var country_hand: Array[Card] = [] ##The Hand of the Country Team Player
 var jedburgh_hand: Array[Card] = [] ##The Hand of the Jedburgh Team Player
 
-var country_network: Array[Card] = [BASE_COUNTRY] ##The Network of the Country Team Player (initially just their base, later on Action Cards)
-var jedburgh_network: Array[Card] = [BASE_JEDBURGH] ##The Network of the Jedburgh Team Player (initially just their base, later on Action Cards)
+var country_network: Array[Card] = [BASE_COUNTRY.duplicate()] ##The Network of the Country Team Player (initially just their base, later on Action Cards)
+var jedburgh_network: Array[Card] = [BASE_JEDBURGH.duplicate()] ##The Network of the Jedburgh Team Player (initially just their base, later on Action Cards)
 
 var current_turn: int = 1 ##The Current Turn
 var current_phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
@@ -91,23 +97,23 @@ func setup_game() -> void:
 	var starting_pile: Array[Card] = []
 	
 	#Add Function Cards to Pile
-	starting_pile.append(FUNCTION_INFLUENCE_HOST_NATION)
+	starting_pile.append(FUNCTION_INFLUENCE_HOST_NATION.duplicate())
 	
-	starting_pile.append(FUNCTION_REVEAL_CONCEAL)
-	starting_pile.append(FUNCTION_REVEAL_CONCEAL)
+	starting_pile.append(FUNCTION_REVEAL_CONCEAL.duplicate())
+	starting_pile.append(FUNCTION_REVEAL_CONCEAL.duplicate())
 	
-	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK)
-	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK)
+	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK.duplicate())
+	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK.duplicate())
 	
-	starting_pile.append(FUNCTION_MAINTAIN_NETWORK)
+	starting_pile.append(FUNCTION_MAINTAIN_NETWORK.duplicate())
 	
 	#Add Action Cards to Pile
-	starting_pile.append(ACTION_1)
-	starting_pile.append(ACTION_1)
-	starting_pile.append(ACTION_1)
-	starting_pile.append(ACTION_2)
-	starting_pile.append(ACTION_2)
-	starting_pile.append(ACTION_3)
+	starting_pile.append(ACTION_1.duplicate())
+	starting_pile.append(ACTION_1.duplicate())
+	starting_pile.append(ACTION_1.duplicate())
+	starting_pile.append(ACTION_2.duplicate())
+	starting_pile.append(ACTION_2.duplicate())
+	starting_pile.append(ACTION_3.duplicate())
 	
 	assert(len(starting_pile) == 12, "Starting Draw Pile not 12 Cards")
 	
@@ -267,7 +273,7 @@ func do_move(move: Move) -> void:
 		var card: Card = draw_random_card(current_turn_team)
 		
 		#If the Maintain Network Card is drawn, its effects are executed immediately
-		if card.card_name == "Maintain Network":
+		if card.card_name == MAINTAIN_NETWORK_NAME:
 			print("%s drew Maintain Network!" % get_current_player_name())
 			
 			discard_card(card, current_turn_team)

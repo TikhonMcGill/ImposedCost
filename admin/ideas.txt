@@ -21,3 +21,8 @@ Gamerule for which country draws card first, jedburgh or country
 Gamerule for whether or not to allow "passing" in the Draw Cards Phase
 
 A LOT deeper search than before - Minimax might be unsuitable without optimizations (that aren't just alpha-beta)
+
+Possible Gamerule - to separate dual function cards into separate function cards, rather than
+playing one or the other function at once
+
+Could have customizable HN Influence Values

@@ -4,9 +4,21 @@ Minimum Viable Product:
 	- UI-Based Human Player
 	- Random Player
 
+Gamerules:
+	- We don't know yet if the effects of completing a Project are on a RANDOM other project,
+	or on one one of the players pick, so we'll have Gamerules for "Project Completion Targets":
+		- Random - A random project is affected when another project is completed
+		- Country Player Chooses - the Country Player chooses which Project to affect, as a Move
+		- Jedburgh Player Chooses - the Jedburgh Player chooses which Project to affect, as a Move
+	- We don't know if using an Action Card with Influence Host Nation ADDS it to 1, or replaces it,
+	so have gamerules:
+		- Adds - Move HN Influence by 1 + Action Card Value when Influence HN Played
+		- Replaces - Move HN Influence by Action Card Value when Influence HN Played
+
 Finalization:
 	- Set color for Players, by default Red for Country, blue for Jedburgh, and update
-	Themes etc. accordingly
+	Themes etc. accordingly:
+		- Color the PanelContainers in the HNInfluenceTrack
 	- Add own font, maybe a theme as well
 	- Customizable No. Projects
 	- Utility-Based Player
@@ -14,9 +26,12 @@ Finalization:
 	- Icon
 	- Splashscreen
 	- Look through ideas, determine what to add
-	- MIT-Licensed GitHub Project
-	- Link on LinkedIn as well
 	- Send to Brian, HaWo
 	- (Look into Game Dev Constitution, if exists)
 	- Organize plans into something worth discussing
-	- Call with Brian, HaWo, discuss my implementation
+	- Call with Brian, HaWo, discuss my implementation - in particular, make sure I've got
+	Gamerules right
+	- Implement feedback
+	- Add Comments EVERYWHERE as much as possible
+	- MIT-Licensed GitHub Project
+	- Link on LinkedIn as well

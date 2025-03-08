@@ -1,3 +1,166 @@
+Add a Host Nation Influence Track Graphically Ingame:
+	- Node Extending HBoxContainer, called "HostNationInfluenceTrack"
+	It contains 9 PanelContainers:
+		- Each has a VBoxContainer, with a Label inside of them
+		- Label Texts are, respectively, 3 (red), 2, 1, 1, 0, 1, 1, 2, 3 (blue)
+		- First 3 PanelContainers are dyed Red (self_modulate)
+		- Last 3 PanelContainers are dyed Blue (self_modulate)
+	- There is also an @export "influence_pointer", which is a Black TextureRect, initially
+	in centermost 0 VBoxContainer
+	Create method "set_hn_influence":
+		- Clamp the value to be between -3 and 3
+		- Get index of relevant track cell (4 + value + sign(value))
+		- Remove the influence_pointer as a child of relevant VBoxContainer
+		- Make the influence_pointer a child of relevant VBoxContainer
+	- Add HostNationInfluenceTrack to Game Scene, below Projects
+	- Create Signal "host_nation_influence_changed(new_influence: int)" in GameState
+	- Connect it to Game Scene's HNITrack, calling "set_hn_influence" with relevant value
+- Change different Card Types to exports
+- Add a "previous_move" member to GameState
+- Update do_move: when a Move is taken, set the previous_move to this new move taken
+- Add each Function Card Name as a Const into GameState
+- Create a "revealed_cards" Array[Card], to which all cards are initially added in setup_game
+Refactor Network to be stack-based:
+	- Remove Base Card from Player's Networks' Arrays of Arrays
+	- Make both Player's Networks Arrays of Arrays (with 4 Sub-Arrays, autodoc corresponding to A,B,C,D)
+	Create "get_full_network" method:
+		- One of args = Team
+		- Returns Array of ActionCards, constructed from the 4 Sub-Arrays of relevant Team Network
+	- Refactor the "MaintainNetworkMove" Code to work with the new Network:
+		- When do_move played with MaintainNetworkMove, based on 
+		- After discarding card(s), may rearrange up
+		 to all Action cards in own Network
+PassMove:
+	Consequences:
+		- Add print Statement saying "PLAYER NAME Passes"
+		- If previous_move is also PassMove, move to Projects Phase
+		- Add print Statement saying so
+For get_possible_moves in the Operations Phase, do as follows:
+	- Append PassMove by default
+	- Add if-statements for each Function Card Name, with TODO comments for the possible
+	two Functions
+	- Return the Possible Moves
+
+CardMove:
+	Members:
+		- card_to_use: Card - the Card that will be played
+	Consequences:
+		- discard card_to_use if move is CardMove
+	Combinations:
+		- Irrelevant, as all moves below will extend from this Move, and their
+		own logic will be handled for combinations
+
+InfluenceHostNationMove (extends CardMove):
+	Members:
+		- action_card_to_play_with: ActionCard - ActionCard to play Influence Host Nation With
+		- func get_influence_change() -> int = 1 + card_to_play_with value (if any, otherwise just 1)
+	Consequences:
+		- influence_change: int = get_influence_change()
+		- Depending on Player Type, add or subtract influence_change to hn_influence 
+		- Emit host_nation_influence_changed
+		- If action_card_to_play_with not null, discard it
+		- Move onto other team's operations phase
+		- Add Print Statement for playing without Action Card
+		- Add Print Statement for playing WITH Action Card
+	Combinations:
+		- Do in relevant if-statement
+		- Card_to_use is the card in the if-statement
+		- possible_influence_moves: Array[Move] = []
+		- InfluenceHostNationMove with null action_card_to_play_with
+		- For each Action Card in a Player's Hand OR Network (fuse two arrays together
+		for this purpose), append to possible_influence_moves an InfluenceHostNationMove
+		WITH THAT ActionCard added 
+	
+UseHostNationInfluenceMove (extends CardMove):
+	Members:
+		
+	Consequences:
+		
+	Combinations:
+		- Do in relevant if-statement
+		- Card_to_use is the card in the if-statement
+
+Create reveal_card(card: Card) method:
+	- Assert that card is NOT in revealed cards array
+	- Append to revealed_cards array
+
+RevealMove (extends CardMove):
+	Members:
+		- cards_to_reveal: Array[Card]
+	Consequences:
+		- Call "reveal_card" with each element in cards_to_reveal
+	Combinations:
+		- Do in relevant if-statement
+		- Card_to_use is the card in the if-statement
+		Only available if there are concealed cards in the Opposing Player's Network:
+			- If there is only one, append RevealMove with cards_to_reveal = that card
+			- If there is only two, append RevealMove with cards_to_reveal = those 2 cards
+			- Otherwise, use CombinatoricsUtilities, k = 2, Array = all concealed cards
+
+Create conceal_card method:
+	- Arg = card: Card
+	- Assert that card in revealed_cards Array
+	- Remove the card from the revealed_cards Array
+
+ConcealMove (extends CardMove):
+	Members:
+		- cards_to_conceal: Array[Card]
+	Consequences:
+		- Call "conceal_card" with each element in cards_to_reveal
+	Combinations:
+		- Do in relevant if-statement (same card as RevealMove)
+		- Card_to_use is the card in the if-statement
+		Only available if there are revealed cards in the Player's Network:
+			- If there is only one, append ConcealMove with conceal_card = that card
+			- If there is only two, append ConcealMove with conceal_card = those 2 cards
+			- Otherwise, use CombinatoricsUtilities, k = 2, Array = all revealed cards
+
+BuildManageNetworkMove (extends CardMove):
+	Members:
+		
+	Consequences:
+		
+	Combinations:
+
+DegradeNetworkMove (extends CardMove):
+	Members:
+		
+	Consequences:
+		
+	Combinations:
+
+ActionCardMove (extends CardMove):
+	Members:
+		
+	Consequences:
+		
+	Combinations:
+		
+
+- Once Operations Phase Implemented, check next_plans.txt to make sure there's nothing redundant
+in there
+
+Use Host Nation Influence - if the HN Influence Cube is on "your" side of the track, use
+either as Action Card with Value = HN Influence on 1 Project, or as Degrade Network
+Card
+
+10. Build/Manage Network -  Add up to 2 Action cards from hand to
+ Network (place concealed, any side,
+ anywhere in stack), or move 1 Action card
+ to any other side of Base card (Action card
+ becomes topmost card on that side, and
+ retains revealed/concealed status). 
+
+OR Degrade Network - Discard 1 Action card from enemy
+ Network. Card must be both revealed and
+ the topmost card on that side of Base card.
+
+Operations Phase:
+	- Play a Function Card, executing one of its two functions (if has in hand)
+	- Use an Action Card from their Network (if any in network)
+	- Pass (can always do so)
+	- When both Players pass, move onto next Phase
+
 Implement Operations Phase:
 	- Operations Phase:
 		- A player may play a Function card, executing one of its two functions, 
@@ -22,7 +185,9 @@ Implement Consequences of Cards Drawn:
 
 Plans:
 	- Implement Operations Phase, with all corollaries
-	- Implement Projects Phase, with all corollaries
+	- Implement Projects Phase, with all corollaries - read the example, if nothing understood,
+	completion of Projects should initially pick RANDOM outcome (e.g. random project to
+	add value to), then add as Gamerule(s) to let Country Team (or even Jedburgh Team) pick 
 	- Implement HN Influence Phase, with all corollaries
 	- Implement Game End Phase, with Victory Level Calculation etc.
 
@@ -72,10 +237,6 @@ Sequence of Play:
 			- If not:
 				- Raise the Time value of all Projects in play by 1, unless the Project’s Budget value 
 				is currently 0 (zero); then start a new turn with the Draw Cards Phase.
-
-Project Cards:
-	1. During the game, up to 4 Projects at a time will be placed in the 4 boxes labelled ABCD on the Game Mat, 
-	representing infrastructure projects currently being worked on.
 
 Base Cards and Networks
 	There are 2 Base cards in the game: 

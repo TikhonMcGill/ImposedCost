@@ -5,6 +5,10 @@
 
 [resource]
 script = ExtResource("1_uk02a")
-card_name = "Influence Host Nation"
-card_description = "Play alone for “1” value, or with 1 Action card from hand or Network (may be any card if from Network). Move cube total number of boxes towards “your” side. Discard Action card if used.Use HN Influence. If the HN Influence cube is on “your” side of the track, use as either an Action card of equal value to HN Influence value on 1 Project, or as a Degrade Network card. "
+card_name = "Influence Host Nation/Use Host Nation Influence"
+card_description = "Influence Host Nation:
+Play alone for “1” value, or with 1 Action card from hand or Network (may be any card if from Network). Move cube total number of boxes towards “your” side. Discard Action card if used.
+
+Use Host Nation Influence:
+If the HN Influence cube is on “your” side of the track, use as either an Action card of equal value to HN Influence value on 1 Project, or as a Degrade Network card. "
 card_image = ExtResource("1_7afl3")

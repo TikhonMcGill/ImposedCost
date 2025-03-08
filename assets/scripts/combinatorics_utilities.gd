@@ -76,6 +76,13 @@ func _generate_permutations(combination: Array) -> Array:
 	
 	return permutations
 
+##TODO Generate all possible combinations of N Subarrays, given an Array
+##If all_elements == True, then EVERY element in the Array must appear at least once in the Subarrays
+##If with_replacement == True, then there can be multiple instances of the same Element in the Subarrays
+##If order_matters == True, then there can be subarrays with the exact same elements, BUT with different ordering amongst them
+func generate_subarrays(array: Array, sub_array_count: int, all_elements: bool, with_replacement: bool, order_matters: bool) -> Array:
+	return []
+
 ##Function to calculate factorial
 func factorial(x: int) -> int:
 	if x <= 1:
