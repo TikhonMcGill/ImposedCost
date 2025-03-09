@@ -1,3 +1,68 @@
+Improve CombinatoricsUtilities:
+	Understand, CONCEPTUALLY, how to construct subarrays, given the following arguments:
+		- Array array: array from which to construct subarrays
+		- Int n: no. subarrays in each combination
+		- Bool all_elements: whether all elements of the array must be used in the combination, at least once
+		- Bool with_replacement: whether elements of the array can show up more than once across subarrays
+		- Bool order_matters: whether order of the subarrays matters (e.g. [[1], [2, 3]]] also counting for [[1], [3, 2]])
+		Understand Simple Cases, by calculating them manually:
+			- SAVE THESE CALCULATIONS FOR FUTURE USE
+			- Empty Array, what would n == 2 generate with:
+				- all_elements == False? with_replacement == False? order_matters == False?
+				- all_elements == False? with_replacement == False? order_matters == True?
+				- all_elements == False? with_replacement == True? order_matters == False?
+				- all_elements == False? with_replacement == True? order_matters == True?
+				- all_elements == True? with_replacement == False? order_matters == False?
+				- all_elements == True? with_replacement == False? order_matters == True?
+				- all_elements == True? with_replacement == True? order_matters == False?
+				- all_elements == True? with_replacement == True? order_matters == True?
+			- Single-element Array, what would n == 2 generate with:
+				- all_elements == False? with_replacement == False? order_matters == False?
+				- all_elements == False? with_replacement == False? order_matters == True?
+				- all_elements == False? with_replacement == True? order_matters == False?
+				- all_elements == False? with_replacement == True? order_matters == True?
+				- all_elements == True? with_replacement == False? order_matters == False?
+				- all_elements == True? with_replacement == False? order_matters == True?
+				- all_elements == True? with_replacement == True? order_matters == False?
+				- all_elements == True? with_replacement == True? order_matters == True?
+			- Two-element Array, what would n == 2 generate with:
+				- all_elements == False? with_replacement == False? order_matters == False?
+				- all_elements == False? with_replacement == False? order_matters == True?
+				- all_elements == False? with_replacement == True? order_matters == False?
+				- all_elements == False? with_replacement == True? order_matters == True?
+				- all_elements == True? with_replacement == False? order_matters == False?
+				- all_elements == True? with_replacement == False? order_matters == True?
+				- all_elements == True? with_replacement == True? order_matters == False?
+				- all_elements == True? with_replacement == True? order_matters == True?
+			- Three-element Array, what would n == 2 generate with:
+				- all_elements == False? with_replacement == False? order_matters == False?
+				- all_elements == False? with_replacement == False? order_matters == True?
+				- all_elements == False? with_replacement == True? order_matters == False?
+				- all_elements == False? with_replacement == True? order_matters == True?
+				- all_elements == True? with_replacement == False? order_matters == False?
+				- all_elements == True? with_replacement == False? order_matters == True?
+				- all_elements == True? with_replacement == True? order_matters == False?
+				- all_elements == True? with_replacement == True? order_matters == True?
+			- Three-element Array, what would n == 3 generate with:
+				- all_elements == False? with_replacement == False? order_matters == False?
+				- all_elements == False? with_replacement == False? order_matters == True?
+				- all_elements == False? with_replacement == True? order_matters == False?
+				- all_elements == False? with_replacement == True? order_matters == True?
+				- all_elements == True? with_replacement == False? order_matters == False?
+				- all_elements == True? with_replacement == False? order_matters == True?
+				- all_elements == True? with_replacement == True? order_matters == False?
+				- all_elements == True? with_replacement == True? order_matters == True?
+	- Extract a high-level algorithm from this (take notes below this plan and 
+	above Influence Track Graphically)
+	- Based on this high-level algorithm, create an implementation
+	- Write Test Cases for:
+		- All of these different Calculations, make sure they are correct
+	- Run the Test Cases
+	- Fix the code as needed
+	- Transfer to ReusableAssets
+	- (Keep working on comprehensive plan of Operations Phase - once reach this bracket,
+	remove it immediately)
+
 Add a Host Nation Influence Track Graphically Ingame:
 	- Node Extending HBoxContainer, called "HostNationInfluenceTrack"
 	It contains 9 PanelContainers:

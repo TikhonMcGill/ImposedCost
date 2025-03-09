@@ -76,7 +76,8 @@ func _generate_permutations(combination: Array) -> Array:
 	
 	return permutations
 
-##TODO Generate all possible combinations of N Subarrays, given an Array
+##TODO Generate all possible combinations of sub_array_count Subarrays, given an Array array
+##For example, given sub_array_count of 3, generate all possible combinations of 3 Subarrays
 ##If all_elements == True, then EVERY element in the Array must appear at least once in the Subarrays
 ##If with_replacement == True, then there can be multiple instances of the same Element in the Subarrays
 ##If order_matters == True, then there can be subarrays with the exact same elements, BUT with different ordering amongst them
