@@ -1,65 +1,223 @@
+- Array base_array: array from which to construct subarrays
+- Int n: no. subarrays in each combination
+- Bool allow_empty: whether to allow empty subarrays
+- Bool all_elements: whether all elements need to be in the array at least once
+- Bool with_replacement: whether elements of the array can show up more than once across subarrays
+- Bool order_matters: whether order of the subarrays matters (e.g. [[1], [2, 3]]] also counting for [[1], [3, 2]])
+- Bool internal_order_matters: whether order of the elements of the subarrays matters (e.g. whether [[1, 2], [3]] also counts for [[2, 1], [3]])
+
+1. If given an empty array, and allow_empty is false, then return []
+2. If given an empty array and allow_empty is true, then return array with array of N empty subarrays (e.g. for n = 2, return [ [ [ ], [ ] ] ]
+
+Helper Function to Construct Partitions:
+	Args:
+		- base_array_size: int
+		- sub_array_count: int
+		- all_elements: bool
+		- allow_empty: bool
+	Method:
+		- possible_partitions = []
+		- possible_partition_numbers = []
+		- if allow_empty = true, append 0
+		- iterate from 1 to base_array_size, appending that value
+		- Generate all possible size sub_array_count combinations of these numbers
+		- Iterate through them:
+			- If the sum of these partitions == base_array_size, append to possible_partitions
+			- If the sum of these partitions < base_array_size and all_elements == false, append to possible_partitions
+		- Return possible_partitions
+		- Test Cases:
+			- (Print first, then, if all works, add asserts)
+			- Array Size of 3, 2 Sub-arrays, all elements True, allow empty True
+			- Array Size of 3, 2 Sub-arrays, all elements True, allow empty False
+			- Array Size of 3, 2 Sub-arrays, all elements False, allow empty True
+			- Array Size of 3, 2 Sub-arrays, all elements False, allow empty False
+			- Array Size of 4, 2 Sub-arrays, all elements True, allow empty True
+			- Array Size of 4, 2 Sub-arrays, all elements True, allow empty False
+			- Array Size of 4, 2 Sub-arrays, all elements False, allow empty True
+			- Array Size of 4, 2 Sub-arrays, all elements False, allow empty False
+			- Array Size of 4, 3 Sub-arrays, all elements True, allow empty True
+			- Array Size of 4, 3 Sub-arrays, all elements True, allow empty False
+			- Array Size of 4, 3 Sub-arrays, all elements False, allow empty True
+			- Array Size of 4, 3 Sub-arrays, all elements False, allow empty False
+
+Helper Function to Apply Partition:
+	Args:
+		- Sub_array_elements: Array
+		- Partition: Array
+	Method:
+		- Basically just a bunch of slicing
+		- Return the applied partition of elements
+	Test cases:
+		- (Print first, make sure works as expected, then write asserts)
+		- Apply [0, 0, 0] to [1, 2, 3] (should just be [[], [], []])
+		- Apply [1, 1, 1] to [1, 2, 3] (should be [[1], [2], [3]])
+		- Apply [1, 2, 0] to [1, 2, 3] (should be [[1], [2, 3], []])
+
+Helper Function Arrays Equal:
+	Args:
+		- first_array: Array
+		- second_array: Array
+		- order_matters: bool
+	Method:
+		- If order_matters, simple equality check (built-in)
+		If order DOESN'T MATTER:
+			- If different lengths, return false
+			- Iterate through each item in first array - if not in second array, return false
+			- Return true
+	Test cases:
+		- Test [1, 2] with [1, 2], order_matters = true (should return true)
+		- Test [1, 2] with [1, 2], order_matters = false (should return true)
+		- Test [1, 2] with [2, 1], order_matters = true (should return false)
+		- Test [1, 2] with [2, 1], order_matters = true (should return true)
+		- Test [1, 2, 3] with [1, 2, 3], order_matters = true (should return true)
+		- Test [1, 2, 3] with [3, 2, 1], order_matters = true (should return false)
+		- Test [1, 2, 3] with [3, 2, 1], order_matters = false (should return true)
+		- Test [1, 2] with [1, 2, 3], order_matters = false (should return false, different sizes)
+
+Helper Function Combinations of Subarrays Equal:
+	Args:
+		- first_subarray_combination: Array
+		- second_subarray_combination: Array
+		- order_matters: bool
+		- internal_order_matters: bool
+	Method:
+		- If different lengths, return false
+		If order matters:
+			- Iterate index of first combination
+			- If subarray at index i of first combination and second combination not equal, return false
+			- For equality of subarrays, order_matters = internal_order_matters
+			- return true
+		If order DOESN'T MATTER:
+			- If different lengths
+			Iterate through subarray of first combination:
+				- If there exists a subarray equal to current subarray, continue
+				- Otherwise, return false
+				- For equality, use subarray equality helper func, order_matters = internal_order_matters
+			- return true
+	Test cases:
+		- Test if [[1, 2], [1]] and [[1, 2]] returns false - different lengths
+		- Test [[1, 2], [3, 4]] and [[1, 2], [3, 4]], order_matters = true, internal_order_matters = true
+			- Should return true
+		- Test [[1, 2], [3, 4]] and [[2, 1], [4, 3]], order_matters = true, internal_order_matters = false
+			- Should return true
+		- Test [[1, 2], [3, 4]] and [[3, 4], [1, 2]], order_matters = false, internal_order_matters = true
+			- Should return true
+		- Test [[1, 2], [3, 4]] and [[4, 3], [2, 1]], order_matters = false, internal_order_matters = false
+			- Should return true
+		- Test [[1, 2], [3, 4]] and [[3, 4], [1, 2]], order_matters = true, internal_order_matters = true
+			- Should return false
+		- Test [[1, 2], [3, 4]] and [[4, 3], [2, 1]], order_matters = true, internal_order_matters = false
+			- Should return false
+		- Test [[1, 2], [3, 4]] and [[4, 3], [2, 1]], order_matters = false, internal_order_matters = true
+			- Should return false
+		- Test [[1, 2], [3, 4]] and [[3, 3], [4, 4]], order_matters = false, internal_order_matters = false
+			- Should return false
+
+Helper Function to make sure that a Subarray Combination is valid:
+	Args:
+		- subarray_combination: Array
+		- base_array: Array
+		- all_elements: bool
+	Method:
+		- all_elements is false, return true
+		Otherwise:
+			- If sum of lens of subarray combination < len(base_array), return false immediately
+			- Iterate through base_array elements
+			- If element not in one of subarray_combination subarrays, return false
+			- Return true
+	Test cases:
+		- Test [[1], [2]] with [1, 2], all_elements true - should return true
+		- Test [[1]] with [1, 2], all_elements true - should return false
+		- Test [[1]] with [1, 2], all_elements false - should return true
+
+Constructing Possible Sub-Array Combinations:
+	- "possible_subarray_combinations" Array
+	- Construct Possible Starting Combinations of Elements:
+		Use the combinations generator:
+			- array = base_array
+			- k = len(base_array)
+			- with_replacement = false
+			- order_matters = internal_order_matters
+	- Construct Possible Partitions of Elements:
+		- base_array_size = len(base_array)
+		- sub_array_count = sub_array_count
+		- all_elements = all_elements
+		- allow_empty = allow_empty
+	- Apply all partitions to all combinations of elements, using double for-loop with
+	helper functions
+	Iterate through all partitions:
+		- valid = whether combination is valid (all_elements = all_elements)
+		If valid still true, iterate through possible_subarray_combinations:
+			- If the current combination is equal to one in the subarray combinations, valid = false, break from the loop
+			For equality, use helper function defined above:
+				- first_subarray_combination = i
+				- second_subarray_combination = j
+				- order_matters = order_matters
+				- internal_order_matters = internal_order_matters
+		- if valid true, append to possible_subarray_combinations
+	- return possible_subarray_combinations
+
+Test Functions:
+	- (Print first, make sure works as expected, write results below, then write asserts)
+	- Empty Array, what would n == 2 generate with:
+		- all_elements = True, with_replacement = True, order_matters = True, internal_order_matters = True
+		- all_elements = True, with_replacement = True, order_matters = True, internal_order_matters = False
+		- all_elements = True, with_replacement = True, order_matters = False, internal_order_matters = True
+		- all_elements = True, with_replacement = True, order_matters = False, internal_order_matters = False
+		- all_elements = True, with_replacement = False, order_matters = True, internal_order_matters = True
+		- all_elements = True, with_replacement = False, order_matters = True, internal_order_matters = False
+		- all_elements = True, with_replacement = False, order_matters = False, internal_order_matters = True
+		- all_elements = True, with_replacement = False, order_matters = False, internal_order_matters = False
+		- all_elements = False, with_replacement = True, order_matters = True, internal_order_matters = True
+		- all_elements = False, with_replacement = True, order_matters = True, internal_order_matters = False
+		- all_elements = False, with_replacement = True, order_matters = False, internal_order_matters = True
+		- all_elements = False, with_replacement = True, order_matters = False, internal_order_matters = False
+		- all_elements = False, with_replacement = False, order_matters = True, internal_order_matters = True
+		- all_elements = False, with_replacement = False, order_matters = True, internal_order_matters = False
+		- all_elements = False, with_replacement = False, order_matters = False, internal_order_matters = True
+		- all_elements = False, with_replacement = False, order_matters = False, internal_order_matters = False
+	- Single-element Array, what would n == 2 generate with:
+		- all_elements = True, with_replacement = True, order_matters = True, internal_order_matters = True
+		- all_elements = True, with_replacement = True, order_matters = True, internal_order_matters = False
+		- all_elements = True, with_replacement = True, order_matters = False, internal_order_matters = True
+		- all_elements = True, with_replacement = True, order_matters = False, internal_order_matters = False
+		- all_elements = True, with_replacement = False, order_matters = True, internal_order_matters = True
+		- all_elements = True, with_replacement = False, order_matters = True, internal_order_matters = False
+		- all_elements = True, with_replacement = False, order_matters = False, internal_order_matters = True
+		- all_elements = True, with_replacement = False, order_matters = False, internal_order_matters = False
+		- all_elements = False, with_replacement = True, order_matters = True, internal_order_matters = True
+		- all_elements = False, with_replacement = True, order_matters = True, internal_order_matters = False
+		- all_elements = False, with_replacement = True, order_matters = False, internal_order_matters = True
+		- all_elements = False, with_replacement = True, order_matters = False, internal_order_matters = False
+		- all_elements = False, with_replacement = False, order_matters = True, internal_order_matters = True
+		- all_elements = False, with_replacement = False, order_matters = True, internal_order_matters = False
+		- all_elements = False, with_replacement = False, order_matters = False, internal_order_matters = True
+		- all_elements = False, with_replacement = False, order_matters = False, internal_order_matters = False
+	- Two-Element Array, what would n == 2 generate with:
+		- all_elements = True, with_replacement = True, order_matters = True, internal_order_matters = True
+		- all_elements = True, with_replacement = True, order_matters = True, internal_order_matters = False
+		- all_elements = True, with_replacement = True, order_matters = False, internal_order_matters = True
+		- all_elements = True, with_replacement = True, order_matters = False, internal_order_matters = False
+		- all_elements = True, with_replacement = False, order_matters = True, internal_order_matters = True
+		- all_elements = True, with_replacement = False, order_matters = True, internal_order_matters = False
+		- all_elements = True, with_replacement = False, order_matters = False, internal_order_matters = True
+		- all_elements = True, with_replacement = False, order_matters = False, internal_order_matters = False
+		- all_elements = False, with_replacement = True, order_matters = True, internal_order_matters = True
+		- all_elements = False, with_replacement = True, order_matters = True, internal_order_matters = False
+		- all_elements = False, with_replacement = True, order_matters = False, internal_order_matters = True
+		- all_elements = False, with_replacement = True, order_matters = False, internal_order_matters = False
+		- all_elements = False, with_replacement = False, order_matters = True, internal_order_matters = True
+		- all_elements = False, with_replacement = False, order_matters = True, internal_order_matters = False
+		- all_elements = False, with_replacement = False, order_matters = False, internal_order_matters = True
+		- all_elements = False, with_replacement = False, order_matters = False, internal_order_matters = False
+
 Improve CombinatoricsUtilities:
-	Understand, CONCEPTUALLY, how to construct subarrays, given the following arguments:
-		- Array array: array from which to construct subarrays
-		- Int n: no. subarrays in each combination
-		- Bool all_elements: whether all elements of the array must be used in the combination, at least once
-		- Bool with_replacement: whether elements of the array can show up more than once across subarrays
-		- Bool order_matters: whether order of the subarrays matters (e.g. [[1], [2, 3]]] also counting for [[1], [3, 2]])
-		Understand Simple Cases, by calculating them manually:
-			- SAVE THESE CALCULATIONS FOR FUTURE USE
-			- Empty Array, what would n == 2 generate with:
-				- all_elements == False? with_replacement == False? order_matters == False?
-				- all_elements == False? with_replacement == False? order_matters == True?
-				- all_elements == False? with_replacement == True? order_matters == False?
-				- all_elements == False? with_replacement == True? order_matters == True?
-				- all_elements == True? with_replacement == False? order_matters == False?
-				- all_elements == True? with_replacement == False? order_matters == True?
-				- all_elements == True? with_replacement == True? order_matters == False?
-				- all_elements == True? with_replacement == True? order_matters == True?
-			- Single-element Array, what would n == 2 generate with:
-				- all_elements == False? with_replacement == False? order_matters == False?
-				- all_elements == False? with_replacement == False? order_matters == True?
-				- all_elements == False? with_replacement == True? order_matters == False?
-				- all_elements == False? with_replacement == True? order_matters == True?
-				- all_elements == True? with_replacement == False? order_matters == False?
-				- all_elements == True? with_replacement == False? order_matters == True?
-				- all_elements == True? with_replacement == True? order_matters == False?
-				- all_elements == True? with_replacement == True? order_matters == True?
-			- Two-element Array, what would n == 2 generate with:
-				- all_elements == False? with_replacement == False? order_matters == False?
-				- all_elements == False? with_replacement == False? order_matters == True?
-				- all_elements == False? with_replacement == True? order_matters == False?
-				- all_elements == False? with_replacement == True? order_matters == True?
-				- all_elements == True? with_replacement == False? order_matters == False?
-				- all_elements == True? with_replacement == False? order_matters == True?
-				- all_elements == True? with_replacement == True? order_matters == False?
-				- all_elements == True? with_replacement == True? order_matters == True?
-			- Three-element Array, what would n == 2 generate with:
-				- all_elements == False? with_replacement == False? order_matters == False?
-				- all_elements == False? with_replacement == False? order_matters == True?
-				- all_elements == False? with_replacement == True? order_matters == False?
-				- all_elements == False? with_replacement == True? order_matters == True?
-				- all_elements == True? with_replacement == False? order_matters == False?
-				- all_elements == True? with_replacement == False? order_matters == True?
-				- all_elements == True? with_replacement == True? order_matters == False?
-				- all_elements == True? with_replacement == True? order_matters == True?
-			- Three-element Array, what would n == 3 generate with:
-				- all_elements == False? with_replacement == False? order_matters == False?
-				- all_elements == False? with_replacement == False? order_matters == True?
-				- all_elements == False? with_replacement == True? order_matters == False?
-				- all_elements == False? with_replacement == True? order_matters == True?
-				- all_elements == True? with_replacement == False? order_matters == False?
-				- all_elements == True? with_replacement == False? order_matters == True?
-				- all_elements == True? with_replacement == True? order_matters == False?
-				- all_elements == True? with_replacement == True? order_matters == True?
-	- Extract a high-level algorithm from this (take notes below this plan and 
-	above Influence Track Graphically)
-	- Based on this high-level algorithm, create an implementation
-	- Write Test Cases for:
-		- All of these different Calculations, make sure they are correct
+	- Create an implementation
 	- Run the Test Cases
 	- Fix the code as needed
 	- Transfer to ReusableAssets
+	- In ReusableAssets, add to the Plan to also get all possible Subarrays, with relevant arguments
+	- Also add to the plan to add a "Count" of Subarrays, and test cases outwith that
 	- (Keep working on comprehensive plan of Operations Phase - once reach this bracket,
 	remove it immediately)
 
