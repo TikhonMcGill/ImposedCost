@@ -78,7 +78,7 @@ func _generate_permutations(combination: Array) -> Array:
 
 ##Helper method for Constructing Possible Array Partitions (helper function for getting
 ##combinations of subarrays)
-func _get_possible_partitions(base_array_size: int, sub_array_count: int, all_elements: bool, allow_empty: bool) -> Array:
+func _get_possible_partitions(base_array_size: int, subarray_count: int, all_elements: bool, allow_empty: bool) -> Array:
 	var possible_partitions: Array = []
 	
 	var possible_partition_numbers: Array = []
@@ -91,7 +91,7 @@ func _get_possible_partitions(base_array_size: int, sub_array_count: int, all_el
 	for x in range(1, base_array_size + 1):
 		possible_partition_numbers.append(x)
 	
-	var partition_combinations: Array = generate_combinations(possible_partition_numbers, sub_array_count, true, true)
+	var partition_combinations: Array = generate_combinations(possible_partition_numbers, subarray_count, true, true)
 	for p: Array in partition_combinations:
 		var total_element_size: int = 0
 		for elem: int in p:
@@ -103,6 +103,18 @@ func _get_possible_partitions(base_array_size: int, sub_array_count: int, all_el
 			possible_partitions.append(p)
 	
 	return possible_partitions
+
+##Apply a Partition to an Array, converting it into Subarrays of sizes determined by Partitions
+func _apply_partition(subarray_elements: Array, partitions: Array) -> Array:
+	var result: Array = []
+	var duplicated_elements: Array = subarray_elements.duplicate()
+	
+	for p: int in partitions:
+		var subarray: Array = duplicated_elements.slice(0, p)
+		duplicated_elements = duplicated_elements.slice(p)
+		result.append(subarray)
+	
+	return result
 
 ##TODO Generate all possible combinations of sub_array_count Subarrays, given an Array array
 ##For example, given sub_array_count of 3, generate all possible combinations of 3 Subarrays
@@ -252,3 +264,10 @@ func test_subarray_combinatorics() -> void:
 	assert(_get_possible_partitions(4, 3, true, false) == [[1, 1, 2], [1, 2, 1], [2, 1, 1]])
 	assert(_get_possible_partitions(4, 3, false, true) == [[0, 0, 0], [0, 0, 1], [0, 1, 0], [1, 0, 0], [0, 0, 2], [0, 2, 0], [2, 0, 0], [0, 0, 3], [0, 3, 0], [3, 0, 0], [0, 0, 4], [0, 4, 0], [4, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 0], [0, 1, 2], [1, 0, 2], [1, 2, 0], [0, 2, 1], [2, 0, 1], [2, 1, 0], [0, 1, 3], [1, 0, 3], [1, 3, 0], [0, 3, 1], [3, 0, 1], [3, 1, 0], [0, 2, 2], [2, 0, 2], [2, 2, 0], [1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1]])
 	assert(_get_possible_partitions(4, 3, false, false) == [[1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1]])
+	
+	#Test the _apply_partition helper func
+	assert(_apply_partition([1, 2, 3], [0, 0, 0]) == [[], [], []])
+	assert(_apply_partition([1, 2, 3], [1, 1, 1]) == [[1], [2], [3]])
+	assert(_apply_partition([1, 2, 3], [1, 2, 0]) == [[1], [2, 3], []])
+	assert(_apply_partition([1, 2, 3], [2, 1, 0]) == [[1, 2], [3], []])
+	assert(_apply_partition([1, 2, 3], [2, 0, 1]) == [[1, 2], [], [3]])
