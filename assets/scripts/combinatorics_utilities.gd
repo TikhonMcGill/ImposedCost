@@ -76,12 +76,46 @@ func _generate_permutations(combination: Array) -> Array:
 	
 	return permutations
 
+##Helper method for Constructing Possible Array Partitions (helper function for getting
+##combinations of subarrays)
+func _get_possible_partitions(base_array_size: int, sub_array_count: int, all_elements: bool, allow_empty: bool) -> Array:
+	var possible_partitions: Array = []
+	
+	var possible_partition_numbers: Array = []
+	
+	#If empty subarrays are allowed, add 0 as a possible subarray size
+	if allow_empty == true:
+		possible_partition_numbers.append(0)
+	
+	#Append all possible sizes of subarrays to partition numbers
+	for x in range(1, base_array_size + 1):
+		possible_partition_numbers.append(x)
+	
+	var partition_combinations: Array = generate_combinations(possible_partition_numbers, sub_array_count, true, true)
+	for p: Array in partition_combinations:
+		var total_element_size: int = 0
+		for elem: int in p:
+			total_element_size += elem
+		
+		if total_element_size == base_array_size:
+			possible_partitions.append(p)
+		elif total_element_size < base_array_size and all_elements == false:
+			possible_partitions.append(p)
+	
+	return possible_partitions
+
 ##TODO Generate all possible combinations of sub_array_count Subarrays, given an Array array
 ##For example, given sub_array_count of 3, generate all possible combinations of 3 Subarrays
+##If allow_empty == True, then empty Subarrays are allowed
 ##If all_elements == True, then EVERY element in the Array must appear at least once in the Subarrays
 ##If with_replacement == True, then there can be multiple instances of the same Element in the Subarrays
 ##If order_matters == True, then there can be subarrays with the exact same elements, BUT with different ordering amongst them
-func generate_subarrays(array: Array, sub_array_count: int, all_elements: bool, with_replacement: bool, order_matters: bool) -> Array:
+##If internal_order_matters == True, then elements inside the subarrays themselves can be of different orders
+func generate_subarrays(base_array: Array, sub_array_count: int, allow_empty: bool, all_elements: bool, with_replacement: bool, order_matters: bool, internal_order_matters: bool) -> Array:
+	#If given an empty array, and allow_empty is false, return []
+	if base_array.is_empty() == true and allow_empty == false:
+		return []
+	
 	return []
 
 ##Function to calculate factorial
@@ -196,3 +230,25 @@ func test_combinatorics_counts() -> void:
 	
 	count = count_combinations(3, 1, false, false)
 	assert(count == 3)
+
+##Test Cases for Subarray Combinatorics
+func test_subarray_combinatorics() -> void:
+	#Test the _get_possible_partitions helper func
+	
+	#Array Size 3, 2 Subarrays
+	assert(_get_possible_partitions(3, 2, true, true) == [[0, 3], [3, 0], [1, 2], [2, 1]])
+	assert(_get_possible_partitions(3, 2, true, false) == [[1, 2], [2, 1]])
+	assert(_get_possible_partitions(3, 2, false, true) == [[0, 0], [0, 1], [1, 0], [0, 2], [2, 0], [0, 3], [3, 0], [1, 1], [1, 2], [2, 1]])
+	assert(_get_possible_partitions(3, 2, false, false) == [[1, 1], [1, 2], [2, 1]])
+	
+	#Array Size 4, 2 Subarrays
+	assert(_get_possible_partitions(4, 2, true, true) == [[0, 4], [4, 0], [1, 3], [3, 1], [2, 2]])
+	assert(_get_possible_partitions(4, 2, true, false) == [[1, 3], [3, 1], [2, 2]])
+	assert(_get_possible_partitions(4, 2, false, true) == [[0, 0], [0, 1], [1, 0], [0, 2], [2, 0], [0, 3], [3, 0], [0, 4], [4, 0], [1, 1], [1, 2], [2, 1], [1, 3], [3, 1], [2, 2]])
+	assert(_get_possible_partitions(4, 2, false, false) == [[1, 1], [1, 2], [2, 1], [1, 3], [3, 1], [2, 2]])
+	
+	#Array Size 4, 3 Subarrays
+	assert(_get_possible_partitions(4, 3, true, true) == [[0, 0, 4], [0, 4, 0], [4, 0, 0], [0, 1, 3], [1, 0, 3], [1, 3, 0], [0, 3, 1], [3, 0, 1], [3, 1, 0], [0, 2, 2], [2, 0, 2], [2, 2, 0], [1, 1, 2], [1, 2, 1], [2, 1, 1]])
+	assert(_get_possible_partitions(4, 3, true, false) == [[1, 1, 2], [1, 2, 1], [2, 1, 1]])
+	assert(_get_possible_partitions(4, 3, false, true) == [[0, 0, 0], [0, 0, 1], [0, 1, 0], [1, 0, 0], [0, 0, 2], [0, 2, 0], [2, 0, 0], [0, 0, 3], [0, 3, 0], [3, 0, 0], [0, 0, 4], [0, 4, 0], [4, 0, 0], [0, 1, 1], [1, 0, 1], [1, 1, 0], [0, 1, 2], [1, 0, 2], [1, 2, 0], [0, 2, 1], [2, 0, 1], [2, 1, 0], [0, 1, 3], [1, 0, 3], [1, 3, 0], [0, 3, 1], [3, 0, 1], [3, 1, 0], [0, 2, 2], [2, 0, 2], [2, 2, 0], [1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1]])
+	assert(_get_possible_partitions(4, 3, false, false) == [[1, 1, 1], [1, 1, 2], [1, 2, 1], [2, 1, 1]])
