@@ -162,6 +162,34 @@ func _are_subarray_combinations_equal(first_combination: Array, second_combinati
 	
 	return equal_counts == len(first_combination)
 
+##Check if a Subarray Combination is Valid
+func _is_combination_valid(combination: Array, base_array: Array, all_elements: bool) -> bool:
+	if all_elements == false:
+		return true
+	
+	#Calculate the sum of the lengths of the subarrays
+	var sum_of_lens: int = 0
+	for subarray: Array in combination:
+		sum_of_lens += len(subarray)
+	
+	#If the sum of lengths is less than the length of the base array, we're definitely missing something
+	if sum_of_lens < len(base_array):
+		return false
+	
+	#Iterate through the base array, making sure its elements are in one of the subarrays
+	for elem: Variant in base_array:
+		var is_present: bool = false
+		
+		for subarray: Array in combination:
+			if elem in subarray:
+				is_present = true
+				break
+		
+		if is_present == false:
+			return false
+	
+	return true
+
 ##TODO Generate all possible combinations of sub_array_count Subarrays, given an Array array
 ##For example, given sub_array_count of 3, generate all possible combinations of 3 Subarrays
 ##If allow_empty == True, then empty Subarrays are allowed
@@ -345,3 +373,11 @@ func test_subarray_combinatorics() -> void:
 	assert(_are_subarray_combinations_equal(test_array, [[4, 3], [2, 1]], true, false) == false)
 	assert(_are_subarray_combinations_equal(test_array, [[4, 3], [2, 1]], false, true) == false)
 	assert(_are_subarray_combinations_equal(test_array, [[3, 3], [4, 4]], false, false) == false)
+	
+	#Test the _is_combination_valid helper func
+	var test_base_array: Array = [1, 2]
+	
+	assert(_is_combination_valid([[1], [2]], test_base_array, true) == true)
+	assert(_is_combination_valid([[1, 2]], test_base_array, true) == true)
+	assert(_is_combination_valid([[1]], test_base_array, true) == false)
+	assert(_is_combination_valid([[1]], test_base_array, false) == true)
