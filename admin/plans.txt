@@ -1,24 +1,3 @@
-Helper Function Arrays Equal:
-	Args:
-		- first_array: Array
-		- second_array: Array
-		- order_matters: bool
-	Method:
-		- If order_matters, simple equality check (built-in)
-		If order DOESN'T MATTER:
-			- If different lengths, return false
-			- Iterate through each item in first array - if not in second array, return false
-			- Return true
-	Test cases:
-		- Test [1, 2] with [1, 2], order_matters = true (should return true)
-		- Test [1, 2] with [1, 2], order_matters = false (should return true)
-		- Test [1, 2] with [2, 1], order_matters = true (should return false)
-		- Test [1, 2] with [2, 1], order_matters = true (should return true)
-		- Test [1, 2, 3] with [1, 2, 3], order_matters = true (should return true)
-		- Test [1, 2, 3] with [3, 2, 1], order_matters = true (should return false)
-		- Test [1, 2, 3] with [3, 2, 1], order_matters = false (should return true)
-		- Test [1, 2] with [1, 2, 3], order_matters = false (should return false, different sizes)
-
 Helper Function Combinations of Subarrays Equal:
 	Args:
 		- first_subarray_combination: Array

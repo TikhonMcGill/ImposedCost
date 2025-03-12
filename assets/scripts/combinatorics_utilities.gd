@@ -116,6 +116,27 @@ func _apply_partition(subarray_elements: Array, partitions: Array) -> Array:
 	
 	return result
 
+##Check if two Subarrays are Equal
+func _are_subarrays_equal(first_subarray: Array, second_subarray: Array, order_matters: bool) -> bool:
+	#If the two subarrays are of different sizes, they're obviously different
+	if len(first_subarray) != len(second_subarray):
+		return false
+	
+	#If order matters, compare elements one-by-one at exact positions
+	if order_matters == true:
+		for i in range(len(first_subarray)):
+			if first_subarray[i] != second_subarray[i]:
+				return false
+		return true
+	
+	#If order doesn't matter, simply make sure every element in the first subarray is
+	#also in the second
+	for e: Variant in first_subarray:
+		if e not in second_subarray:
+			return false
+	
+	return true
+
 ##TODO Generate all possible combinations of sub_array_count Subarrays, given an Array array
 ##For example, given sub_array_count of 3, generate all possible combinations of 3 Subarrays
 ##If allow_empty == True, then empty Subarrays are allowed
@@ -271,3 +292,16 @@ func test_subarray_combinatorics() -> void:
 	assert(_apply_partition([1, 2, 3], [1, 2, 0]) == [[1], [2, 3], []])
 	assert(_apply_partition([1, 2, 3], [2, 1, 0]) == [[1, 2], [3], []])
 	assert(_apply_partition([1, 2, 3], [2, 0, 1]) == [[1, 2], [], [3]])
+	
+	#Test the _are_subarrays_equal helper func
+	assert(_are_subarrays_equal([1, 2], [1], false) == false)
+	assert(_are_subarrays_equal([1, 2], [1, 2, 3], true) == false)
+	
+	assert(_are_subarrays_equal([1, 2], [1, 2], true) == true)
+	assert(_are_subarrays_equal([1, 2], [1, 2], false) == true)
+	assert(_are_subarrays_equal([1, 2], [2, 1], true) == false)
+	assert(_are_subarrays_equal([1, 2], [2, 1], false) == true)
+	
+	assert(_are_subarrays_equal([1, 2, 3], [1, 2, 3], true) == true)
+	assert(_are_subarrays_equal([1, 2, 3], [3, 2, 1], true) == false)
+	assert(_are_subarrays_equal([1, 2, 3], [3, 2, 1], false) == true)
