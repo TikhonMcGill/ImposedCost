@@ -137,6 +137,31 @@ func _are_subarrays_equal(first_subarray: Array, second_subarray: Array, order_m
 	
 	return true
 
+##Check if two Subarray Combinations are Equal
+func _are_subarray_combinations_equal(first_combination: Array, second_combination: Array, order_matters: bool, internal_order_matters: bool) -> bool:
+	#If the Combinations are of different length, they're obviously not equal
+	if len(first_combination) != len(second_combination):
+		return false
+	
+	#If order matters, check if each subarray in first combination is equal in second combination IN THAT POSITION
+	if order_matters == true:
+		for i in range(len(first_combination)):
+			#Whether order matters in subarray comparisons is based on whether internal order matters
+			if _are_subarrays_equal(first_combination[i], second_combination[i], internal_order_matters) == false:
+				return false
+		
+		return true
+	
+	#Otherwise, just check if, for each subarray in the first combination, there is an equal one in the second combination
+	var equal_counts: int = 0 #The no. Equal Subarrays Found
+	
+	for subarray: Array in first_combination:
+		for second_subarray: Array in second_combination:
+			if _are_subarrays_equal(subarray, second_subarray, internal_order_matters) == true:
+				equal_counts += 1
+	
+	return equal_counts == len(first_combination)
+
 ##TODO Generate all possible combinations of sub_array_count Subarrays, given an Array array
 ##For example, given sub_array_count of 3, generate all possible combinations of 3 Subarrays
 ##If allow_empty == True, then empty Subarrays are allowed
@@ -305,3 +330,18 @@ func test_subarray_combinatorics() -> void:
 	assert(_are_subarrays_equal([1, 2, 3], [1, 2, 3], true) == true)
 	assert(_are_subarrays_equal([1, 2, 3], [3, 2, 1], true) == false)
 	assert(_are_subarrays_equal([1, 2, 3], [3, 2, 1], false) == true)
+	
+	#Test the _are_subarray_combinations_equal helper func
+	var test_array: Array = [[1, 2], [3, 4]]
+	
+	assert(_are_subarray_combinations_equal([[1, 2], [1]], [[1, 2]], true, true) == false)
+	
+	assert(_are_subarray_combinations_equal(test_array, test_array, true, true) == true)
+	assert(_are_subarray_combinations_equal(test_array, [[2, 1], [4, 3]], true, false) == true)
+	assert(_are_subarray_combinations_equal(test_array, [[3, 4], [1, 2]], false, true) == true)
+	assert(_are_subarray_combinations_equal(test_array, [[4, 3], [2, 1]], false, false) == true)
+	
+	assert(_are_subarray_combinations_equal(test_array, [[3, 4], [1, 2]], true, true) == false)
+	assert(_are_subarray_combinations_equal(test_array, [[4, 3], [2, 1]], true, false) == false)
+	assert(_are_subarray_combinations_equal(test_array, [[4, 3], [2, 1]], false, true) == false)
+	assert(_are_subarray_combinations_equal(test_array, [[3, 3], [4, 4]], false, false) == false)
