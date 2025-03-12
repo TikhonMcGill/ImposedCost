@@ -197,12 +197,48 @@ func _is_combination_valid(combination: Array, base_array: Array, all_elements: 
 ##If with_replacement == True, then there can be multiple instances of the same Element in the Subarrays
 ##If order_matters == True, then there can be subarrays with the exact same elements, BUT with different ordering amongst them
 ##If internal_order_matters == True, then elements inside the subarrays themselves can be of different orders
-func generate_subarrays(base_array: Array, sub_array_count: int, allow_empty: bool, all_elements: bool, with_replacement: bool, order_matters: bool, internal_order_matters: bool) -> Array:
+func generate_subarray_combinations(base_array: Array, subarray_count: int, allow_empty: bool, all_elements: bool, with_replacement: bool, order_matters: bool, internal_order_matters: bool) -> Array:
 	#If given an empty array, and allow_empty is false, return []
 	if base_array.is_empty() == true and allow_empty == false:
 		return []
 	
-	return []
+	#If given an empty array, and allow_empty is true, simply return array with subarray_count empty arrays
+	if base_array.is_empty() == true and allow_empty == true:
+		var result: Array = []
+		
+		for x in range(subarray_count):
+			result.append([])
+		
+		return [result]
+	
+	var possible_subarray_combinations: Array = []
+	
+	#Get all possible orders of elements and all possible partitions
+	var element_combinations: Array = generate_combinations(base_array, len(base_array), false, internal_order_matters)
+	var partition_combinations: Array = _get_possible_partitions(len(base_array), subarray_count, all_elements, allow_empty)
+	
+	#Get all possible combinations
+	var all_combinations: Array = []
+	for p: Array in partition_combinations:
+		for e: Array in element_combinations:
+			all_combinations.append(_apply_partition(e, p))
+	
+	#Iterate through all partitions
+	for combination: Array in all_combinations:
+		var valid: bool = _is_combination_valid(combination, base_array, all_elements)
+		
+		if valid == false:
+			break
+		
+		for p: Array in possible_subarray_combinations:
+			if _are_subarray_combinations_equal(combination, p, order_matters, internal_order_matters) == true:
+				valid = false
+				break
+		
+		if valid == true:
+			possible_subarray_combinations.append(combination)
+	
+	return possible_subarray_combinations
 
 ##Function to calculate factorial
 func factorial(x: int) -> int:
@@ -381,3 +417,11 @@ func test_subarray_combinatorics() -> void:
 	assert(_is_combination_valid([[1, 2]], test_base_array, true) == true)
 	assert(_is_combination_valid([[1]], test_base_array, true) == false)
 	assert(_is_combination_valid([[1]], test_base_array, false) == true)
+	
+	#Finally, test the final array
+	#Empty Array, n = 2
+	var test_empty_array: Array = []
+	assert(generate_subarray_combinations(test_empty_array, 2, true, false, true, true, true) == [[[], []]])
+	assert(generate_subarray_combinations(test_empty_array, 2, false, false, true, true, true) == [])
+	
+	print(generate_subarray_combinations([1, 2, 3, 4, 5, 6], 4, true, true, false, true, true))
