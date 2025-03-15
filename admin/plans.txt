@@ -1,13 +1,3 @@
-Optimize Subarray Implementation
-
-Improve CombinatoricsUtilities:
-	- Fix the code as needed
-	- Transfer to ReusableAssets
-	- In ReusableAssets, add to the Plan to also get all possible Subarrays, with relevant arguments
-	- Also add to the plan to add a "Count" of Subarrays, and test cases outwith that
-	- (Keep working on comprehensive plan of Operations Phase - once reach this bracket,
-	remove it immediately)
-
 Add a Host Nation Influence Track Graphically Ingame:
 	- Node Extending HBoxContainer, called "HostNationInfluenceTrack"
 	It contains 9 PanelContainers:
@@ -37,7 +27,9 @@ Refactor Network to be stack-based:
 		- One of args = Team
 		- Returns Array of ActionCards, constructed from the 4 Sub-Arrays of relevant Team Network
 	- Refactor the "MaintainNetworkMove" Code to work with the new Network:
-		- When do_move played with MaintainNetworkMove, based on 
+		Change the way Networks are Reorganized:
+			- Random Player picks TWO RANDOM CARDS to Discard, WITHOUT it being a lot of moves
+			- Random Player randomly (with 50% chance, otherwise keep same) rearranges network
 		- After discarding card(s), may rearrange up
 		 to all Action cards in own Network
 PassMove:

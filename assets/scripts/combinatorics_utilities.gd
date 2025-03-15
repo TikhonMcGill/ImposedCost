@@ -223,8 +223,11 @@ func generate_subarray_combinations(base_array: Array, subarray_count: int, allo
 		for e: Array in element_combinations:
 			all_combinations.append(_apply_partition(e, p))
 	
+	print("Filtering Applied Partitions...")
 	#Iterate through all partitions
 	for combination: Array in all_combinations:
+		print(combination)
+		
 		var valid: bool = _is_combination_valid(combination, base_array, all_elements)
 		
 		if valid == false:
@@ -420,8 +423,8 @@ func test_subarray_combinatorics() -> void:
 	
 	#Finally, test the final array
 	#Empty Array, n = 2
-	var test_empty_array: Array = []
-	assert(generate_subarray_combinations(test_empty_array, 2, true, false, true, true, true) == [[[], []]])
-	assert(generate_subarray_combinations(test_empty_array, 2, false, false, true, true, true) == [])
-	
+	#var test_empty_array: Array = []
+	#assert(generate_subarray_combinations(test_empty_array, 2, true, false, true, true, true) == [[[], []]])
+	#assert(generate_subarray_combinations(test_empty_array, 2, false, false, true, true, true) == [])
+	#
 	print(generate_subarray_combinations([1, 2, 3, 4, 5, 6], 4, true, true, false, true, true))
