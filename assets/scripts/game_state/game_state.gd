@@ -263,7 +263,6 @@ func do_move(move: Move) -> void:
 		
 		print("Projects Selected: %s" % ", ".join(projects_selected))
 		
-		
 		print("Moving onto Draw Cards Phase!")
 		
 		#Move onto Draw Cards Phase once game Set Up
