@@ -25,15 +25,19 @@ Refactor Network to be stack-based:
 	- Remove Base Card from Player's Networks' Arrays of Arrays
 	- Add, to next_plans, a plan to have a graphical network of cards, with cards around the base card ABCD
 	- Make both Player's Networks Arrays of Arrays (4 Sub-Arrays, autodoc corresponding to A,B,C,D)
+	- Add as Autodoc, conceptually, that LAST card is topmost in the stack
 	Create "get_full_network" method:
 		- One of args = Team
 		- Returns Array of ActionCards, constructed from the 4 Sub-Arrays of relevant Team Network
 	Refactor the "MaintainNetworkMove" Code to work with the new Network:
 		- Change new_network_order to be an Array (of Arrays)
 		- In get_possible_moves, just return an empty "MaintainNetworkMove"
+		Change how Random Player does Moves:
+			- If no possible moves, return as before
+			- "move_to_take = possible_moves.pick_random()"
+			- take_move(move_to_take)
 		Update the Random Player Logic for dealing with MaintainNetworkMove:
-			- Make sure doesn't reach this logic if no possible moves
-			- Do only if the only move is MaintainNetworkMove, i.e. moves[0] is MaintainNetworkMove
+			- Do only if move_to_take is MaintainNetworkMove
 			- Array: Card = my_cards_to_discard
 			- If len(get_full_network) > 5, pick 2 random cards to discard (WITHOUT REPLACEMENT)
 			- Else, pick 1 random card to discard
@@ -57,6 +61,7 @@ PassMove:
 		- Add print Statement saying "PLAYER NAME Passes"
 		- If previous_move is also PassMove, move to Projects Phase
 		- Add print Statement saying so
+
 For get_possible_moves in the Operations Phase, do as follows:
 	- Append PassMove by default
 	- Add if-statements for each Function Card Name, with TODO comments for the possible
@@ -85,22 +90,76 @@ InfluenceHostNationMove (extends CardMove):
 		- Add Print Statement for playing without Action Card
 		- Add Print Statement for playing WITH Action Card
 	Combinations:
-		- Do in relevant if-statement
+		- Do in relevant if-statement of Operations Phase
 		- Card_to_use is the card in the if-statement
 		- possible_influence_moves: Array[Move] = []
 		- InfluenceHostNationMove with null action_card_to_play_with
 		- For each Action Card in a Player's Hand OR Network (fuse two arrays together
 		for this purpose), append to possible_influence_moves an InfluenceHostNationMove
 		WITH THAT ActionCard added 
-	
-UseHostNationInfluenceMove (extends CardMove):
+
+- Create a new Function, "get_hn_influence_value", which returns an int, based on host nation influence track
+- Create new function, "get_hn_side_team" which returns the Team on whose side Host Nation is - if 0, return
+Jedburgh
+
+ActionCardMove (extends CardMove):
 	Members:
-		
+		- Change: enum: DECREASE_TIME, INCREASE_TIME, INCREASE_BUDGET
+		- changes: Array[Change]
+		- project: Project
 	Consequences:
-		
+		- Assert that budget_change >= 0
+		Iterate through changes:
+			- If change == DECREASE_TIME, project.time -= 1
+			- If change == INCREASE_TIME, project.time += 1
+			- If change == INCREASE_BUDGET, project.budget += 1
+		- If the Card is not null and concealed, reveal it
+		- If the Card is not null and revealed, discard it
 	Combinations:
-		- Do in relevant if-statement
-		- Card_to_use is the card in the if-statement
+		- In Operations Phase, for each TOPMOST (last element) ActionCard in Network, if any,
+		append ActionCardMove, value = ActionCard value, card_to_play = ActionCard, corresponding to each Project (so 4 per ActionCard)
+		For Random Player:
+			If move_to_take is ActionCardMove:
+				- increasing_time: bool
+				- change_combination: Array[ActionCardMove.Change]
+				- simulated_time: int = project.time
+				- simulated_budget: int = project.budget
+				Construct Possible_Changes:
+					- Append min(simulated_time, value) DECREASE_TIME values
+					- Append min(simulated_time - 9, value) INCREASE_TIME values
+					- Append min(simulated_budget - 9, value) INCREASE_BUDGET values
+				Construct final_move(ActionCardMove):
+					- card_to_play = one given
+					- value = given value
+					- project = given project
+				For x in range(value):
+					- Pick random Possible Change
+					- If len(possible_changes) == 0, continue
+					- If INCREASE_TIME, remove all DECREASE_TIMEs
+					- If DECREASE_TIME, remove all INCREASE_TIMEs
+					- Append chosen change to final_move changes
+				Take final_move
+
+- Get_opposing_player network helper func (basically opposite of getting current player)
+DegradeNetworkMove (extends CardMove):
+	Members:
+		- enemy_card_to_discard: ActionCard
+	Consequences:
+		- Assert that card_to_discard is revealed
+		- Assert that card_to_discard is top of stack
+		- Go through enemy network
+		- If that card is the one to discard, discard it
+	Combinations:
+		get_degrade_network_possibilities helper func:
+			- Go through opponent's network
+			- Get topmost card of each stack (if any) - last item in stack
+			- If it is Revealed, construct DegradeNetworkMove with card_to_use and this card
+			- Return DegradeNetworkMoves, or empty array
+
+If host_nation_influence on current player's side, and get_hn_influence_value > 0, and has
+Use HN Influence Card in Operations Phase, new moves:
+	- Add DegradeNetworkMoves using get_degrade_network_possibilities, card_to_play = Influence HN Card
+	- Append ActionCardMove, value = get_hn_influence_value, card_to_play = Influence HN Card
 
 Create reveal_card(card: Card) method:
 	- Assert that card is NOT in revealed cards array
@@ -137,45 +196,59 @@ ConcealMove (extends CardMove):
 			- If there is only two, append ConcealMove with conceal_card = those 2 cards
 			- Otherwise, use CombinatoricsUtilities, k = 2, Array = all revealed cards
 
-BuildManageNetworkMove (extends CardMove):
+BuildNetworkMove (extends CardMove):
 	Members:
-		
+		- Action_cards_to_add: Array[ActionCard]
+		- Stacks_to_add_to: PackedStringArray
+		- Positions_to_add_to: Array[int]
 	Consequences:
-		
+		- Assert that have Action Cards to add in own Hand
+		- Go through stacks_to_add to using int indices:
+			- Based on stack (ABCD), insert into positions_to_add_to[i] in relevant stack
 	Combinations:
+		- If have card, return BuildNetworkMove, card_to_play = the card
+		In Random Player:
+			- Get all Action Cards
+			- If 2 or more and randi() % 4 > 0, pick 2 (without replacement) random Action Cards
+			- Pick 2 random stacks (A, B, C or D)
+			- Pick random indices based on stacks (0 to len(stack))
+			Construct BuildNetworkMove:
+				- card_to_play = card given
+				- action_cards_to_add = ones chosen
+				- stacks_to_add_to = ones chosen
+				- positions_to_add_to = ones chosen
+			- Take Constructed Move
 
-DegradeNetworkMove (extends CardMove):
+ManageNetworkMove (extends CardMove):
 	Members:
-		
+		- stack_from: String
+		- stack_to: String
+		- position_from: int
+		- position_to: int
 	Consequences:
-		
+		- Assert that the stack from is not empty
+		- Assert that the position to move from is valid
+		- Get item from stack_from at index position_from
+		- Remove it from stack_from
+		- Insert it into stack_to, at position_to
 	Combinations:
-
-ActionCardMove (extends CardMove):
-	Members:
-		
-	Consequences:
-		
-	Combinations:
-		
+		- If have card, return ManageNetworkMove, card_to_play = the card
+		In Random Player:
+			- Get all Non-empty stacks
+			- Pick a random Stack
+			- Get a Random Index in Stack using randi() % len(stack)
+			- Pick a random Second Stack
+			- Get a Random index from 0 to (len(second_stack) - 1)
+			Construct ManageNetworkMove:
+				- Card_to_play = card given
+				- stack_from = non-empty stack chosen
+				- position_from = index chosen
+				- stack_to = other stack chosen
+				- position_to = other index chosen
+			- Play the move
 
 - Once Operations Phase Implemented, check next_plans.txt to make sure there's nothing redundant
 in there
-
-Use Host Nation Influence - if the HN Influence Cube is on "your" side of the track, use
-either as Action Card with Value = HN Influence on 1 Project, or as Degrade Network
-Card
-
-10. Build/Manage Network -  Add up to 2 Action cards from hand to
- Network (place concealed, any side,
- anywhere in stack), or move 1 Action card
- to any other side of Base card (Action card
- becomes topmost card on that side, and
- retains revealed/concealed status). 
-
-OR Degrade Network - Discard 1 Action card from enemy
- Network. Card must be both revealed and
- the topmost card on that side of Base card.
 
 Operations Phase:
 	- Play a Function Card, executing one of its two functions (if has in hand)
@@ -306,10 +379,6 @@ Function Cards:
 			Card must be both revealed and topmost in its stack.
 
 Action cards:
-	There are 6 Action cards in the game: 
-		3 x “1” value; 
-		2 x “2” value, 
-		and 1 x “3” value. 
 	An Action card must already be in a player’s network to be played on a Project; 
 	they may not be played directly out of hand. 
 	The card must also be topmost in its stack.
