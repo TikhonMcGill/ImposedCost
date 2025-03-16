@@ -5,6 +5,7 @@ extends Resource
 
 signal card_drawn(card: Card) ##Emitted when a Card is drawn
 signal move_taken(move: Move) ##Emitted when a Move has been Taken
+signal host_nation_influence_changed(new_hn_influence: int) ##Emitted when HN Influence Changes
 
 enum TEAM{
 	COUNTRY,
@@ -76,7 +77,8 @@ var victory_level: int = 0 ##The No. Victory Points Blue has
 var draw_pile: Array[Card] ##The Draw Pile
 var discard_pile: Array[Card] ##The Discard Pile
 
-var host_nation_influence: int = 0 ##The Influence of each team in the Host Nation - negative = Red Influence, Positive = Blue Influence
+var host_nation_influence: int = 0: ##The Influence of each team in the Host Nation - negative = Red Influence, Positive = Blue Influence
+	set = _set_hn_influence
 
 var current_turn_team: TEAM = TEAM.COUNTRY ##The Team whose Current Turn it is
 
@@ -347,3 +349,8 @@ func do_move(move: Move) -> void:
 func transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	current_phase = phase
 	current_turn_team = player
+
+##Set Host Nation Influence
+func _set_hn_influence(new_val: int) -> void:
+	host_nation_influence = new_val
+	host_nation_influence_changed.emit(new_val)

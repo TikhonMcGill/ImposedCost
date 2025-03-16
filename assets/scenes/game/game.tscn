@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://bhuq1yrd5xvgf"]
+[gd_scene load_steps=3 format=3 uid="uid://bhuq1yrd5xvgf"]
 
 [ext_resource type="Script" path="res://assets/scenes/game/game.gd" id="1_u5a5u"]
+[ext_resource type="PackedScene" uid="uid://c6is68qvrlrb2" path="res://assets/scenes/game/host_nation_influence_track/host_nation_influence_track.tscn" id="2_0bv3r"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_u5a5u")
@@ -15,3 +16,6 @@ grow_vertical = 2
 [node name="ProjectContainerContainer" type="HBoxContainer" parent="GameBoard"]
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="HostNationInfluenceTrack" parent="GameBoard" instance=ExtResource("2_0bv3r")]
+layout_mode = 2

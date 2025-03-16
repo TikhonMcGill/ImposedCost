@@ -10,6 +10,7 @@ var country_team_player: Player
 var jedburgh_team_player: Player
 
 @onready var project_container_container: HBoxContainer = $GameBoard/ProjectContainerContainer
+@onready var host_nation_influence_track: HostNationInfluenceTrack = $GameBoard/HostNationInfluenceTrack
 
 func _ready() -> void:
 	_setup_game()
@@ -95,5 +96,6 @@ func _setup_game() -> void:
 	
 	game_state.setup_game()
 	game_state.move_taken.connect(handle_move_taken)
+	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)
 	
 	country_team_player.take_turn()

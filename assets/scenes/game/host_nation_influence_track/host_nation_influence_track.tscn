@@ -1,0 +1,154 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6is68qvrlrb2"]
+
+[ext_resource type="Script" path="res://assets/scenes/game/host_nation_influence_track/host_nation_influence_track.gd" id="1_8qkh5"]
+
+[node name="HostNationInfluenceTrack" type="HBoxContainer" node_paths=PackedStringArray("influence_pointer", "influence_slots")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8qkh5")
+influence_pointer = NodePath("PanelContainer5/VBoxContainer/InfluencePointer")
+influence_slots = [NodePath("PanelContainer"), NodePath("PanelContainer2"), NodePath("PanelContainer3"), NodePath("PanelContainer4"), NodePath("PanelContainer5"), NodePath("PanelContainer6"), NodePath("PanelContainer7"), NodePath("PanelContainer8"), NodePath("PanelContainer9")]
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer2"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer3" type="PanelContainer" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer3"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer3/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer4" type="PanelContainer" parent="."]
+self_modulate = Color(1, 0, 0, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer4"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer4/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer5" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer5"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer5/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InfluencePointer" type="ColorRect" parent="PanelContainer5/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color(0, 0, 0, 1)
+
+[node name="PanelContainer6" type="PanelContainer" parent="."]
+self_modulate = Color(0, 0, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer6"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer6/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer7" type="PanelContainer" parent="."]
+self_modulate = Color(0, 0, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer7"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer7/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer8" type="PanelContainer" parent="."]
+self_modulate = Color(0, 0, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer8"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer8/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "2"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer9" type="PanelContainer" parent="."]
+self_modulate = Color(0, 0, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer9"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PanelContainer9/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
