@@ -7,4 +7,4 @@ extends Move
 
 var cards_to_discard: Array[Card] ##Cards to Discard from the Player's Hand
 
-var new_network_order: Array[ActionCard] ##The new order of Action Cards in the Player's Network
+var new_network_order: Array ##The new order of Action Cards in the Player's Network (conceptually an Array of 4 Arrays, representing stacks of cards at A, B, C, D)

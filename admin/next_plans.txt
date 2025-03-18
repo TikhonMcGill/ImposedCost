@@ -1,3 +1,6 @@
+- Add Graphical Networks to Players - Cards (topmost visible) around corresponding sides
+of Network
+
 Minimum Viable Product:
 	- 4 Projects at Game Start
 	- Once all 4 Projects complete, end game

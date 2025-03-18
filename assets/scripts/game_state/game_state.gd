@@ -92,8 +92,8 @@ var current_turn_team: TEAM = TEAM.COUNTRY ##The Team whose Current Turn it is
 var country_hand: Array[Card] = [] ##The Hand of the Country Team Player
 var jedburgh_hand: Array[Card] = [] ##The Hand of the Jedburgh Team Player
 
-var country_network: Array[Card] = [BASE_COUNTRY.duplicate()] ##The Network of the Country Team Player (initially just their base, later on Action Cards)
-var jedburgh_network: Array[Card] = [BASE_JEDBURGH.duplicate()] ##The Network of the Jedburgh Team Player (initially just their base, later on Action Cards)
+var country_network: Array = [[], [], [], []] ##The Network of the Country Team Player - 4 Arrays represent 4 Stacks of Cards, 1 to 4 represents A to D, last item in one of stacks is TOPMOST
+var jedburgh_network: Array = [[], [], [], []] ##The Network of the Jedburgh Team Player - 4 Arrays represent 4 Stacks of Cards, 1 to 4 represents A to D, last item in one of stacks is TOPMOST
 
 var current_turn: int = 1 ##The Current Turn
 var current_phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
@@ -165,26 +165,53 @@ func draw_card(card: Card, team: TEAM) -> Card:
 func draw_random_card(team: TEAM) -> Card:
 	return draw_card(draw_pile[0], team)
 
-##Get the Current Player's Name, as "Player Name (Color)", e.g. "Jedburgh (Blue)"
-func get_current_player_name() -> String:
-	if current_turn_team == TEAM.COUNTRY:
+##Get a Player's Name, as "Player Name(Color)", e.g. "Jedburgh (Blue)"
+func get_player_name(team: TEAM) -> String:
+	if team == TEAM.COUNTRY:
 		return GameManager.settings.country_team_name + " (Red)"
 	else:
 		return GameManager.settings.jedburgh_team_name + " (Blue)"
 
-##Get the Current Player's Network
-func get_current_player_network() -> Array[Card]:
+##Get the Current Player's Name, as "Player Name (Color)"
+func get_current_player_name() -> String:
+	return get_player_name(current_turn_team)
+
+##Get a Player's Network
+func get_player_network(team: TEAM) -> Array:
 	if current_turn_team == TEAM.COUNTRY:
 		return country_network
 	else:
 		return jedburgh_network
 
-##Get the Current Player's Hand
-func get_current_player_hand() -> Array[Card]:
-	if current_turn_team == TEAM.COUNTRY:
+##Get the Current Player's Network
+func get_current_player_network() -> Array[Card]:
+	return get_player_network(current_turn_team)
+
+##Get the Network of a Player, as a flattened array
+func get_flattened_network(team: TEAM) -> Array[ActionCard]:
+	var flattened_network: Array[ActionCard] = []
+	
+	if team == TEAM.COUNTRY:
+		for stack: Array in country_network:
+			for card: ActionCard in stack:
+				flattened_network.append(card)
+	else:
+		for stack: Array in jedburgh_network:
+			for card: ActionCard in stack:
+				flattened_network.append(card)
+	
+	return flattened_network
+
+##Get a Player's Hand
+func get_player_hand(team: TEAM) -> Array[Card]:
+	if team == TEAM.COUNTRY:
 		return country_hand
 	else:
 		return jedburgh_hand
+
+##Get the Current Player's Hand
+func get_current_player_hand() -> Array[Card]:
+	return get_player_hand(current_turn_team)
 
 ##Discard a Particular Card from a Particular Team Player's Hand
 func discard_card(card: Card, team: TEAM) -> void:
@@ -226,39 +253,7 @@ func get_possible_moves() -> Array[Move]:
 	elif current_phase == PHASE.DRAW_CARDS_JEDBURGH or current_phase == PHASE.DRAW_CARDS_COUNTRY:
 		return [DrawCardMove.new()]
 	elif current_phase == PHASE.MAINTAIN_NETWORK_COUNTRY or current_phase == PHASE.MAINTAIN_NETWORK_JEDBURGH:
-		var possible_maintenances: Array[Move] = []
-		
-		var network_without_base: Array = get_current_player_network().slice(1)
-		
-		var network_rearrangements: Array = combinatorics.generate_combinations(
-			network_without_base, len(network_without_base), false, true
-		)
-		
-		if len(get_current_player_network()) > 5:
-			print("Network of %s is more than 5 Cards, needs to Discard 2 Cards from hand" % get_current_player_name())
-			#Generate all possible 2-Card Discardments
-			var discard_arrangements: Array = combinatorics.generate_combinations(network_without_base, 2, false, false)
-			
-			#Generate all possible Maintain Network Moves
-			for d: Array in discard_arrangements:
-				for r: Array in network_rearrangements:
-					var new_move: MaintainNetworkMove = MaintainNetworkMove.new()
-					new_move.cards_to_discard.assign(d)
-					new_move.new_network_order.assign(r)
-					possible_maintenances.append(new_move)
-		
-		else:
-			print("Network of %s is 5 or less Cards, needs to Discard 1 Card from hand" % get_current_player_name())
-			
-			#Generate all possible Maintain Network Moves
-			for d: Card in network_without_base:
-				for r: Array in network_rearrangements:
-					var new_move: MaintainNetworkMove = MaintainNetworkMove.new()
-					new_move.cards_to_discard.assign([d])
-					new_move.new_network_order.assign(r)
-					possible_maintenances.append(new_move)
-		
-		return possible_maintenances
+		return [MaintainNetworkMove.new()]
 	
 	return []
 

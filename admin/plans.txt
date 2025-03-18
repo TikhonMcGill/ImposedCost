@@ -1,22 +1,7 @@
 Refactor Network to be stack-based:
-	- Remove Base Card from Player's Networks' Arrays of Arrays
-	- Add, to next_plans, a plan to have a graphical network of cards, with cards around the base card ABCD
-	- Make both Player's Networks Arrays of Arrays (4 Sub-Arrays, autodoc corresponding to A,B,C,D)
-	- Add as Autodoc, conceptually, that LAST card is topmost in the stack
-	Create "get_full_network" method:
-		- One of args = Team
-		- Returns Array of ActionCards, constructed from the 4 Sub-Arrays of relevant Team Network
 	Refactor the "MaintainNetworkMove" Code to work with the new Network:
-		- Change new_network_order to be an Array (of Arrays)
-		- In get_possible_moves, just return an empty "MaintainNetworkMove"
-		Change how Random Player does Moves:
-			- If no possible moves, return as before
-			- "move_to_take = possible_moves.pick_random()"
-			- take_move(move_to_take)
 		Update the Random Player Logic for dealing with MaintainNetworkMove:
-			- Do only if move_to_take is MaintainNetworkMove
-			- Array: Card = my_cards_to_discard
-			- If len(get_full_network) > 5, pick 2 random cards to discard (WITHOUT REPLACEMENT)
+			- If len(get_flattened_network) > 5, pick 2 random cards to discard (WITHOUT REPLACEMENT)
 			- Else, pick 1 random card to discard
 			If randi() % 2 == 0, reorganize the network:
 				- Have an array of 4 empty arrays "my_new_network_order"
@@ -28,7 +13,7 @@ Refactor Network to be stack-based:
 			- Set its cards_to_discard = my_cards_to_discard
 			- Set its new_network_order = my_new_network_order
 		- Add to ideas to possibly refactor other Moves to this method
-		- Print the Previous Network in take_move with "get_full_network"
+		- Print the Previous Network in take_move with "get_flattened_network"
 		- Ditto for new Network config
 		- Change the .slice(1) code to simply set the new network order for Country team
 		- Change the .slice(1) code to simply set the new network order for Jedburgh team
