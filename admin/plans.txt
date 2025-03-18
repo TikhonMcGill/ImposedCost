@@ -1,9 +1,3 @@
-PassMove:
-	Consequences:
-		- Add print Statement saying "PLAYER NAME Passes"
-		- If previous_move is also PassMove, move to Projects Phase
-		- Add print Statement saying so
-
 For get_possible_moves in the Operations Phase, do as follows:
 	- Append PassMove by default
 	- Add if-statements for each Function Card Name, with TODO comments for the possible

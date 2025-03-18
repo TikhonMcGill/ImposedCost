@@ -357,6 +357,12 @@ func make_move(move: Move) -> void:
 		print("New Arrangement of Network: ")
 		for c: Card in get_flattened_network(current_turn_team):
 			print(c.card_name)
+	elif move is PassMove:
+		print("%s Passes!" % get_current_player_name())
+		
+		if previous_move is PassMove:
+			print("Previous Player also passed, moving onto Projects Phase!")
+			transfer_to_phase(PHASE.PROJECTS, TEAM.COUNTRY)
 	
 	previous_move = move
 	move_taken.emit(move)
