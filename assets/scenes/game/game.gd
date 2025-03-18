@@ -78,11 +78,11 @@ func do_next_move() -> void:
 
 #Handle the Country Team Player taking their Move
 func handle_country_player_move(move: Move) -> void:
-	game_state.do_move(move)
+	game_state.make_move(move)
 
 #Handle the Jedburgh Team Player taking their Move
 func handle_jedburgh_player_move(move: Move) -> void:
-	game_state.do_move(move)
+	game_state.make_move(move)
 
 func create_project_container(project: Project) -> ProjectContainer:
 	var new_container: ProjectContainer = PROJECT_CONTAINER_SCENE.instantiate()

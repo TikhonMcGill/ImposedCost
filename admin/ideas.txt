@@ -28,3 +28,5 @@ playing one or the other function at once
 Could have customizable HN Influence Values
 
 On project influence track, at each end could have 3 (Player Name) instead of just 3
+
+Could have Stacks attached to Base Card, instead of ingame

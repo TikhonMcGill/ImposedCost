@@ -1,9 +1,3 @@
-- Change different Card Types to exports
-- Add a "previous_move" member to GameState
-- Update do_move: when a Move is taken, set the previous_move to this new move taken
-- Add each Function Card Name as a Const into GameState
-- Create a "revealed_cards" Array[Card], to which all cards are initially added in setup_game
-- Change "do_move" to "take_move" in GameState
 Refactor Network to be stack-based:
 	- Remove Base Card from Player's Networks' Arrays of Arrays
 	- Add, to next_plans, a plan to have a graphical network of cards, with cards around the base card ABCD
@@ -84,6 +78,7 @@ InfluenceHostNationMove (extends CardMove):
 - Create a new Function, "get_hn_influence_value", which returns an int, based on host nation influence track
 - Create new function, "get_hn_side_team" which returns the Team on whose side Host Nation is - if 0, return
 Jedburgh
+- Look through ideas, determine what to add
 
 ActionCardMove (extends CardMove):
 	Members:

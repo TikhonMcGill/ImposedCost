@@ -64,7 +64,10 @@ const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/
 
 #region Card Names
 
-const MAINTAIN_NETWORK_NAME: String = "Maintain Network"
+const FUNCTION_BUILD_MANAGE_DEGRADE_NETWORK_NAME: String = "Build/Manage Network"
+const FUNCTION_INFLUENCE_HN_NAME: String = "Influence Host Nation/Use Host Nation Influence"
+const FUNCTION_MAINTAIN_NETWORK_NAME: String = "Maintain Network"
+const FUNCTION_REVEAL_CONCEAL_NAME: String = "Reveal/Conceal"
 
 #endregion
 
@@ -72,10 +75,14 @@ const MAINTAIN_NETWORK_NAME: String = "Maintain Network"
 
 var combinatorics: CombinatoricsUtilities = CombinatoricsUtilities.new() ## Utilities for Calculating Combinatorics Calculations
 
+var previous_move: Move = null ##The Previous Move taken
+
 var victory_level: int = 0 ##The No. Victory Points Blue has
 
 var draw_pile: Array[Card] ##The Draw Pile
 var discard_pile: Array[Card] ##The Discard Pile
+
+var revealed_cards: Array[Card] ##All Cards that have the "Revealed" Status
 
 var host_nation_influence: int = 0: ##The Influence of each team in the Host Nation - negative = Red Influence, Positive = Blue Influence
 	set = _set_hn_influence
@@ -118,6 +125,10 @@ func setup_game() -> void:
 	starting_pile.append(ACTION_3.duplicate())
 	
 	assert(len(starting_pile) == 12, "Starting Draw Pile not 12 Cards")
+	
+	#Go through the Starting Pile, adding all of it to the Revealed Cards Array
+	for card: Card in starting_pile:
+		revealed_cards.append(card)
 	
 	#Shuffle the Pile, making the Draw Pile it
 	starting_pile.shuffle()
@@ -252,7 +263,7 @@ func get_possible_moves() -> Array[Move]:
 	return []
 
 ##TODO Carry out the Selected Move
-func do_move(move: Move) -> void:
+func make_move(move: Move) -> void:
 	if move is SelectProjectsMove:
 		print("SelectProjectsMove Played")
 		
@@ -274,7 +285,7 @@ func do_move(move: Move) -> void:
 		var card: Card = draw_random_card(current_turn_team)
 		
 		#If the Maintain Network Card is drawn, its effects are executed immediately
-		if card.card_name == MAINTAIN_NETWORK_NAME:
+		if card.card_name == FUNCTION_MAINTAIN_NETWORK_NAME:
 			print("%s drew Maintain Network!" % get_current_player_name())
 			
 			discard_card(card, current_turn_team)
@@ -343,6 +354,7 @@ func do_move(move: Move) -> void:
 		for c: Card in get_current_player_network():
 			print(c.card_name)
 	
+	previous_move = move
 	move_taken.emit(move)
 
 ##Transfer to a Phase, with a Specific Player's turn

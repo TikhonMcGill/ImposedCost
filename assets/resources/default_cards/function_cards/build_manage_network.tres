@@ -6,5 +6,9 @@
 [resource]
 script = ExtResource("1_x41hr")
 card_name = "Build/Manage Network"
-card_description = "Add up to 2 Action cards from hand to Network (place concealed, on any side and anywhere in stack) or move 1 Action card to any other side of Base card (Action card becomes topmost card on that side and retains revealed/concealed status). Degrade Network. Discard 1 Action card from enemy Network.Card must be both revealed and topmost in its stack."
+card_description = "Add up to 2 Action cards from hand to Network (place concealed, on any side and anywhere in stack) or move 1 Action card to any other side of Base card (Action card becomes topmost card on that side and retains revealed/concealed status). 
+
+OR
+
+Degrade Network. Discard 1 Action card from enemy Network.Card must be both revealed and topmost in its stack."
 card_image = ExtResource("1_mj0n6")
