@@ -30,3 +30,8 @@ Could have customizable HN Influence Values
 On project influence track, at each end could have 3 (Player Name) instead of just 3
 
 Could have Stacks attached to Base Card, instead of ingame
+
+Possibly refactor other moves (namely ProjectsMove) to utilize this RandomPlayer Concept
+of picking randomly instead of doing every combination
+
+Consider just having all cards have a "revealed" or "concealed" boolean or Enum for their status

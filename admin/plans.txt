@@ -1,23 +1,3 @@
-Refactor Network to be stack-based:
-	Refactor the "MaintainNetworkMove" Code to work with the new Network:
-		Update the Random Player Logic for dealing with MaintainNetworkMove:
-			- If len(get_flattened_network) > 5, pick 2 random cards to discard (WITHOUT REPLACEMENT)
-			- Else, pick 1 random card to discard
-			If randi() % 2 == 0, reorganize the network:
-				- Have an array of 4 empty arrays "my_new_network_order"
-				- Shuffle a duplicate of all network cards
-				- Pop them, putting them into one of the 4 Arrays randomly
-			Else:
-				- my_new_network_order = get_current_player_network()
-			- Create new MaintainNetworkMove
-			- Set its cards_to_discard = my_cards_to_discard
-			- Set its new_network_order = my_new_network_order
-		- Add to ideas to possibly refactor other Moves to this method
-		- Print the Previous Network in take_move with "get_flattened_network"
-		- Ditto for new Network config
-		- Change the .slice(1) code to simply set the new network order for Country team
-		- Change the .slice(1) code to simply set the new network order for Jedburgh team
-		- Take the move
 PassMove:
 	Consequences:
 		- Add print Statement saying "PLAYER NAME Passes"

@@ -1,5 +1,7 @@
 - Add Graphical Networks to Players - Cards (topmost visible) around corresponding sides
 of Network
+- Add printing of "stacks" when printing MaintainNetwork, or a "Print Network" method
+which prints the network nicely (i.e. the cards in it, and their status revealed or concealed)
 
 Minimum Viable Product:
 	- 4 Projects at Game Start
@@ -17,6 +19,8 @@ Gamerules:
 	so have gamerules:
 		- Adds - Move HN Influence by 1 + Action Card Value when Influence HN Played
 		- Replaces - Move HN Influence by Action Card Value when Influence HN Played
+	- We don't know if, when no cards in hand, discarding action cards means discarding ALL of them, or to
+	the corresponding amount - will assume all of them, for now
 
 Finalization:
 	- Set color for Players, by default Red for Country, blue for Jedburgh, and update
