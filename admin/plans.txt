@@ -1,7 +1,3 @@
-- Create a new Function, "get_hn_influence_value", which returns an int, based on host nation influence track
-- Create new function, "get_hn_side_team" which returns the Team on whose side Host Nation is - if 0, return
-Jedburgh
-
 ActionCardMove (extends PlayCardMove):
 	Members:
 		- Change: enum: DECREASE_TIME, INCREASE_TIME, INCREASE_BUDGET

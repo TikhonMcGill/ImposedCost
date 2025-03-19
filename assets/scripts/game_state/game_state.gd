@@ -178,6 +178,13 @@ func get_hn_influence_value() -> int:
 	
 	return 0
 
+##Get the Team on whose side the HN Influence is (Jedburgh by Default)
+func get_hn_influence_team() -> TEAM:
+	if host_nation_influence < 0:
+		return TEAM.COUNTRY
+	
+	return TEAM.JEDBURGH
+
 ##Get a Player's Name, as "Player Name(Color)", e.g. "Jedburgh (Blue)"
 func get_player_name(team: TEAM) -> String:
 	if team == TEAM.COUNTRY:
