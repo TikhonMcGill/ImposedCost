@@ -1,8 +1,6 @@
 - Create a new Function, "get_hn_influence_value", which returns an int, based on host nation influence track
 - Create new function, "get_hn_side_team" which returns the Team on whose side Host Nation is - if 0, return
 Jedburgh
-- Go through this plan and next_plans, making sure to remove duplicates etc.
-- Look through ideas, determine what to add
 
 ActionCardMove (extends PlayCardMove):
 	Members:
@@ -151,6 +149,8 @@ ManageNetworkMove (extends PlayCardMove):
 
 - Once Operations Phase Implemented, check next_plans.txt to make sure there's nothing redundant
 in there
+- Go through this plan and next_plans, making sure to remove duplicates etc.
+- Look through ideas, determine what to add
 
 Operations Phase:
 	- Play a Function Card, executing one of its two functions (if has in hand)

@@ -165,6 +165,19 @@ func draw_card(card: Card, team: TEAM) -> Card:
 func draw_random_card(team: TEAM) -> Card:
 	return draw_card(draw_pile[0], team)
 
+##Get the Value on the HN Influence Track
+func get_hn_influence_value() -> int:
+	var magnitude: int = absi(host_nation_influence)
+	
+	if magnitude == 4:
+		return 3
+	elif magnitude == 3:
+		return 2
+	elif magnitude > 0:
+		return 1
+	
+	return 0
+
 ##Get a Player's Name, as "Player Name(Color)", e.g. "Jedburgh (Blue)"
 func get_player_name(team: TEAM) -> String:
 	if team == TEAM.COUNTRY:
