@@ -216,13 +216,32 @@ func get_current_player_hand() -> Array[Card]:
 ##Discard a Particular Card from a Particular Team Player's Hand
 func discard_card(card: Card, team: TEAM) -> void:
 	if team == TEAM.COUNTRY:
-		assert(card in country_hand,"Card to be discarded by Country Player not in Country Player's hand")
+		assert(card in country_hand, "Card to be discarded by Country Player not in Country Player's hand")
 		country_hand.erase(card)
 		discard_pile.append(card)
 	elif team == TEAM.JEDBURGH:
-		assert(card in jedburgh_hand,"Card to be discarded by Jedburgh Player not in Jedburgh Player's hand")
+		assert(card in jedburgh_hand, "Card to be discarded by Jedburgh Player not in Jedburgh Player's hand")
 		jedburgh_hand.erase(card)
 		discard_pile.append(card)
+
+##Discard a Particular Action Card from a Particular Team Player's Network
+func discard_card_from_network(card: ActionCard, team: TEAM) -> void:
+	assert(card in get_flattened_network(team), "Action Card to be discarded not in Player's Network")
+	
+	if team == TEAM.COUNTRY:
+		for stack: Array in country_network:
+			for action_card: ActionCard in stack:
+				if card == action_card:
+					stack.erase(action_card)
+					discard_pile.append(action_card)
+					return
+	else:
+		for stack: Array in jedburgh_network:
+			for action_card: ActionCard in stack:
+				if card == action_card:
+					stack.erase(action_card)
+					discard_pile.append(action_card)
+					return
 
 ##TODO Get all Possible Game Moves
 func get_possible_moves() -> Array[Move]:
@@ -254,6 +273,37 @@ func get_possible_moves() -> Array[Move]:
 		return [DrawCardMove.new()]
 	elif current_phase == PHASE.MAINTAIN_NETWORK_COUNTRY or current_phase == PHASE.MAINTAIN_NETWORK_JEDBURGH:
 		return [MaintainNetworkMove.new()]
+	elif current_phase == PHASE.OPERATIONS_COUNTRY or current_phase == PHASE.OPERATIONS_JEDBURGH:
+		#Prepare Moves, Passing is an available move by default
+		var operations_moves: Array[Move] = [PassMove.new()]
+		
+		for card: Card in get_current_player_hand():
+			if card.card_name == FUNCTION_BUILD_MANAGE_DEGRADE_NETWORK_NAME:
+				#TODO Handle Build/Manage or Degrade Network Function Card
+				pass
+			elif card.card_name == FUNCTION_INFLUENCE_HN_NAME:
+				var new_move: InfluenceHostNationMove = InfluenceHostNationMove.new()
+				new_move.card_to_use = card
+				operations_moves.append(new_move)
+				
+				var all_action_cards: Array[ActionCard] = get_flattened_network(current_turn_team)
+				for hand_card: Card in get_current_player_hand():
+					if hand_card is ActionCard:
+						all_action_cards.append(card)
+				
+				for action_card: ActionCard in all_action_cards:
+					var new_move_with_action_card: InfluenceHostNationMove = InfluenceHostNationMove.new()
+					
+					new_move_with_action_card.card_to_use = card
+					new_move_with_action_card.action_card_to_play_with = action_card
+					
+					operations_moves.append(new_move_with_action_card)
+				
+			elif card.card_name == FUNCTION_REVEAL_CONCEAL_NAME:
+				#TODO Handle the Reveal/Conceal Function Card Functions
+				pass
+		
+		return operations_moves
 	
 	return []
 
@@ -363,6 +413,34 @@ func make_move(move: Move) -> void:
 		if previous_move is PassMove:
 			print("Previous Player also passed, moving onto Projects Phase!")
 			transfer_to_phase(PHASE.PROJECTS, TEAM.COUNTRY)
+	elif move is InfluenceHostNationMove:
+		var influence_change: int = move.get_influence_change()
+		
+		#Move HN Influence by corresponding change of influence
+		if current_turn_team == TEAM.COUNTRY:
+			host_nation_influence -= influence_change
+		else:
+			host_nation_influence += influence_change
+		
+		if move.action_card_to_play_with != null:
+			print("%s plays Influence Host Nation with Action Card, for total of %d Influence Change!" % [get_current_player_name(), influence_change])
+			
+			if move.action_card_to_play_with in get_current_player_hand():
+				discard_card(move.action_card_to_play_with, current_turn_team)
+			else:
+				discard_card_from_network(move.action_card_to_play_with, current_turn_team)
+		else:
+			print("%s plays Influence Host Nation without Action Card, for 1 Influence Change!" % get_current_player_name())
+	
+	#If the Move is Playing a Card in the Operations Phase, Discard the Card played and
+	#give the next player their turn
+	if move is PlayCardMove:
+		discard_card(move.card_to_use, current_turn_team)
+		
+		if current_phase == PHASE.OPERATIONS_COUNTRY:
+			transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+		elif current_phase == PHASE.OPERATIONS_JEDBURGH:
+			transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
 	
 	previous_move = move
 	move_taken.emit(move)
@@ -374,5 +452,5 @@ func transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 
 ##Set Host Nation Influence
 func _set_hn_influence(new_val: int) -> void:
-	host_nation_influence = new_val
+	host_nation_influence = clampi(new_val, -4, 4)
 	host_nation_influence_changed.emit(new_val)

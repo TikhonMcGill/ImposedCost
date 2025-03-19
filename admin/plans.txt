@@ -1,45 +1,10 @@
-For get_possible_moves in the Operations Phase, do as follows:
-	- Append PassMove by default
-	- Add if-statements for each Function Card Name, with TODO comments for the possible
-	two Functions
-	- Return the Possible Moves
-
-CardMove:
-	Members:
-		- card_to_use: Card - the Card that will be played
-	Consequences:
-		- discard card_to_use if move is CardMove
-	Combinations:
-		- Irrelevant, as all moves below will extend from this Move, and their
-		own logic will be handled for combinations
-
-InfluenceHostNationMove (extends CardMove):
-	Members:
-		- action_card_to_play_with: ActionCard - ActionCard to play Influence Host Nation With
-		- func get_influence_change() -> int = 1 + card_to_play_with value (if any, otherwise just 1)
-	Consequences:
-		- influence_change: int = get_influence_change()
-		- Depending on Player Type, add or subtract influence_change to hn_influence 
-		- Emit host_nation_influence_changed
-		- If action_card_to_play_with not null, discard it
-		- Move onto other team's operations phase
-		- Add Print Statement for playing without Action Card
-		- Add Print Statement for playing WITH Action Card
-	Combinations:
-		- Do in relevant if-statement of Operations Phase
-		- Card_to_use is the card in the if-statement
-		- possible_influence_moves: Array[Move] = []
-		- InfluenceHostNationMove with null action_card_to_play_with
-		- For each Action Card in a Player's Hand OR Network (fuse two arrays together
-		for this purpose), append to possible_influence_moves an InfluenceHostNationMove
-		WITH THAT ActionCard added 
-
 - Create a new Function, "get_hn_influence_value", which returns an int, based on host nation influence track
 - Create new function, "get_hn_side_team" which returns the Team on whose side Host Nation is - if 0, return
 Jedburgh
+- Go through this plan and next_plans, making sure to remove duplicates etc.
 - Look through ideas, determine what to add
 
-ActionCardMove (extends CardMove):
+ActionCardMove (extends PlayCardMove):
 	Members:
 		- Change: enum: DECREASE_TIME, INCREASE_TIME, INCREASE_BUDGET
 		- changes: Array[Change]
@@ -78,7 +43,7 @@ ActionCardMove (extends CardMove):
 				Take final_move
 
 - Get_opposing_player network helper func (basically opposite of getting current player)
-DegradeNetworkMove (extends CardMove):
+DegradeNetworkMove (extends PlayCardMove):
 	Members:
 		- enemy_card_to_discard: ActionCard
 	Consequences:
@@ -102,7 +67,7 @@ Create reveal_card(card: Card) method:
 	- Assert that card is NOT in revealed cards array
 	- Append to revealed_cards array
 
-RevealMove (extends CardMove):
+RevealMove (extends PlayCardMove):
 	Members:
 		- cards_to_reveal: Array[Card]
 	Consequences:
@@ -120,7 +85,7 @@ Create conceal_card method:
 	- Assert that card in revealed_cards Array
 	- Remove the card from the revealed_cards Array
 
-ConcealMove (extends CardMove):
+ConcealMove (extends PlayCardMove):
 	Members:
 		- cards_to_conceal: Array[Card]
 	Consequences:
@@ -133,7 +98,7 @@ ConcealMove (extends CardMove):
 			- If there is only two, append ConcealMove with conceal_card = those 2 cards
 			- Otherwise, use CombinatoricsUtilities, k = 2, Array = all revealed cards
 
-BuildNetworkMove (extends CardMove):
+BuildNetworkMove (extends PlayCardMove):
 	Members:
 		- Action_cards_to_add: Array[ActionCard]
 		- Stacks_to_add_to: PackedStringArray
@@ -156,7 +121,7 @@ BuildNetworkMove (extends CardMove):
 				- positions_to_add_to = ones chosen
 			- Take Constructed Move
 
-ManageNetworkMove (extends CardMove):
+ManageNetworkMove (extends PlayCardMove):
 	Members:
 		- stack_from: String
 		- stack_to: String
