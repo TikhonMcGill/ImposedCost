@@ -1,5 +1,3 @@
-- Get_opposing_player network helper func (basically opposite of getting current player)
-
 DegradeNetworkMove (extends PlayCardMove):
 	Members:
 		- enemy_card_to_discard: ActionCard

@@ -225,6 +225,13 @@ func get_player_network(team: TEAM) -> Array:
 func get_current_player_network() -> Array:
 	return get_player_network(current_turn_team)
 
+##Get the Opposing Player's Network
+func get_opposing_player_network() -> Array:
+	if current_turn_team == TEAM.COUNTRY:
+		return get_player_network(TEAM.JEDBURGH)
+	else:
+		return get_player_network(TEAM.COUNTRY)
+
 ##Get the Network of a Player, as a flattened array
 func get_flattened_network(team: TEAM) -> Array[ActionCard]:
 	var flattened_network: Array[ActionCard] = []
