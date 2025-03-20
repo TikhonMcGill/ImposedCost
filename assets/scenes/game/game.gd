@@ -44,8 +44,8 @@ func _setup_players() -> void:
 	country_team_player = country_player
 	jedburgh_team_player = jedburgh_player
 	
-	country_team_player.my_game = game_state
-	jedburgh_team_player.my_game = game_state
+	country_team_player.game_state = game_state
+	jedburgh_team_player.game_state = game_state
 	
 	country_team_player.my_team = GameState.TEAM.COUNTRY
 	jedburgh_team_player.my_team = GameState.TEAM.JEDBURGH
