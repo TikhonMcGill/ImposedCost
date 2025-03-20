@@ -491,14 +491,24 @@ func make_move(move: Move) -> void:
 		else:
 			print("%s plays Influence Host Nation without Action Card, for 1 Influence Change!" % get_current_player_name())
 	elif move is ActionCardMove:
+		assert(len(move.changes) == move.value, "No. Changes (%d) not equal to Action Card Value of %d" % [len(move.changes), move.value])
+		
+		print("%s doing Action Card Move, with value %d!" % [get_current_player_name(), move.value])
+		
 		#Go through the Individual Changes one-by-one (whose amount should equal Action Card value)
+		print("Changes:")
 		for change: ActionCardMove.CHANGE in move.changes:
 			if change == ActionCardMove.CHANGE.DECREASE_TIME:
 				move.project.time -= 1
+				print("\tIncreased Time")
 			elif change == ActionCardMove.CHANGE.INCREASE_TIME:
 				move.project.time += 1
+				print("\tDecreased Time")
 			elif change == ActionCardMove.CHANGE.INCREASE_BUDGET:
 				move.project.budget += 1
+				print("\tIncreased Budget")
+		print("")
+	
 	#If the Move is Playing a Card in the Operations Phase, Discard the Card played and
 	#give the next player their turn
 	if move is PlayCardMove:

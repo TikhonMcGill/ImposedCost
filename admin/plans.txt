@@ -1,29 +1,5 @@
-ActionCardMove (extends PlayCardMove):
-	Combinations:
-		For Random Player:
-			If move_to_take is ActionCardMove:
-				- Pick a random project
-				- increasing_time: bool
-				- change_combination: Array[ActionCardMove.Change]
-				- simulated_time: int = project.time
-				- simulated_budget: int = project.budget
-				Construct Possible_Changes:
-					- Append min(simulated_time, value) DECREASE_TIME values
-					- Append min(simulated_time - 9, value) INCREASE_TIME values
-					- Append min(simulated_budget - 9, value) INCREASE_BUDGET values
-				Construct final_move(ActionCardMove):
-					- card_to_play = one given
-					- value = given value
-					- project = chosen project
-				For x in range(value):
-					- Pick random Possible Change
-					- If len(possible_changes) == 0, continue
-					- If INCREASE_TIME, remove all DECREASE_TIMEs
-					- If DECREASE_TIME, remove all INCREASE_TIMEs
-					- Append chosen change to final_move changes
-				- Make final_move
-
 - Get_opposing_player network helper func (basically opposite of getting current player)
+
 DegradeNetworkMove (extends PlayCardMove):
 	Members:
 		- enemy_card_to_discard: ActionCard
