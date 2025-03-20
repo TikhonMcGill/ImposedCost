@@ -35,3 +35,5 @@ Possibly refactor other moves (namely ProjectsMove) to utilize this RandomPlayer
 of picking randomly instead of doing every combination
 
 Consider just having all cards have a "revealed" or "concealed" boolean or Enum for their status
+
+Possible Gamerule - whether or not to allow DECREASING Budget as well

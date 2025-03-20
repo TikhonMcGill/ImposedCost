@@ -1,8 +1,4 @@
 ActionCardMove (extends PlayCardMove):
-	Members:
-		- Change: enum: DECREASE_TIME, INCREASE_TIME, INCREASE_BUDGET
-		- changes: Array[Change]
-		- project: Project
 	Consequences:
 		- Assert that budget_change >= 0
 		Iterate through changes:
