@@ -165,6 +165,24 @@ func draw_card(card: Card, team: TEAM) -> Card:
 func draw_random_card(team: TEAM) -> Card:
 	return draw_card(draw_pile[0], team)
 
+##Determine if a Particular Card is Revealed
+func is_card_revealed(card: Card) -> bool:
+	return card in revealed_cards
+
+##Determine if a Particular Card is Concealed
+func is_card_concealed(card: Card) -> bool:
+	return is_card_revealed(card) == false
+
+##Reveal a Card
+func reveal_card(card: Card) -> void:
+	assert(card not in revealed_cards, "Card to be revealed already revealed")
+	revealed_cards.append(card)
+
+##Conceal a Card
+func conceal_card(card: Card) -> void:
+	assert(card in revealed_cards, "Card to be concealed not revealed")
+	revealed_cards.erase(card)
+
 ##Get the Value on the HN Influence Track
 func get_hn_influence_value() -> int:
 	var magnitude: int = absi(host_nation_influence)
@@ -245,8 +263,15 @@ func discard_card(card: Card, team: TEAM) -> void:
 		discard_pile.append(card)
 
 ##Discard a Particular Action Card from a Particular Team Player's Network
-func discard_card_from_network(card: ActionCard, team: TEAM) -> void:
+##optionally enforcing whether to reveal or discard it
+func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_reveal: bool) -> void:
 	assert(card in get_flattened_network(team), "Action Card to be discarded not in Player's Network")
+	
+	#If we're enforcing the conceal_reveal rule, and the card is concealed, we
+	#reveal it, but don't discard it, hence the return
+	if enforce_conceal_reveal == true and is_card_concealed(card) == true:
+		reveal_card(card)
+		return
 	
 	if team == TEAM.COUNTRY:
 		for stack: Array in country_network:
@@ -448,14 +473,25 @@ func make_move(move: Move) -> void:
 			if move.action_card_to_play_with in get_current_player_hand():
 				discard_card(move.action_card_to_play_with, current_turn_team)
 			else:
-				discard_card_from_network(move.action_card_to_play_with, current_turn_team)
+				discard_card_from_network(move.action_card_to_play_with, current_turn_team, false)
 		else:
 			print("%s plays Influence Host Nation without Action Card, for 1 Influence Change!" % get_current_player_name())
-	
+	elif move is ActionCardMove:
+		#Go through the Individual Changes one-by-one (whose amount should equal Action Card value)
+		for change: ActionCardMove.CHANGE in move.changes:
+			if change == ActionCardMove.CHANGE.DECREASE_TIME:
+				move.project.time -= 1
+			elif change == ActionCardMove.CHANGE.INCREASE_TIME:
+				move.project.time += 1
+			elif change == ActionCardMove.CHANGE.INCREASE_BUDGET:
+				move.project.budget += 1
 	#If the Move is Playing a Card in the Operations Phase, Discard the Card played and
 	#give the next player their turn
 	if move is PlayCardMove:
-		discard_card(move.card_to_use, current_turn_team)
+		if move.card_to_use is ActionCard:
+			discard_card_from_network(move.card_to_use, current_turn_team, true)
+		else:
+			discard_card(move.card_to_use, current_turn_team)
 		
 		if current_phase == PHASE.OPERATIONS_COUNTRY:
 			transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)

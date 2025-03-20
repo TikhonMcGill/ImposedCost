@@ -1,12 +1,4 @@
 ActionCardMove (extends PlayCardMove):
-	Consequences:
-		- Assert that budget_change >= 0
-		Iterate through changes:
-			- If change == DECREASE_TIME, project.time -= 1
-			- If change == INCREASE_TIME, project.time += 1
-			- If change == INCREASE_BUDGET, project.budget += 1
-		- If the Card is not null and concealed, reveal it
-		- If the Card is not null and revealed, discard it
 	Combinations:
 		- In Operations Phase, for each TOPMOST (last element) ActionCard in Network, if any,
 		append ActionCardMove, value = ActionCard value, card_to_play = ActionCard, corresponding to each Project (so 4 per ActionCard)
@@ -53,10 +45,6 @@ Use HN Influence Card in Operations Phase, new moves:
 	- Add DegradeNetworkMoves using get_degrade_network_possibilities, card_to_play = Influence HN Card
 	- Append ActionCardMove, value = get_hn_influence_value, card_to_play = Influence HN Card
 
-Create reveal_card(card: Card) method:
-	- Assert that card is NOT in revealed cards array
-	- Append to revealed_cards array
-
 RevealMove (extends PlayCardMove):
 	Members:
 		- cards_to_reveal: Array[Card]
@@ -69,11 +57,6 @@ RevealMove (extends PlayCardMove):
 			- If there is only one, append RevealMove with cards_to_reveal = that card
 			- If there is only two, append RevealMove with cards_to_reveal = those 2 cards
 			- Otherwise, use CombinatoricsUtilities, k = 2, Array = all concealed cards
-
-Create conceal_card method:
-	- Arg = card: Card
-	- Assert that card in revealed_cards Array
-	- Remove the card from the revealed_cards Array
 
 ConcealMove (extends PlayCardMove):
 	Members:
