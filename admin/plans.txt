@@ -1,9 +1,8 @@
 ActionCardMove (extends PlayCardMove):
 	Combinations:
-		- In Operations Phase, for each TOPMOST (last element) ActionCard in Network, if any,
-		append ActionCardMove, value = ActionCard value, card_to_play = ActionCard, corresponding to each Project (so 4 per ActionCard)
 		For Random Player:
 			If move_to_take is ActionCardMove:
+				- Pick a random project
 				- increasing_time: bool
 				- change_combination: Array[ActionCardMove.Change]
 				- simulated_time: int = project.time
@@ -15,14 +14,14 @@ ActionCardMove (extends PlayCardMove):
 				Construct final_move(ActionCardMove):
 					- card_to_play = one given
 					- value = given value
-					- project = given project
+					- project = chosen project
 				For x in range(value):
 					- Pick random Possible Change
 					- If len(possible_changes) == 0, continue
 					- If INCREASE_TIME, remove all DECREASE_TIMEs
 					- If DECREASE_TIME, remove all INCREASE_TIMEs
 					- Append chosen change to final_move changes
-				Take final_move
+				- Make final_move
 
 - Get_opposing_player network helper func (basically opposite of getting current player)
 DegradeNetworkMove (extends PlayCardMove):

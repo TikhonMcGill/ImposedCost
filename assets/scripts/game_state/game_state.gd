@@ -222,7 +222,7 @@ func get_player_network(team: TEAM) -> Array:
 		return jedburgh_network
 
 ##Get the Current Player's Network
-func get_current_player_network() -> Array[Card]:
+func get_current_player_network() -> Array:
 	return get_player_network(current_turn_team)
 
 ##Get the Network of a Player, as a flattened array
@@ -322,6 +322,7 @@ func get_possible_moves() -> Array[Move]:
 		#Prepare Moves, Passing is an available move by default
 		var operations_moves: Array[Move] = [PassMove.new()]
 		
+		#Handle playing Function Cards in the Player's Hand
 		for card: Card in get_current_player_hand():
 			if card.card_name == FUNCTION_BUILD_MANAGE_DEGRADE_NETWORK_NAME:
 				#TODO Handle Build/Manage or Degrade Network Function Card
@@ -347,6 +348,19 @@ func get_possible_moves() -> Array[Move]:
 			elif card.card_name == FUNCTION_REVEAL_CONCEAL_NAME:
 				#TODO Handle the Reveal/Conceal Function Card Functions
 				pass
+		
+		#Handle playing Topmost Action Cards (if any) in the Players Hand
+		var topmost_action_cards: Array[ActionCard]
+		for stack: Array in get_current_player_network():
+			#If any cards in the stack, append the topmost (last) one to topmost
+			if len(stack) > 0:
+				topmost_action_cards.append(stack[-1])
+		
+		for t: ActionCard in topmost_action_cards:
+			var new_action_card_move: ActionCardMove = ActionCardMove.new()
+			new_action_card_move.card_to_use = t
+			new_action_card_move.value = t.value
+			operations_moves.append(new_action_card_move)
 		
 		return operations_moves
 	

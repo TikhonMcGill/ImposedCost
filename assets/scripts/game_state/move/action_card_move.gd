@@ -9,6 +9,8 @@ enum CHANGE {
 	INCREASE_BUDGET, ##Increase Budget Value of Project by 1 (if not at maximum) - Budget can only go up
 } ##An Enum representing possible operations for each unit of the Played Action Card's Value
 
+var value: int ##The Value of the Action Card being played (for easier calculations)
+
 var changes: Array[CHANGE] ##The list of Changes intended to be done using this Action Card
 
 var project: Project ##The Project to apply this Action Card to
