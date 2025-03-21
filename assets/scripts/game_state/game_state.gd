@@ -225,6 +225,13 @@ func get_player_network(team: TEAM) -> Array:
 func get_current_player_network() -> Array:
 	return get_player_network(current_turn_team)
 
+##Get the Opposing Player
+func get_opposing_player() -> TEAM:
+	if current_turn_team == TEAM.COUNTRY:
+		return TEAM.JEDBURGH
+	
+	return TEAM.COUNTRY
+
 ##Get the Opposing Player's Network
 func get_opposing_player_network() -> Array:
 	if current_turn_team == TEAM.COUNTRY:
@@ -515,6 +522,11 @@ func make_move(move: Move) -> void:
 				move.project.budget += 1
 				print("\tIncreased Budget")
 		print("")
+	elif move is DegradeNetworkMove:
+		print("%s playing Degrade Network!" % get_current_player_name())
+		assert(is_card_revealed(move.enemy_card_to_discard) == true, "Enemy Card to Discard for Degrade Network is not Revealed")
+		
+		discard_card_from_network(move.enemy_card_to_discard, get_opposing_player(), false)
 	
 	#If the Move is Playing a Card in the Operations Phase, Discard the Card played and
 	#give the next player their turn

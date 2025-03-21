@@ -1,9 +1,4 @@
 DegradeNetworkMove (extends PlayCardMove):
-	Consequences:
-		- Assert that card_to_discard is revealed
-		- Assert that card_to_discard is top of stack
-		- Go through enemy network
-		- If that card is the one to discard, discard it
 	Combinations:
 		get_degrade_network_possibilities helper func:
 			- Go through opponent's network
