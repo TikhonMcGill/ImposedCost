@@ -342,17 +342,7 @@ func get_possible_moves() -> Array[Move]:
 				#TODO Handle Build/Manage or Degrade Network Function Card
 				
 				#Handle Degrade Network Function Aspect
-				for stack: Array in get_opposing_player_network():
-					if len(stack) > 0:
-						var topmost_card: ActionCard = stack[-1]
-						
-						if is_card_revealed(topmost_card) == true:
-							var new_degrade_move: DegradeNetworkMove = DegradeNetworkMove.new()
-							new_degrade_move.card_to_use = card
-							new_degrade_move.enemy_card_to_discard = topmost_card
-							operations_moves.append(new_degrade_move)
-				
-				pass
+				operations_moves += _get_degrade_network_possibilities(card)
 			elif card.card_name == FUNCTION_INFLUENCE_HN_NAME:
 				var new_move: InfluenceHostNationMove = InfluenceHostNationMove.new()
 				new_move.card_to_use = card
@@ -371,11 +361,22 @@ func get_possible_moves() -> Array[Move]:
 					
 					operations_moves.append(new_move_with_action_card)
 				
+				#Handle aspect of using HN Influence if on own track and influence value > 0
+				if get_hn_influence_team() == current_turn_team and get_hn_influence_value() > 0:
+					#Add Possibilities of using the Card as a Degrade Network
+					operations_moves += _get_degrade_network_possibilities(card)
+					
+					#Add Possibility of using the Card as an Action Card
+					var new_action_move: ActionCardMove = ActionCardMove.new()
+					new_action_move.card_to_use = card
+					new_action_move.value = get_hn_influence_value()
+					operations_moves.append(new_action_move)
+			
 			elif card.card_name == FUNCTION_REVEAL_CONCEAL_NAME:
 				#TODO Handle the Reveal/Conceal Function Card Functions
 				pass
 		
-		#Handle playing Topmost Action Cards (if any) in the Players Hand
+		#Handle playing Topmost Action Cards (if any) in the Player's Network
 		var topmost_action_cards: Array[ActionCard]
 		for stack: Array in get_current_player_network():
 			#If any cards in the stack, append the topmost (last) one to topmost
@@ -565,3 +566,19 @@ func transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 func _set_hn_influence(new_val: int) -> void:
 	host_nation_influence = clampi(new_val, -4, 4)
 	host_nation_influence_changed.emit(new_val)
+
+##Get possible Degrade Network Possibilities
+func _get_degrade_network_possibilities(card_to_play: Card) -> Array[DegradeNetworkMove]:
+	var possibilities: Array[DegradeNetworkMove] = []
+	
+	for stack: Array in get_opposing_player_network():
+		if len(stack) > 0:
+			var topmost_card: ActionCard = stack[-1]
+			
+			if is_card_revealed(topmost_card) == true:
+				var new_degrade_move: DegradeNetworkMove = DegradeNetworkMove.new()
+				new_degrade_move.card_to_use = card_to_play
+				new_degrade_move.enemy_card_to_discard = topmost_card
+				possibilities.append(new_degrade_move)
+	
+	return possibilities

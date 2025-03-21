@@ -1,8 +1,3 @@
-If host_nation_influence on current player's side, and get_hn_influence_value > 0, and has
-Use HN Influence Card in Operations Phase, new moves:
-	- Add DegradeNetworkMoves using get_degrade_network_possibilities, card_to_play = Influence HN Card
-	- Append ActionCardMove, value = get_hn_influence_value, card_to_play = Influence HN Card
-
 RevealMove (extends PlayCardMove):
 	Members:
 		- cards_to_reveal: Array[Card]
