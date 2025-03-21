@@ -1,6 +1,4 @@
 ConcealMove (extends PlayCardMove):
-	Members:
-		- cards_to_conceal: Array[Card]
 	Consequences:
 		- Call "conceal_card" with each element in cards_to_reveal
 	Combinations:
