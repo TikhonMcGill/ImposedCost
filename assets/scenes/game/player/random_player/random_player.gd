@@ -21,6 +21,8 @@ func take_turn() -> void:
 		move_to_take = _construct_action_card_move(move_to_take.card_to_use)
 	elif move_to_take is RevealMove:
 		move_to_take = _construct_reveal_move(move_to_take.card_to_use)
+	elif move_to_take is ConcealMove:
+		move_to_take = _construct_conceal_move(move_to_take.card_to_use)
 	
 	player_move_taken.emit(move_to_take)
 
@@ -137,3 +139,20 @@ func _construct_reveal_move(card: Card) -> RevealMove:
 	new_reveal_move.cards_to_reveal = cards_to_reveal
 	
 	return new_reveal_move
+
+##Construct a ConcealMove, if that is what the Random Player chose to do
+func _construct_conceal_move(card: Card) -> ConcealMove:
+	var possible_cards_to_conceal: Array[ActionCard] = game_state.get_flattened_network(my_team).filter(game_state.is_card_revealed)
+	possible_cards_to_conceal.shuffle()
+	
+	var cards_to_conceal: Array[ActionCard] = []
+	if len(cards_to_conceal) == 1:
+		cards_to_conceal = [possible_cards_to_conceal[0]]
+	else:
+		cards_to_conceal = [possible_cards_to_conceal[0], possible_cards_to_conceal[1]]
+	
+	var new_conceal_move: ConcealMove = ConcealMove.new()
+	new_conceal_move.card_to_use = card
+	new_conceal_move.cards_to_reveal = cards_to_conceal
+	
+	return new_conceal_move

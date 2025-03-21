@@ -1,12 +1,3 @@
-ConcealMove (extends PlayCardMove):
-	Combinations:
-		- Do in relevant if-statement (same card as RevealMove)
-		- Card_to_use is the card in the if-statement
-		Only available if there are revealed cards in the Player's Network:
-			- If there is only one, append ConcealMove with conceal_card = that card
-			- If there is only two, append ConcealMove with conceal_card = those 2 cards
-			- Otherwise, use CombinatoricsUtilities, k = 2, Array = all revealed cards
-
 BuildNetworkMove (extends PlayCardMove):
 	Members:
 		- Action_cards_to_add: Array[ActionCard]
