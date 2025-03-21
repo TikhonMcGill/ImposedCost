@@ -1,6 +1,4 @@
 ConcealMove (extends PlayCardMove):
-	Consequences:
-		- Call "conceal_card" with each element in cards_to_reveal
 	Combinations:
 		- Do in relevant if-statement (same card as RevealMove)
 		- Card_to_use is the card in the if-statement

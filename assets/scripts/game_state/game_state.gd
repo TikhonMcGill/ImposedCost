@@ -552,6 +552,11 @@ func make_move(move: Move) -> void:
 		
 		for revealed: ActionCard in move.cards_to_reveal:
 			reveal_card(revealed)
+	elif move is ConcealMove:
+		print("%s plays Conceal Move!" % get_current_player_name())
+		
+		for concealed: ActionCard in move.cards_to_conceal:
+			conceal_card(concealed)
 	
 	#If the Move is Playing a Card in the Operations Phase, Discard the Card played and
 	#give the next player their turn
