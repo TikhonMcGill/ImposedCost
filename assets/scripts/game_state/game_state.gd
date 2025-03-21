@@ -540,6 +540,11 @@ func make_move(move: Move) -> void:
 		assert(is_card_revealed(move.enemy_card_to_discard) == true, "Enemy Card to Discard for Degrade Network is not Revealed")
 		
 		discard_card_from_network(move.enemy_card_to_discard, get_opposing_player(), false)
+	elif move is RevealMove:
+		print("%s plays Reveal Move!" % get_current_player_name())
+		
+		for revealed: ActionCard in move.cards_to_reveal:
+			reveal_card(revealed)
 	
 	#If the Move is Playing a Card in the Operations Phase, Discard the Card played and
 	#give the next player their turn

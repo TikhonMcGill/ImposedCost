@@ -1,6 +1,4 @@
 RevealMove (extends PlayCardMove):
-	Consequences:
-		- Call "reveal_card" with each element in cards_to_reveal
 	Combinations:
 		- Do in relevant if-statement
 		- Card_to_use is the card in the if-statement
