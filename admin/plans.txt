@@ -1,11 +1,3 @@
-DegradeNetworkMove (extends PlayCardMove):
-	Combinations:
-		get_degrade_network_possibilities helper func:
-			- Go through opponent's network
-			- Get topmost card of each stack (if any) - last item in stack
-			- If it is Revealed, construct DegradeNetworkMove with card_to_use and this card
-			- Return DegradeNetworkMoves, or empty array
-
 If host_nation_influence on current player's side, and get_hn_influence_value > 0, and has
 Use HN Influence Card in Operations Phase, new moves:
 	- Add DegradeNetworkMoves using get_degrade_network_possibilities, card_to_play = Influence HN Card

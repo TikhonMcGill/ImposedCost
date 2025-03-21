@@ -340,6 +340,18 @@ func get_possible_moves() -> Array[Move]:
 		for card: Card in get_current_player_hand():
 			if card.card_name == FUNCTION_BUILD_MANAGE_DEGRADE_NETWORK_NAME:
 				#TODO Handle Build/Manage or Degrade Network Function Card
+				
+				#Handle Degrade Network Function Aspect
+				for stack: Array in get_opposing_player_network():
+					if len(stack) > 0:
+						var topmost_card: ActionCard = stack[-1]
+						
+						if is_card_revealed(topmost_card) == true:
+							var new_degrade_move: DegradeNetworkMove = DegradeNetworkMove.new()
+							new_degrade_move.card_to_use = card
+							new_degrade_move.enemy_card_to_discard = topmost_card
+							operations_moves.append(new_degrade_move)
+				
 				pass
 			elif card.card_name == FUNCTION_INFLUENCE_HN_NAME:
 				var new_move: InfluenceHostNationMove = InfluenceHostNationMove.new()
