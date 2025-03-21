@@ -1,15 +1,15 @@
 RevealMove (extends PlayCardMove):
-	Members:
-		- cards_to_reveal: Array[Card]
 	Consequences:
 		- Call "reveal_card" with each element in cards_to_reveal
 	Combinations:
 		- Do in relevant if-statement
 		- Card_to_use is the card in the if-statement
-		Only available if there are concealed cards in the Opposing Player's Network:
-			- If there is only one, append RevealMove with cards_to_reveal = that card
-			- If there is only two, append RevealMove with cards_to_reveal = those 2 cards
-			- Otherwise, use CombinatoricsUtilities, k = 2, Array = all concealed cards
+		- Return
+		Make Random Player Handle it:
+			Only available if there are concealed cards in the Opposing Player's Network:
+				- If there is only one, append RevealMove with cards_to_reveal = that card
+				- If there is only two, append RevealMove with cards_to_reveal = those 2 cards
+				- Otherwise, use CombinatoricsUtilities, k = 2, Array = all concealed cards
 
 ConcealMove (extends PlayCardMove):
 	Members:
