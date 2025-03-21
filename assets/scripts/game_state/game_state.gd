@@ -374,6 +374,15 @@ func get_possible_moves() -> Array[Move]:
 			elif card.card_name == FUNCTION_REVEAL_CONCEAL_NAME:
 				#TODO Handle the Reveal/Conceal Function Card Functions
 				
+				#Check if Own Network has any Revealed Cards
+				var own_network_revealed: bool = get_flattened_network(current_turn_team).any(is_card_revealed)
+				
+				#Add ConcealMove if own Network has Revealed Cards
+				if own_network_revealed == true:
+					var new_conceal_move: ConcealMove = ConcealMove.new()
+					new_conceal_move.card_to_use = card
+					operations_moves.append(new_conceal_move)
+				
 				#Check if Enemy Network has any Concealed Cards
 				var enemy_network_concealed: bool = get_flattened_network(get_opposing_player()).any(is_card_concealed)
 				
