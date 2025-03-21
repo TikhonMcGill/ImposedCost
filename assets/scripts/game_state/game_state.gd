@@ -371,10 +371,13 @@ func get_possible_moves() -> Array[Move]:
 					new_action_move.card_to_use = card
 					new_action_move.value = get_hn_influence_value()
 					operations_moves.append(new_action_move)
-			
 			elif card.card_name == FUNCTION_REVEAL_CONCEAL_NAME:
 				#TODO Handle the Reveal/Conceal Function Card Functions
-				pass
+				
+				#Add RevealMove
+				var new_reveal_move: RevealMove = RevealMove.new()
+				new_reveal_move.card_to_use = card
+				operations_moves.append(new_reveal_move)
 		
 		#Handle playing Topmost Action Cards (if any) in the Player's Network
 		var topmost_action_cards: Array[ActionCard]

@@ -1,8 +1,5 @@
 RevealMove (extends PlayCardMove):
 	Combinations:
-		- Do in relevant if-statement
-		- Card_to_use is the card in the if-statement
-		- Return
 		Make Random Player Handle it:
 			Only available if there are concealed cards in the Opposing Player's Network:
 				- If there is only one, append RevealMove with cards_to_reveal = that card
