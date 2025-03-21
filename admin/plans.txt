@@ -1,6 +1,4 @@
 DegradeNetworkMove (extends PlayCardMove):
-	Members:
-		- enemy_card_to_discard: ActionCard
 	Consequences:
 		- Assert that card_to_discard is revealed
 		- Assert that card_to_discard is top of stack
