@@ -19,6 +19,8 @@ func take_turn() -> void:
 		move_to_take = _construct_maintain_network_move()
 	elif move_to_take is ActionCardMove:
 		move_to_take = _construct_action_card_move(move_to_take.card_to_use)
+	elif move_to_take is RevealMove:
+		move_to_take = _construct_reveal_move(move_to_take.card_to_use)
 	
 	player_move_taken.emit(move_to_take)
 
@@ -118,3 +120,20 @@ func _construct_action_card_move(action_card: ActionCard) -> ActionCardMove:
 			final_move.changes.append(chosen_change)
 	
 	return final_move
+
+##Construct a RevealMove, if that is what the Random Player chose to do
+func _construct_reveal_move(card: Card) -> RevealMove:
+	var possible_cards_to_reveal: Array[ActionCard] = game_state.get_flattened_network(game_state.get_opposing_player()).filter(game_state.is_card_concealed)
+	possible_cards_to_reveal.shuffle()
+	
+	var cards_to_reveal: Array[ActionCard] = []
+	if len(possible_cards_to_reveal) == 1:
+		cards_to_reveal = [possible_cards_to_reveal[0]]
+	else:
+		cards_to_reveal = [possible_cards_to_reveal[0], possible_cards_to_reveal[1]]
+	
+	var new_reveal_move: RevealMove = RevealMove.new()
+	new_reveal_move.card_to_use = card
+	new_reveal_move.cards_to_reveal = cards_to_reveal
+	
+	return new_reveal_move

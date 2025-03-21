@@ -374,10 +374,14 @@ func get_possible_moves() -> Array[Move]:
 			elif card.card_name == FUNCTION_REVEAL_CONCEAL_NAME:
 				#TODO Handle the Reveal/Conceal Function Card Functions
 				
-				#Add RevealMove
-				var new_reveal_move: RevealMove = RevealMove.new()
-				new_reveal_move.card_to_use = card
-				operations_moves.append(new_reveal_move)
+				#Check if Enemy Network has any Concealed Cards
+				var enemy_network_concealed: bool = get_flattened_network(get_opposing_player()).any(is_card_concealed)
+				
+				#Add RevealMove if the Enemy Network has Concealed Cards
+				if enemy_network_concealed == true:
+					var new_reveal_move: RevealMove = RevealMove.new()
+					new_reveal_move.card_to_use = card
+					operations_moves.append(new_reveal_move)
 		
 		#Handle playing Topmost Action Cards (if any) in the Player's Network
 		var topmost_action_cards: Array[ActionCard]
