@@ -551,6 +551,14 @@ func make_move(move: Move) -> void:
 				move.project.budget += 1
 				print("\tIncreased Budget")
 		print("")
+	elif move is BuildNetworkMove:
+		print("%s playing Build Network!" % get_current_player_name())
+		
+		for card: ActionCard in move.action_cards_to_add:
+			assert(card in get_current_player_hand(), "Action Card to add to Network not in player's hand")
+		
+		for i: int in range(len(move.action_cards_to_add)):
+			get_current_player_network()[move.stacks_to_add_to[i]].insert(move.indices_to_add_to[i], move.action_cards_to_add[i])
 	elif move is DegradeNetworkMove:
 		print("%s playing Degrade Network!" % get_current_player_name())
 		assert(is_card_revealed(move.enemy_card_to_discard) == true, "Enemy Card to Discard for Degrade Network is not Revealed")
