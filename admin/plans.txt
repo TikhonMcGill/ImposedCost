@@ -1,12 +1,8 @@
 BuildNetworkMove (extends PlayCardMove):
-	Members:
-		- Action_cards_to_add: Array[ActionCard]
-		- Stacks_to_add_to: PackedStringArray
-		- Positions_to_add_to: Array[int]
 	Consequences:
 		- Assert that have Action Cards to add in own Hand
-		- Go through stacks_to_add to using int indices:
-			- Based on stack (ABCD), insert into positions_to_add_to[i] in relevant stack
+		- Go through stacks_to_add:
+			- Based on stack's index, insert into positions_to_add_to[i] in relevant stack
 	Combinations:
 		- If have card, return BuildNetworkMove, card_to_play = the card
 		In Random Player:
