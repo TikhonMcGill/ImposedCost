@@ -1,9 +1,4 @@
 ManageNetworkMove (extends PlayCardMove):
-	Members:
-		- stack_from: String
-		- stack_to: String
-		- position_from: int
-		- position_to: int
 	Consequences:
 		- Assert that the stack from is not empty
 		- Assert that the position to move from is valid
