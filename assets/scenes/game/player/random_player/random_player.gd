@@ -23,6 +23,8 @@ func take_turn() -> void:
 		move_to_take = _construct_reveal_move(move_to_take.card_to_use)
 	elif move_to_take is ConcealMove:
 		move_to_take = _construct_conceal_move(move_to_take.card_to_use)
+	elif move_to_take is BuildNetworkMove:
+		move_to_take = _construct_build_network_move(move_to_take.card_to_use)
 	
 	player_move_taken.emit(move_to_take)
 
@@ -156,3 +158,31 @@ func _construct_conceal_move(card: Card) -> ConcealMove:
 	new_conceal_move.cards_to_reveal = cards_to_conceal
 	
 	return new_conceal_move
+
+##Construct a BuildNetwork Move, if that is what the Random Player chose to do
+func _construct_build_network_move(card: Card) -> BuildNetworkMove:
+	var final_move: BuildNetworkMove = BuildNetworkMove.new()
+	final_move.card_to_use = card
+	
+	var action_cards_in_hand: Array[ActionCard] = []
+	for c: Card in game_state.get_player_hand(my_team):
+		if c is ActionCard:
+			action_cards_in_hand.append(c)
+	action_cards_in_hand.shuffle()
+	
+	var builds_to_make: int = mini(randi() % 2, len(action_cards_in_hand))
+	for b in range(builds_to_make):
+		#Choose Random Action Card
+		var chosen_action_card: ActionCard = action_cards_in_hand.pop_front()
+		
+		#Choose a Random Stack to move cards into
+		var chosen_stack: int = randi() % 4
+		
+		#Choose a Random Index to insert card into in stack
+		var chosen_index: int = randi() % max(1, len(game_state.get_player_network(my_team)[chosen_stack]))
+		
+		final_move.action_cards_to_add.append(chosen_action_card)
+		final_move.stacks_to_add_to.append(chosen_stack)
+		final_move.indices_to_add_to.append(chosen_index)
+	
+	return final_move

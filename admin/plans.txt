@@ -1,18 +1,3 @@
-BuildNetworkMove (extends PlayCardMove):
-	Combinations:
-		- If have card, return BuildNetworkMove, card_to_play = the card
-		In Random Player:
-			- Get all Action Cards
-			- If 2 or more and randi() % 4 > 0, pick 2 (without replacement) random Action Cards
-			- Pick 2 random stacks (A, B, C or D)
-			- Pick random indices based on stacks (0 to len(stack))
-			Construct BuildNetworkMove:
-				- card_to_play = card given
-				- action_cards_to_add = ones chosen
-				- stacks_to_add_to = ones chosen
-				- positions_to_add_to = ones chosen
-			- Take Constructed Move
-
 ManageNetworkMove (extends PlayCardMove):
 	Members:
 		- stack_from: String
@@ -26,7 +11,7 @@ ManageNetworkMove (extends PlayCardMove):
 		- Remove it from stack_from
 		- Insert it into stack_to, at position_to
 	Combinations:
-		- If have card, return ManageNetworkMove, card_to_play = the card
+		- If have card AND network not empty, return ManageNetworkMove, card_to_play = the card
 		In Random Player:
 			- Get all Non-empty stacks
 			- Pick a random Stack

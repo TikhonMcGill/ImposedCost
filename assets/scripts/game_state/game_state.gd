@@ -341,6 +341,16 @@ func get_possible_moves() -> Array[Move]:
 			if card.card_name == FUNCTION_BUILD_MANAGE_DEGRADE_NETWORK_NAME:
 				#TODO Handle Build/Manage or Degrade Network Function Card
 				
+				#Determine if can Build Network - need Action Card(s) in hand
+				var has_action_cards: bool = false
+				for c: Card in get_current_player_hand():
+					if c is ActionCard:
+						has_action_cards = true
+						break
+				
+				if has_action_cards == true:
+					operations_moves.append(BuildNetworkMove.new())
+				
 				#Handle Degrade Network Function Aspect
 				operations_moves += _get_degrade_network_possibilities(card)
 			elif card.card_name == FUNCTION_INFLUENCE_HN_NAME:
