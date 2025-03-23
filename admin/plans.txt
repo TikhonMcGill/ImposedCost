@@ -1,10 +1,4 @@
 ManageNetworkMove (extends PlayCardMove):
-	Consequences:
-		- Assert that the stack from is not empty
-		- Assert that the position to move from is valid
-		- Get item from stack_from at index position_from
-		- Remove it from stack_from
-		- Insert it into stack_to, at position_to
 	Combinations:
 		- If have card AND network not empty, return ManageNetworkMove, card_to_play = the card
 		In Random Player:

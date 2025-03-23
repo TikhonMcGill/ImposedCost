@@ -569,6 +569,15 @@ func make_move(move: Move) -> void:
 		
 		for i: int in range(len(move.action_cards_to_add)):
 			get_current_player_network()[move.stacks_to_add_to[i]].insert(move.indices_to_add_to[i], move.action_cards_to_add[i])
+	elif move is ManageNetworkMove:
+		print("%s playing Manage Network!" % get_current_player_name())
+		
+		assert(len(get_current_player_network()[move.stack_from]) > 0, "Stack to move Action Card from is empty")
+		
+		var moved_action_card: ActionCard = get_current_player_network()[move.stack_from][move.position_from]
+		get_current_player_network()[move.stack_from].remove_at(move.position_from)
+		get_current_player_network()[move.stack_to].append(moved_action_card)
+		
 	elif move is DegradeNetworkMove:
 		print("%s playing Degrade Network!" % get_current_player_name())
 		assert(is_card_revealed(move.enemy_card_to_discard) == true, "Enemy Card to Discard for Degrade Network is not Revealed")
