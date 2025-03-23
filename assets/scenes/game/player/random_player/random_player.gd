@@ -25,6 +25,8 @@ func take_turn() -> void:
 		move_to_take = _construct_conceal_move(move_to_take.card_to_use)
 	elif move_to_take is BuildNetworkMove:
 		move_to_take = _construct_build_network_move(move_to_take.card_to_use)
+	elif move_to_take is ManageNetworkMove:
+		move_to_take = _construct_manage_network_move(move_to_take.card_to_use)
 	
 	player_move_taken.emit(move_to_take)
 
@@ -184,5 +186,23 @@ func _construct_build_network_move(card: Card) -> BuildNetworkMove:
 		final_move.action_cards_to_add.append(chosen_action_card)
 		final_move.stacks_to_add_to.append(chosen_stack)
 		final_move.indices_to_add_to.append(chosen_index)
+	
+	return final_move
+
+##Construct a ManageNetwork Move, if that is what the Random Player chose to do
+func _construct_manage_network_move(card: Card) -> ManageNetworkMove:
+	var final_move: ManageNetworkMove = ManageNetworkMove.new()
+	final_move.card_to_use = card
+	
+	var chosen_stack: int = randi() % 4
+	while len(game_state.get_player_network(my_team)[chosen_stack]) == 0:
+		chosen_stack = randi() % 4
+	
+	var chosen_position: int = randi() % len(game_state.get_player_network(my_team)[chosen_stack])
+	
+	final_move.stack_from = chosen_stack
+	final_move.position_from = chosen_position
+	final_move.stack_to = randi() % 4
+	
 	
 	return final_move

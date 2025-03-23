@@ -1,7 +1,7 @@
 class_name ManageNetworkMove
 extends PlayCardMove
 
-##Move representing the Manage Network Aspect of the card
+##Move representing the Manage Network Aspect of the Build/Manage/Degrade Network Function Card
 
 var stack_from: int ##The Stack from which to move the Action Card, 0 to 3 representing A to D
 var position_from: int ##The Index from which to get the Action Card
