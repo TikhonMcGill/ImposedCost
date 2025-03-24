@@ -94,10 +94,10 @@ func _construct_action_card_move(action_card: ActionCard) -> ActionCardMove:
 	for time_decrease: int in range(min(simulated_time, final_move.value)):
 		possible_changes.append(ActionCardMove.CHANGE.DECREASE_TIME)
 	
-	for time_increase: int in range(min(simulated_time - 9, final_move.value)):
+	for time_increase: int in range(min(9 - simulated_time, final_move.value)):
 		possible_changes.append(ActionCardMove.CHANGE.INCREASE_TIME)
 	
-	for budget_increase: int in range(min(simulated_budget - 9, final_move.value)):
+	for budget_increase: int in range(min(9 - simulated_budget, final_move.value)):
 		possible_changes.append(ActionCardMove.CHANGE.INCREASE_BUDGET)
 	
 	possible_changes.shuffle()

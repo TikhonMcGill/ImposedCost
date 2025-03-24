@@ -571,6 +571,7 @@ func make_move(move: Move) -> void:
 		
 		for i: int in range(len(move.action_cards_to_add)):
 			get_current_player_network()[move.stacks_to_add_to[i]].insert(move.indices_to_add_to[i], move.action_cards_to_add[i])
+			conceal_card(move.action_cards_to_add[i])
 	elif move is ManageNetworkMove:
 		print("%s playing Manage Network!" % get_current_player_name())
 		
