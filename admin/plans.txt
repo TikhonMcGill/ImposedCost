@@ -1,7 +1,25 @@
+Project Phase Plan:
+	- Any Projects that have met or exceeded the Time and Budget minimal values printed on 
+	their card are now completed and scored
+	- Implement checking Project Completion
+	- Implement scoring Projects
+	- Implement reselecting Projects, via a special move, done by the Country Player
+
+HN Influence Phase Plan:
+	- Raise (if on Blue side) or lower
+ 	(if on Red side) Blue’s Victory Point level by a 
+	number equal to the HN Influence value
+	- Could be done not as a phase, but as a onetime calculation at the end of the
+	Project Phase
+
+Turn End Phase Plan:
+	XYZ
+
+Game End Phase Plan:
+	- Calculate Victory Level
+
 Plans:
-	- Implement Projects Phase, with all corollaries - read the example, if nothing understood,
-	completion of Projects should initially pick RANDOM outcome (e.g. random project to
-	add value to), then add as Gamerule(s) to let Country Team (or even Jedburgh Team) pick 
+	- Implement Projects Phase, with all corollaries
 	- Implement HN Influence Phase, with all corollaries
 	- Implement Game End Phase, with Victory Level Calculation etc.
 
@@ -32,14 +50,6 @@ Sequence of Play:
 			- If not:
 				- Raise the Time value of all Projects in play by 1, unless the Project’s Budget value 
 				is currently 0 (zero); then start a new turn with the Draw Cards Phase.
-
-Base Cards and Networks
-	There are 2 Base cards in the game: 
-		1 x “Country Team” (red);
-		1 x Jedburgh team (blue). 
-	Each side of card is coded A B C D for the matching box on the Game Mat which contains a Project card.
-	Action cards can be placed along the side of a card for use on Projects corresponding to the lettered box. 
-	The total assembly of 1 Base plus any number of Action cards is called a Network. 
 
 Completing a Project:
 	During the Projects Phase, if both dice on a Project card show values 

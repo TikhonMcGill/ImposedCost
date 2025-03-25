@@ -354,7 +354,7 @@ func get_possible_moves() -> Array[Move]:
 					operations_moves.append(ManageNetworkMove.new())
 				
 				#Handle Degrade Network Function Aspect
-				operations_moves += _get_degrade_network_possibilities(card)
+				operations_moves.append_array(_get_degrade_network_possibilities(card))
 			elif card.card_name == FUNCTION_INFLUENCE_HN_NAME:
 				var new_move: InfluenceHostNationMove = InfluenceHostNationMove.new()
 				new_move.card_to_use = card
@@ -376,7 +376,7 @@ func get_possible_moves() -> Array[Move]:
 				#Handle aspect of using HN Influence if on own track and influence value > 0
 				if get_hn_influence_team() == current_turn_team and get_hn_influence_value() > 0:
 					#Add Possibilities of using the Card as a Degrade Network
-					operations_moves += _get_degrade_network_possibilities(card)
+					operations_moves.append_array(_get_degrade_network_possibilities(card))
 					
 					#Add Possibility of using the Card as an Action Card
 					var new_action_move: ActionCardMove = ActionCardMove.new()
@@ -453,10 +453,9 @@ func make_move(move: Move) -> void:
 				print("%s has no cards in their hand, so discarding Action Cards!" % get_current_player_name())
 				var discarded: int = 0
 				
-				for a: Card in get_current_player_network():
-					if a is ActionCard:
-						discard_card(a, current_turn_team)
-						discarded += 1
+				for a: ActionCard in get_flattened_network(current_turn_team):
+					discard_card_from_network(a, current_turn_team, false)
+					discarded += 1
 				
 				print("Discarded %d Action Cards!" % discarded)
 				
@@ -527,6 +526,12 @@ func make_move(move: Move) -> void:
 		if previous_move is PassMove:
 			print("Previous Player also passed, moving onto Projects Phase!")
 			transfer_to_phase(PHASE.PROJECTS, TEAM.COUNTRY)
+		else:
+			if current_turn_team == TEAM.COUNTRY:
+				transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+			else:
+				transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
+		
 	elif move is InfluenceHostNationMove:
 		var influence_change: int = move.get_influence_change()
 		
