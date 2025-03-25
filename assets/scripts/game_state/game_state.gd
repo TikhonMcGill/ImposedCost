@@ -98,7 +98,7 @@ var jedburgh_network: Array = [[], [], [], []] ##The Network of the Jedburgh Tea
 var current_turn: int = 1 ##The Current Turn
 var current_phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
 
-var projects: Array[Project] = [] ##All Projects left to be played
+var projects: Array[Project] = [null, null, null, null] ##All Projects left to be played
 
 ##Set up the Game
 func setup_game() -> void:
@@ -427,11 +427,10 @@ func make_move(move: Move) -> void:
 		print("SelectProjectsMove Played")
 		
 		var projects_selected: PackedStringArray = []
-		
-		for p: ProjectCard in move.projects_to_select:
-			var new_project: Project = Project.new(p)
-			projects.append(new_project)
-			projects_selected.append(p.card_name)
+		for p: int in range(len(move.projects_to_select)):
+			var new_project: Project = Project.new(move.projects_to_select[p])
+			projects[p] = (new_project)
+			projects_selected.append(new_project.project_card.card_name)
 		
 		print("Projects Selected: %s" % ", ".join(projects_selected))
 		
@@ -531,7 +530,6 @@ func make_move(move: Move) -> void:
 				transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
 			else:
 				transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
-		
 	elif move is InfluenceHostNationMove:
 		var influence_change: int = move.get_influence_change()
 		
@@ -585,7 +583,6 @@ func make_move(move: Move) -> void:
 		var moved_action_card: ActionCard = get_current_player_network()[move.stack_from][move.position_from]
 		get_current_player_network()[move.stack_from].remove_at(move.position_from)
 		get_current_player_network()[move.stack_to].append(moved_action_card)
-		
 	elif move is DegradeNetworkMove:
 		print("%s playing Degrade Network!" % get_current_player_name())
 		assert(is_card_revealed(move.enemy_card_to_discard) == true, "Enemy Card to Discard for Degrade Network is not Revealed")
