@@ -304,30 +304,10 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 
 ##TODO Get all Possible Game Moves
 func get_possible_moves() -> Array[Move]:
-	#In the Setup Phase, the only Possible Moves are the different Combinations of Project Cards
-	#that the Country Team could place down, so we return all possible combinations of those
+	#In the Setup Phase, the only Possible Moves are the Country Team placing down a Project Card
+	#into the relevant slot
 	if current_phase == PHASE.SETUP:
-		var possible_arrangements: Array[Move] = []
-		
-		var all_projects: Array = [
-			PROJECT_ADMINISTRATIVE_SYSTEM,
-			PROJECT_FINANCE_SYSTEM,
-			PROJECT_HIGHWAY_SYSTEM,
-			PROJECT_LARGE_AIRPORT,
-			PROJECT_LARGE_PORT,
-			PROJECT_MINE,
-			PROJECT_SMALL_AIRPORT,
-			PROJECT_SMALL_PORT
-		]
-		
-		var all_combinations: Array = combinatorics.generate_combinations(all_projects, 4, false, true)
-		
-		for a: Array in all_combinations:
-			var new_move: SelectProjectsMove = SelectProjectsMove.new()
-			new_move.projects_to_select.assign(a)
-			possible_arrangements.append(new_move)
-		
-		return possible_arrangements
+		return _get_project_select_possibilities()
 	elif current_phase == PHASE.DRAW_CARDS_JEDBURGH or current_phase == PHASE.DRAW_CARDS_COUNTRY:
 		return [DrawCardMove.new()]
 	elif current_phase == PHASE.MAINTAIN_NETWORK_COUNTRY or current_phase == PHASE.MAINTAIN_NETWORK_JEDBURGH:
@@ -423,21 +403,31 @@ func get_possible_moves() -> Array[Move]:
 
 ##TODO Carry out the Selected Move
 func make_move(move: Move) -> void:
-	if move is SelectProjectsMove:
-		print("SelectProjectsMove Played")
+	if move is SelectProjectMove:
+		assert(move.project_slot >= 0 and move.project_slot <= 3, "Incorrect Slot Index")
+		assert(projects[move.project_slot] == null, "Setting a non-null Project")
 		
-		var projects_selected: PackedStringArray = []
-		for p: int in range(len(move.projects_to_select)):
-			var new_project: Project = Project.new(move.projects_to_select[p])
-			projects[p] = (new_project)
-			projects_selected.append(new_project.project_card.card_name)
+		for p: Project in projects:
+			if p != null:
+				assert(p.project_card != move.project_card_to_select, "Project Card already used")
 		
-		print("Projects Selected: %s" % ", ".join(projects_selected))
+		var slot_names: PackedStringArray = ["A", "B", "C", "D"]
 		
-		print("Moving onto Draw Cards Phase!")
+		print("SelectProjectMove Played")
 		
-		#Move onto Draw Cards Phase once game Set Up
-		transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
+		var new_project: Project = Project.new(move.project_card_to_select)
+		projects[move.project_slot] = new_project
+		
+		print("Project Selected: %s, Put into Slot %s" % [move.project_card_to_select.card_name, slot_names[move.project_slot]])
+		
+		if current_phase == PHASE.SETUP:
+			if _do_unset_projects_exist() == true:
+				print("Still some Unset Projects, staying in Setup Phase!")
+				_transfer_to_phase(PHASE.SETUP, TEAM.COUNTRY)
+			else:
+				#If all cards set, Move onto Draw Cards Phase
+				print("Moving onto Draw Cards Phase!")
+				_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
 	elif move is DrawCardMove:
 		print("Drawing Card!")
 		var card: Card = draw_random_card(current_turn_team)
@@ -460,13 +450,13 @@ func make_move(move: Move) -> void:
 				
 			else:
 				if current_turn_team == TEAM.JEDBURGH:
-					transfer_to_phase(PHASE.MAINTAIN_NETWORK_JEDBURGH, TEAM.JEDBURGH)
+					_transfer_to_phase(PHASE.MAINTAIN_NETWORK_JEDBURGH, TEAM.JEDBURGH)
 				else:
-					transfer_to_phase(PHASE.MAINTAIN_NETWORK_COUNTRY, TEAM.COUNTRY)
+					_transfer_to_phase(PHASE.MAINTAIN_NETWORK_COUNTRY, TEAM.COUNTRY)
 		
 		#If it is Jedburgh that drew a card, time for the Country Team to do so as well
 		if current_phase == PHASE.DRAW_CARDS_JEDBURGH:
-			transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
+			_transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
 		#Otherwise, if it was the Country Team that drew a card, move onto Operations phase
 		elif current_phase == PHASE.DRAW_CARDS_COUNTRY:
 			print("Draw Cards Phase over!")
@@ -474,10 +464,10 @@ func make_move(move: Move) -> void:
 			#Determine who plays first in the Operations Phase
 			if host_nation_influence < 0:
 				print("Country Team plays first in Operations Phase!")
-				transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
+				_transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
 			else:
 				print("Jedburgh Team plays first in Operations Phase!")
-				transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+				_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
 	elif move is MaintainNetworkMove:
 		#If there are no cards in the Player's Hand, discard their Action Cards
 		if len(get_current_player_hand()) == 0:
@@ -507,14 +497,14 @@ func make_move(move: Move) -> void:
 			#Determine who plays first in the Operations Phase
 			if host_nation_influence < 0:
 				print("Country Team plays first in Operations Phase!")
-				transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
+				_transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
 			else:
 				print("Jedburgh Team plays first in Operations Phase!")
-				transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+				_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
 		else:
 			jedburgh_network = move.new_network_order
 			print("Jedburgh Player Maintained Network, moving onto Country Draw Cards Phase!")
-			transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
+			_transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
 		
 		print("New Arrangement of Network: ")
 		for c: Card in get_flattened_network(current_turn_team):
@@ -524,12 +514,12 @@ func make_move(move: Move) -> void:
 		
 		if previous_move is PassMove:
 			print("Previous Player also passed, moving onto Projects Phase!")
-			transfer_to_phase(PHASE.PROJECTS, TEAM.COUNTRY)
+			_transfer_to_phase(PHASE.PROJECTS, TEAM.COUNTRY)
 		else:
 			if current_turn_team == TEAM.COUNTRY:
-				transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+				_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
 			else:
-				transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
+				_transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
 	elif move is InfluenceHostNationMove:
 		var influence_change: int = move.get_influence_change()
 		
@@ -608,17 +598,25 @@ func make_move(move: Move) -> void:
 			discard_card(move.card_to_use, current_turn_team)
 		
 		if current_phase == PHASE.OPERATIONS_COUNTRY:
-			transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+			_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
 		elif current_phase == PHASE.OPERATIONS_JEDBURGH:
-			transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
+			_transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
 	
 	previous_move = move
 	move_taken.emit(move)
 
 ##Transfer to a Phase, with a Specific Player's turn
-func transfer_to_phase(phase: PHASE, player: TEAM) -> void:
+func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	current_phase = phase
 	current_turn_team = player
+
+##Check if there are Projects that haven't been "set"
+func _do_unset_projects_exist() -> bool:
+	for p: Project in projects:
+		if p == null:
+			return true
+	
+	return false
 
 ##Set Host Nation Influence
 func _set_hn_influence(new_val: int) -> void:
@@ -638,5 +636,45 @@ func _get_degrade_network_possibilities(card_to_play: Card) -> Array[DegradeNetw
 				new_degrade_move.card_to_use = card_to_play
 				new_degrade_move.enemy_card_to_discard = topmost_card
 				possibilities.append(new_degrade_move)
+	
+	return possibilities
+
+##Get possible Project Selection Possibilities
+func _get_project_select_possibilities() -> Array[Move]:
+	var possibilities: Array[Move] = []
+	
+	var all_projects: Array[ProjectCard] = [
+		PROJECT_ADMINISTRATIVE_SYSTEM,
+		PROJECT_FINANCE_SYSTEM,
+		PROJECT_HIGHWAY_SYSTEM,
+		PROJECT_LARGE_AIRPORT,
+		PROJECT_LARGE_PORT,
+		PROJECT_MINE,
+		PROJECT_SMALL_AIRPORT,
+		PROJECT_SMALL_PORT
+	]
+	
+	#Get all Projects that haven't been played
+	var possible_projects: Array[ProjectCard] = []
+	for a: ProjectCard in all_projects:
+		var valid_card: bool = true
+		
+		for b: Project in projects:
+			if b != null and b.project_card == a:
+				valid_card = false
+				break
+		
+		if valid_card == true:
+			possible_projects.append(a)
+	
+	#Go through all Possible Projects and, for each free slot index, append
+	#a new SelectProjectMove corresponding to that project in that slot
+	for p: ProjectCard in possible_projects:
+		for s: int in range(len(projects)):
+			if projects[s] == null:
+				var new_move: SelectProjectMove = SelectProjectMove.new()
+				new_move.project_card_to_select = p
+				new_move.project_slot = s
+				possibilities.append(new_move)
 	
 	return possibilities
