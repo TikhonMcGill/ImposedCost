@@ -1,8 +1,6 @@
 SelectProjectMove:
-	Members:
-		- project_card_to_select: ProjectCard
-		- project_slot: int
 	Combinations:
+		- (If in SETUP or PROJECTS Phase)
 		- possible_project_cards: Array[ProjectCard]
 		- Go through all Project Cards
 		- Go through all Projects
@@ -11,6 +9,7 @@ SelectProjectMove:
 		- If is_used false, append to possible project cards
 		- For each possible_project_card, append SelectProjectMove with that card
 	Consequences:
+		- Assert that project_slot is 0 to 3
 		- Assert that, in none of the projects, is the project_card_to_select already used
 		- Assert that projects[project_slot] is null
 		- Create new Project with project_card_to_select
