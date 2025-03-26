@@ -425,7 +425,6 @@ func make_move(move: Move) -> void:
 		if current_phase == PHASE.SETUP:
 			if _do_unset_projects_exist() == true:
 				print("Still some Unset Projects, staying in Setup Phase!")
-				_transfer_to_phase(PHASE.SETUP, TEAM.COUNTRY)
 			else:
 				#If all cards set, Move onto Draw Cards Phase
 				print("Moving onto Draw Cards Phase!")
@@ -611,6 +610,15 @@ func make_move(move: Move) -> void:
 func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	current_phase = phase
 	current_turn_team = player
+	
+	#If we're transferring to the Projects Phase, do a one-time calculation of all
+	#Projects
+	if phase == PHASE.PROJECTS:
+		_update_projects()
+
+##Update all Projects, per the Projects Phase's Rules
+func _update_projects() -> void:
+	pass
 
 ##Check if there are Projects that haven't been "set"
 func _do_unset_projects_exist() -> bool:

@@ -1,3 +1,13 @@
+- Variable for "project_effects", with different names therein
+- _complete_project method, which completes a project, removing it from play and
+decrementing no. Projects, calculating victory points for Jedburgh, and appending
+any effects to project_effects
+- Emit signal, "project_completed", which blackens the Container in Game (connect that)
+- In "get_possible_moves" in ProjectsPhase, it's not only the SelectProjectMove, if
+possible, but also a move by the Country Player for each of the effects
+- The Projects Phase ends only when project_effects is Empty AND all projects have been
+played or there are still projects to play
+
 SelectProjectMove:
 	Combinations:
 		- (If in SETUP or PROJECTS Phase)
@@ -38,8 +48,7 @@ Long-Term Timeline:
 
 Components:
 	1. Game Mat: 
-		Sheet of card with Victory Point track,
-		4 Boxes for Project cards
+		Sheet of card with Victory Point track
 	2. x1, x10 and +100 markers for Victory Point track (use cubes)
 
 Sequence of Play:
@@ -95,9 +104,6 @@ Country wins if Blue’s Victory Points are less than 2.0 times this total.
 Jedburgh wins a Tactical Victory if they have 2.0 to 2.99 times the total, 
 and a Strategic Victory if they have 3.0 times the total or more. 
 We will likely have to vary these ratios after some playtesting.
-
-Action cards when placed in a Network may be used for their value up to twice – first it is revealed, 
-and then discarded when used for the second time. 
 
 However, the assumption in the Turn End Phase is that work on a project proceeds unless its budget is zero 
 (indicating it has not really been started yet). 
