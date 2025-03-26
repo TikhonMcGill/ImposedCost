@@ -17,5 +17,21 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="ProjectAContainer" type="PanelContainer" parent="GameBoard/ProjectContainerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProjectBContainer" type="PanelContainer" parent="GameBoard/ProjectContainerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProjectCContainer" type="PanelContainer" parent="GameBoard/ProjectContainerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ProjectDContainer" type="PanelContainer" parent="GameBoard/ProjectContainerContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="HostNationInfluenceTrack" parent="GameBoard" instance=ExtResource("2_0bv3r")]
 layout_mode = 2

@@ -6,6 +6,7 @@ extends Resource
 signal card_drawn(card: Card) ##Emitted when a Card is drawn
 signal move_taken(move: Move) ##Emitted when a Move has been Taken
 signal host_nation_influence_changed(new_hn_influence: int) ##Emitted when HN Influence Changes
+signal project_set(project: Project, slot: int) ##Emitted when a Specific Project is set in a specific slot
 
 enum TEAM{
 	COUNTRY,
@@ -419,6 +420,7 @@ func make_move(move: Move) -> void:
 		projects[move.project_slot] = new_project
 		
 		print("Project Selected: %s, Put into Slot %s" % [move.project_card_to_select.card_name, slot_names[move.project_slot]])
+		project_set.emit(new_project, move.project_slot)
 		
 		if current_phase == PHASE.SETUP:
 			if _do_unset_projects_exist() == true:

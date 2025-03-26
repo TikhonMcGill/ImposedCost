@@ -55,18 +55,6 @@ func _setup_players() -> void:
 
 #Handle a Move being taken by the Game
 func handle_move_taken(move: Move) -> void:
-	if move is SelectProjectsMove:
-		var projects: Array[Project] = game_state.projects
-		
-		assert(len(projects) == 4, "Project Sizes != 4 not Supported Yet")
-		
-		var letter_indices: PackedStringArray = ["A","B","C","D"]
-		
-		#Create Project Containers for each Project
-		for i: int in range(len(projects)):
-			var new_cont: ProjectContainer = create_project_container(projects[i])
-			new_cont.project_label.text = "Project %s" % letter_indices[i]
-	
 	do_next_move()
 
 #Do the next move
@@ -84,10 +72,23 @@ func handle_country_player_move(move: Move) -> void:
 func handle_jedburgh_player_move(move: Move) -> void:
 	game_state.make_move(move)
 
-func create_project_container(project: Project) -> ProjectContainer:
+#Create a Project Container, inserting it into a specific slot
+func create_project_container(project: Project, slot: int) -> ProjectContainer:
+	var letter_indices: PackedStringArray = ["A","B","C","D"]
+	
+	#Create a Project Container for the Project
 	var new_container: ProjectContainer = PROJECT_CONTAINER_SCENE.instantiate()
-	project_container_container.add_child(new_container)
+	
+	#If the Container for the relevant Project Slot is occupied, delete its children
+	var project_container: PanelContainer = project_container_container.get_child(slot)
+	if project_container.get_child_count() > 0:
+		for c: Node in project_container.get_children():
+			c.queue_free()
+	project_container.add_child(new_container)
+	
 	new_container.set_project(project)
+	new_container.project_label.text = "Project %s" % letter_indices[slot]
+	
 	return new_container
 
 func _setup_game() -> void:
@@ -96,6 +97,7 @@ func _setup_game() -> void:
 	
 	game_state.setup_game()
 	game_state.move_taken.connect(handle_move_taken)
+	game_state.project_set.connect(create_project_container)
 	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)
 	
 	country_team_player.take_turn()
