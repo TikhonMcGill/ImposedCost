@@ -1,43 +1,71 @@
-- Variable for "project_effects", with different names therein
-- _complete_project method, which completes a project, removing it from play and
-decrementing no. Projects, calculating victory points for Jedburgh, and appending
-any effects to project_effects
-- Emit signal, "project_completed", which blackens the Container in Game (connect that)
-- In "get_possible_moves" in ProjectsPhase, it's not only the SelectProjectMove, if
-possible, but also a move by the Country Player for each of the effects
+- Add, to Starting UI, no. Projects to Complete (min = 4)
+- Make it be saved in GameManager
+- Make it be saved as a file (backed up)
+- Set the Game State no. Projects to be this value
+- Add, to Game Scene, label saying no. Projects left to Play
+- Add, to Game Scene, label with (JEDBURGH PLAYER NAME'S) Victory Points
+- Rename victory_level to victory_points
+- To Project, add get_planned_cost, returning product of min time, budget
+- Add Project Names to constants
+- Create named constant ADD_VALUE_EFFECT as a Project Effect
+- To game_state add "project_effects", PackedStringArray
+- Create new project, project_completed, with the slot int sent
+- Connect it to Game State, blackening the ProjectContainer in that slot under the ProjectXContainer (X in ABCD)
+_complete_project Method:
+	- Calculate completion_cost = time * budget
+	- Vic_points = Subtract get_planned_cost from completion_cost
+	- If card name == Mine, add ceili(victory_points / 2.0) to victory_points, return
+	- If card name == Highway System, SUBTRACT vic_points from victory_points, return
+	- Otherwise, add vic_points to victory_points
+	- If card name == Finance System, hn_influence -= 1
+	- If card name == Admin System, hn_influence -= 2
+	- If card name == Small Port or Small Airport, append ADD_VALUE_EFFECT
+	- If card name == Large Port or Large Airport, append ADD_VALUE_EFFECT twice
+	- Set the project in that slot to null
+	- Emit signal project_completed with index of project
+	- Projects_to_complete -= 1
+_update_projects method:
+	- Iterate through every project
+	- If is_project_complete, _complete_project with that project
+
+AddValueMove:
+	Members:
+		- Project - The Project to which to add the value
+		- Element (Enum) - Either Time or Budget
+	Consequences:
+		- Assert that the result of the value being added to is not > 9
+		- Assert that an ADD_VALUE_EFFECT is in project_effects
+		- Add +1 to that value
+		- Erase an ADD_VALUE_EFFECT from project_effects
+	Combinations:
+		- Add AddValueMove.new() len(project_effects) times into possible moves
+		Random Player:
+			- If chosen move is AddValueMove, pick a Random Project
+			- If this project's Time value is < 9, append time as possibility
+			- If this Project's Budget value is < 9, append budget as possibility
+			- Choose randomly between 2 (or 1) options
+			- Construct new AddValueMove with this project, and the relevant chosen value
+
 - The Projects Phase ends only when project_effects is Empty AND all projects have been
 played or there are still projects to play
-
-SelectProjectMove:
-	Combinations:
-		- (If in SETUP or PROJECTS Phase)
-	Consequences:
-		- If all projects set, move onto next Phase (either Draw Cards or HN Influence)
-		- Otherwise, stay in SETUP or PROJECTS phase, Country's turn still
+- Add SelectProjectMove as a Possible Move if in PROJECTS Phase and there are empty slots
+and no. Projects left to play > (no. Active Projects)
+Update SelectProjectMove Consequence in Projects Phase:
+	- If all projects set, move onto next Phase (HN Influence)
 
 Project Phase Plan:
-	- Any Projects that have met or exceeded the Time and Budget minimal values printed on 
-	their card are now completed and scored
 	- Implement checking Project Completion
 	- Implement scoring Projects
 	- Implement reselecting Projects, via a special move, done by the Country Player
 
-HN Influence Phase Plan:
-	- Raise (if on Blue side) or lower
- 	(if on Red side) Blue’s Victory Point level by a 
-	number equal to the HN Influence value
-	- Could be done not as a phase, but as a onetime calculation at the end of the
-	Project Phase
-
-Turn End Phase Plan:
-	XYZ
-
-Game End Phase Plan:
-	- Calculate Victory Level
+- IMPLEMENT HN INFLUENCE PHASE
+- IMPLEMENT TURN END PHASE
+- IMPLEMENT GAME END PHASE
 
 Plans:
 	- Implement Projects Phase, with all corollaries
 	- Implement HN Influence Phase, with all corollaries
+	- Implement Turn End Phase, with all corollaries
 	- Implement Game End Phase, with Victory Level Calculation etc.
 
 Long-Term Timeline:
@@ -45,11 +73,6 @@ Long-Term Timeline:
 	- Implementation of GUI-Based Gameplay by Human Player
 	- Creation of Utility Computer Player, based on my understanding of the game
 	- Polish of the Game as I see fit (refer to Finalization part of plan)
-
-Components:
-	1. Game Mat: 
-		Sheet of card with Victory Point track
-	2. x1, x10 and +100 markers for Victory Point track (use cubes)
 
 Sequence of Play:
 	The game is played in turns. Each turn, the players will move through the following Phases in order:
