@@ -12,8 +12,15 @@ var jedburgh_team_player: Player
 @onready var project_container_container: HBoxContainer = $GameBoard/ProjectContainerContainer
 @onready var host_nation_influence_track: HostNationInfluenceTrack = $GameBoard/HostNationInfluenceTrack
 
+@onready var projects_to_complete_label: Label = $GameBoard/ProjectsToCompleteLabel
+@onready var victory_points_label: Label = $GameBoard/VictoryPointsLabel
+
 func _ready() -> void:
 	_setup_game()
+
+func _process(delta: float) -> void:
+	projects_to_complete_label.text = "Projects Left to Complete: %d" % game_state.projects_to_complete
+	victory_points_label.text = "%s's Victory Points: %d" % [game_state.get_player_name(GameState.TEAM.JEDBURGH), game_state.victory_level]
 
 #Based on GameManager set Players, set up the Players for each Team
 func _setup_players() -> void:

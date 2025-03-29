@@ -6,12 +6,18 @@
 [node name="Game" type="Node"]
 script = ExtResource("1_u5a5u")
 
-[node name="GameBoard" type="VSplitContainer" parent="."]
+[node name="GameBoard" type="VBoxContainer" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="ProjectsToCompleteLabel" type="Label" parent="GameBoard"]
+layout_mode = 2
+
+[node name="VictoryPointsLabel" type="Label" parent="GameBoard"]
+layout_mode = 2
 
 [node name="ProjectContainerContainer" type="HBoxContainer" parent="GameBoard"]
 layout_mode = 2

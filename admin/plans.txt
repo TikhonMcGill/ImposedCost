@@ -1,5 +1,3 @@
-- Add, to Game Scene, label saying no. Projects left to Play
-- Add, to Game Scene, label with (JEDBURGH PLAYER NAME'S) Victory Points
 - Rename victory_level to victory_points
 - To Project, add get_planned_cost, returning product of min time, budget
 - Add Project Names to constants
