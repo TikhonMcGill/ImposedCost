@@ -96,6 +96,8 @@ func _setup_game() -> void:
 	_setup_players()
 	
 	game_state.setup_game()
+	
+	game_state.projects_to_complete = GameManager.settings.projects_to_complete
 	game_state.move_taken.connect(handle_move_taken)
 	game_state.project_set.connect(create_project_container)
 	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)

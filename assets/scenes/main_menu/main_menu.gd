@@ -8,6 +8,8 @@ const GAME_PATH: String = "res://assets/scenes/game/game.tscn"
 @onready var jedburgh_player_select: OptionButton = $PanelContainer/MarginContainer/VBoxContainer/JedburghPlayerSelect
 @onready var jedburgh_name_edit: LineEdit = $PanelContainer/MarginContainer/VBoxContainer/JedburghNameEdit
 
+@onready var projects_count_spin_box: SpinBox = $PanelContainer/MarginContainer/VBoxContainer/ProjectsCountSpinBox
+
 func _ready() -> void:
 	_populate_settings()
 
@@ -32,6 +34,8 @@ func _populate_settings() -> void:
 	
 	jedburgh_player_select.selected = GameManager.settings.jedburgh_team_player
 	jedburgh_name_edit.text = GameManager.settings.jedburgh_team_name
+	
+	projects_count_spin_box.value = GameManager.settings.projects_to_complete
 
 #Set Game Settings based on UI
 func _set_settings() -> void:
@@ -40,6 +44,8 @@ func _set_settings() -> void:
 	
 	GameManager.settings.jedburgh_team_player = jedburgh_player_select.selected
 	GameManager.settings.jedburgh_team_name = jedburgh_name_edit.text
+	
+	GameManager.settings.projects_to_complete = projects_count_spin_box.value
 
 func _select_country_player(index: int) -> void:
 	pass

@@ -88,6 +88,19 @@ placeholder_text = "Enter the name of the Jedburgh Team Player"
 [node name="HSeparator4" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
+[node name="ProjectsCountLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Set No. Projects to Complete"
+
+[node name="ProjectsCountSpinBox" type="SpinBox" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+min_value = 4.0
+value = 4.0
+allow_greater = true
+
+[node name="HSeparator5" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
 [node name="PlayButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2

@@ -1,7 +1,3 @@
-- Add, to Starting UI, no. Projects to Complete (min = 4)
-- Make it be saved in GameManager
-- Make it be saved as a file (backed up)
-- Set the Game State no. Projects to be this value
 - Add, to Game Scene, label saying no. Projects left to Play
 - Add, to Game Scene, label with (JEDBURGH PLAYER NAME'S) Victory Points
 - Rename victory_level to victory_points
@@ -51,7 +47,8 @@ played or there are still projects to play
 - Add SelectProjectMove as a Possible Move if in PROJECTS Phase and there are empty slots
 and no. Projects left to play > (no. Active Projects)
 Update SelectProjectMove Consequence in Projects Phase:
-	- If all projects set, move onto next Phase (HN Influence)
+	- If all projects set, move onto next Phase (HN Influence), currently
+	just a print statement
 
 Project Phase Plan:
 	- Implement checking Project Completion

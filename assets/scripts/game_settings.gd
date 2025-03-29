@@ -15,3 +15,5 @@ enum PLAYER{
 
 @export var jedburgh_team_player: PLAYER = PLAYER.HUMAN ##The Player Type of the Jedburgh Team
 @export var jedburgh_team_name: String = "Jedburgh Team" ##The Name of the Jedburgh Team Player
+
+@export var projects_to_complete: int = 5 ##The No. Projects to Complete before the Game Ends
