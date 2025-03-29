@@ -1,15 +1,4 @@
 _complete_project Method:
-	- Calculate completion_cost = time * budget
-	- Vic_points = Subtract get_planned_cost from completion_cost
-	- If card name == Mine, add ceili(victory_points / 2.0) to victory_points, return
-	- If card name == Highway System, SUBTRACT vic_points from victory_points, return
-	- Otherwise, add vic_points to victory_points
-	- If card name == Finance System, hn_influence -= 1
-	- If card name == Admin System, hn_influence -= 2
-	- If card name == Small Port or Small Airport, append ADD_VALUE_EFFECT
-	- If card name == Large Port or Large Airport, append ADD_VALUE_EFFECT twice
-	- Set the project in that slot to null
-	- Emit signal project_completed with index of project
 	- Projects_to_complete -= 1
 _update_projects method:
 	- Iterate through every project

@@ -706,3 +706,45 @@ func _get_project_select_possibilities() -> Array[Move]:
 				possibilities.append(new_move)
 	
 	return possibilities
+
+##Handle Completing a Project and its effects
+func _complete_project(project: Project) -> void:
+	var completion_cost: int = project.budget * project.time
+	
+	var vic_points: int = completion_cost - project.get_planned_cost()
+	
+	var slot: int = projects.find(project)
+	assert(slot != -1, "Project to Complete not in Game State's Projects")
+	
+	#If the Project Completed is a Mine, add only half (rounded up) Victory Points
+	if project.project_card.card_name == PROJECT_MINE_NAME:
+		victory_points += ceili(vic_points / 2.0)
+		return
+	
+	#If the Project Completed is the Highway System, SUBTRACT Victory Points
+	if project.project_card.card_name == PROJECT_HIGHWAY_SYSTEM_NAME:
+		victory_points -= vic_points
+		return
+	
+	victory_points += vic_points
+	
+	#If the Project Completed is Finance System, Move HN Influence by 1 to Country
+	if project.project_card.card_name == PROJECT_FINANCE_SYSTEM_NAME:
+		host_nation_influence -= 1
+	
+	#If the Project Completed is Administrative System, Move HN Influence by 2 to Country
+	if project.project_card.card_name == PROJECT_FINANCE_SYSTEM_NAME:
+		host_nation_influence -= 2
+	
+	#If the Project Completed is Small Airport or Port, add 1 Add Value Effect
+	if project.project_card.card_name == PROJECT_SMALL_AIRPORT_NAME or project.project_card.card_name == PROJECT_SMALL_PORT_NAME:
+		project_effects.append(EFFECT_ADD_VALUE_NAME)
+	
+	#If the Project Completed is Large Airport or Port, add 2 Add Value Effects
+	if project.project_card.card_name == PROJECT_LARGE_AIRPORT_NAME or project.project_card.card_name == PROJECT_LARGE_PORT_NAME:
+		project_effects.append(EFFECT_ADD_VALUE_NAME)
+		project_effects.append(EFFECT_ADD_VALUE_NAME)
+	
+	projects[slot] = null
+	project_completed.emit(slot)
+	projects_to_complete -= 1
