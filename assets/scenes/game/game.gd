@@ -98,6 +98,10 @@ func create_project_container(project: Project, slot: int) -> ProjectContainer:
 	
 	return new_container
 
+#Blacken a Project Container, implying it is completed
+func _darken_project_container(slot: int) -> void:
+	project_container_container.get_child(slot).modulate = Color.BLACK
+
 func _setup_game() -> void:
 	randomize()
 	_setup_players()
@@ -107,6 +111,7 @@ func _setup_game() -> void:
 	game_state.projects_to_complete = GameManager.settings.projects_to_complete
 	game_state.move_taken.connect(handle_move_taken)
 	game_state.project_set.connect(create_project_container)
+	game_state.project_completed.connect(_darken_project_container)
 	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)
 	
 	country_team_player.take_turn()

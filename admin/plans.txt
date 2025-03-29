@@ -1,5 +1,3 @@
-- Create new signal, project_completed, with the slot int sent
-- Connect it to Game State, blackening the ProjectContainer in that slot under the ProjectXContainer (X in ABCD)
 _complete_project Method:
 	- Calculate completion_cost = time * budget
 	- Vic_points = Subtract get_planned_cost from completion_cost

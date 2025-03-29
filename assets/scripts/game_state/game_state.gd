@@ -7,6 +7,7 @@ signal card_drawn(card: Card) ##Emitted when a Card is drawn
 signal move_taken(move: Move) ##Emitted when a Move has been Taken
 signal host_nation_influence_changed(new_hn_influence: int) ##Emitted when HN Influence Changes
 signal project_set(project: Project, slot: int) ##Emitted when a Specific Project is set in a specific slot
+signal project_completed(slot: int) ##Emitted when a Project in a Specific Slot is Completed
 
 enum TEAM{
 	COUNTRY,
