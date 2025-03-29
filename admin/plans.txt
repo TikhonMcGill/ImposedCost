@@ -1,4 +1,3 @@
-- To Project, add get_planned_cost, returning product of min time, budget
 - Add Project Names to constants
 - Create named constant ADD_VALUE_EFFECT as a Project Effect
 - To game_state add "project_effects", PackedStringArray

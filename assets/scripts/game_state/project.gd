@@ -14,3 +14,7 @@ func _init(_card: ProjectCard) -> void:
 ##Any Projects that meet or exceed Time AND Budget minimal values of their Card are Complete 
 func is_project_complete() -> bool:
 	return time >= project_card.min_time and budget >= project_card.min_budget
+
+##Get the Project's Planned Cost, multiplying Min Budget and Time
+func get_planned_cost() -> int:
+	return project_card.min_budget * project_card.min_time
