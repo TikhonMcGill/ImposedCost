@@ -81,6 +81,12 @@ const PROJECT_MINE_NAME: String = "Mine"
 
 #endregion
 
+#region Effect Names
+
+const EFFECT_ADD_VALUE_NAME: String = "Add 1 Value"
+
+#endregion
+
 @export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
 
 var combinatorics: CombinatoricsUtilities = CombinatoricsUtilities.new() ## Utilities for Calculating Combinatorics Calculations
@@ -109,6 +115,8 @@ var current_turn: int = 1 ##The Current Turn
 var current_phase: PHASE = PHASE.SETUP ##The Current Phase of the Game - game starts with Country Team Selecting 4 Project Cards to place
 
 var projects: Array[Project] = [null, null, null, null] ##All Projects left to be played
+
+var project_effects: PackedStringArray = [] ##Unhandled Effects, as Strings, that come about after the Completion of certain Projects
 
 ##Set up the Game
 func setup_game() -> void:

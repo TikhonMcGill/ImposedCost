@@ -1,6 +1,4 @@
-- Create named constant ADD_VALUE_EFFECT as a Project Effect
-- To game_state add "project_effects", PackedStringArray
-- Create new project, project_completed, with the slot int sent
+- Create new signal, project_completed, with the slot int sent
 - Connect it to Game State, blackening the ProjectContainer in that slot under the ProjectXContainer (X in ABCD)
 _complete_project Method:
 	- Calculate completion_cost = time * budget
