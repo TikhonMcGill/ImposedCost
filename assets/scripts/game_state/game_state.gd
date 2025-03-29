@@ -70,6 +70,15 @@ const FUNCTION_INFLUENCE_HN_NAME: String = "Influence Host Nation/Use Host Natio
 const FUNCTION_MAINTAIN_NETWORK_NAME: String = "Maintain Network"
 const FUNCTION_REVEAL_CONCEAL_NAME: String = "Reveal/Conceal"
 
+const PROJECT_ADMINISTRATIVE_SYSTEM_NAME: String = "Administrative System"
+const PROJECT_FINANCE_SYSTEM_NAME: String = "Finance System"
+const PROJECT_HIGHWAY_SYSTEM_NAME: String = "Highway System"
+const PROJECT_SMALL_AIRPORT_NAME: String = "Small Airport"
+const PROJECT_SMALL_PORT_NAME: String = "Small Port"
+const PROJECT_LARGE_AIRPORT_NAME: String = "Large Airport"
+const PROJECT_LARGE_PORT_NAME: String = "Large Port"
+const PROJECT_MINE_NAME: String = "Mine"
+
 #endregion
 
 @export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
