@@ -78,7 +78,7 @@ var combinatorics: CombinatoricsUtilities = CombinatoricsUtilities.new() ## Util
 
 var previous_move: Move = null ##The Previous Move taken
 
-var victory_level: int = 0 ##The No. Victory Points Blue has
+var victory_points: int = 0 ##The No. Victory Points Blue has
 
 var draw_pile: Array[Card] ##The Draw Pile
 var discard_pile: Array[Card] ##The Discard Pile

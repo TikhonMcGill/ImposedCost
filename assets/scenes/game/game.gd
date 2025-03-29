@@ -20,7 +20,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	projects_to_complete_label.text = "Projects Left to Complete: %d" % game_state.projects_to_complete
-	victory_points_label.text = "%s's Victory Points: %d" % [game_state.get_player_name(GameState.TEAM.JEDBURGH), game_state.victory_level]
+	victory_points_label.text = "%s's Victory Points: %d" % [game_state.get_player_name(GameState.TEAM.JEDBURGH), game_state.victory_points]
 
 #Based on GameManager set Players, set up the Players for each Team
 func _setup_players() -> void:
