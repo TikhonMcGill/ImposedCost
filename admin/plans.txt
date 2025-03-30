@@ -1,8 +1,6 @@
-- IMPLEMENT TURN END PHASE
 - IMPLEMENT GAME END PHASE
 
 Plans:
-	- Implement Turn End Phase, with all corollaries
 	- Implement Game End Phase, with Victory Level Calculation etc.
 
 Long-Term Timeline:

@@ -685,12 +685,23 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	if phase == PHASE.PROJECTS:
 		_update_projects()
 	#If we're Transferring to the HN Influence Phase, do a onetime calculation of
-	#all Phases
+	#HN Influence effects on Jedburgh Victory Points, then transfer to Turn End Phase
 	elif phase == PHASE.HN_INFLUENCE:
 		if get_hn_influence_team() == TEAM.JEDBURGH:
 			victory_points += get_hn_influence_value()
 		else:
 			victory_points -= get_hn_influence_value()
+		_transfer_to_phase(PHASE.TURN_END, TEAM.NOBODY)
+	#If we're Transferring to Turn End Phase, do onetime set of checks
+	elif phase == PHASE.TURN_END:
+		#If there are no more projects to complete, transfer to the Game End Phase
+		if projects_to_complete == 0:
+			_transfer_to_phase(PHASE.GAME_END, TEAM.NOBODY)
+		else:
+			for p: Project in projects:
+				if p.budget > 0:
+					p.time += 1
+			_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.NOBODY)
 
 ##Update all Projects, per the Projects Phase's Rules
 func _update_projects() -> void:
