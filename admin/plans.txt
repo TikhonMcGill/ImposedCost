@@ -1,7 +1,4 @@
 AddValueMove:
-	Members:
-		- Project - The Project to which to add the value
-		- Element (Enum) - Either Time or Budget
 	Consequences:
 		- Assert that the result of the value being added to is not > 9
 		- Assert that an ADD_VALUE_EFFECT is in project_effects

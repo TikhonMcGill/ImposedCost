@@ -3,6 +3,11 @@ extends Resource
 
 ##A Resource representing an Imposed Cost Project that is in play
 
+enum VALUE{
+	TIME, ##Time Value of the Project
+	BUDGET ##Budget Value of the Project
+} ##Enum Representing a Value of a Project
+
 var time: int = 0 ##The Time Value of the Project, 0 at start
 var budget: int = 0 ##The Budget Value of the Project, 0 at start
 var project_card: ProjectCard ##The Project Card used as the Blueprint for the Project
