@@ -426,6 +426,9 @@ func get_possible_moves() -> Array[Move]:
 				if (p.budget < 9 or p.time < 9) and p.is_project_complete() == false:
 					projects_moves.append(AddProjectValueMove.new())
 		
+		if _must_projects_be_added() == true:
+			projects_moves += _get_project_select_possibilities()
+		
 		return projects_moves
 	
 	return []
@@ -451,12 +454,21 @@ func make_move(move: Move) -> void:
 		project_set.emit(new_project, move.project_slot)
 		
 		if current_phase == PHASE.SETUP:
-			if _do_unset_projects_exist() == true:
+			if _must_projects_be_added() == true:
 				print("Still some Unset Projects, staying in Setup Phase!")
 			else:
 				#If all cards set, Move onto Draw Cards Phase
 				print("Moving onto Draw Cards Phase!")
 				_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
+		elif current_phase == PHASE.PROJECTS:
+			if _must_projects_be_added() == true:
+				print("Still some Unset Projects, staying in Projects Phase")
+			elif EFFECT_ADD_VALUE_NAME in project_effects:
+				print("Still unplayed Project Effects, staying in Projects Phase")
+			else:
+				print("Moving onto HN Influence Phase!")
+				_transfer_to_phase(PHASE.HN_INFLUENCE, TEAM.NOBODY)
+	
 	elif move is DrawCardMove:
 		print("Drawing Card!")
 		var card: Card = draw_random_card(current_turn_team)
@@ -649,6 +661,16 @@ func make_move(move: Move) -> void:
 	previous_move = move
 	move_taken.emit(move)
 
+##Count No. Active Projects
+func _count_active_projects() -> int:
+	var count: int = 0
+	
+	for p: Project in projects:
+		if p != null and p.is_project_complete() == false:
+			count += 1
+	
+	return count
+
 ##Transfer to a Phase, with a Specific Player's turn
 func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	current_phase = phase
@@ -666,11 +688,18 @@ func _update_projects() -> void:
 			print("Project %s is complete, completing!" % project.project_card.card_name)
 			_complete_project(project)
 
-##Check if there are Projects that haven't been "set"
-func _do_unset_projects_exist() -> bool:
-	for p: Project in projects:
-		if p == null:
-			return true
+##Check if Projects must be added - if there are less than 4 Active Projects
+##AND there are more Projects to be Played than Active Projects, return True
+func _must_projects_be_added() -> bool:
+	#E.g. we have 3 Active Projects out of 4, with 5 projects left to play
+	# 5 > 3, so yes, projects must be added
+	
+	#However, if we had e.g. 2 Active Projects out of 4, with only 2 Projects
+	# left to play, 2 == 2, so projects must NOT be added
+	
+	var active_projects: int = _count_active_projects()
+	if active_projects < 4 and (projects_to_complete > active_projects):
+		return true
 	
 	return false
 
