@@ -1,7 +1,3 @@
-_update_projects method:
-	- Iterate through every project
-	- If is_project_complete, _complete_project with that project
-
 AddValueMove:
 	Members:
 		- Project - The Project to which to add the value

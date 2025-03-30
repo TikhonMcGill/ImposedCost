@@ -10,8 +10,9 @@ signal project_set(project: Project, slot: int) ##Emitted when a Specific Projec
 signal project_completed(slot: int) ##Emitted when a Project in a Specific Slot is Completed
 
 enum TEAM{
-	COUNTRY,
-	JEDBURGH
+	COUNTRY, ##The Country Team (Red)
+	JEDBURGH, ##The Jedburgh Team (Blue)
+	NOBODY ##Nobody - it's Nobody's Turn at the end of the Game
 }
 
 enum PHASE {
@@ -22,7 +23,7 @@ enum PHASE {
 	MAINTAIN_NETWORK_COUNTRY, ##The Country Team drew the "Maintain Network" Card, and its effects are executed
 	OPERATIONS_COUNTRY, ##Country Team's Turn in the Operations Phase
 	OPERATIONS_JEDBURGH, ##Jedburgh's Turn in the Operations Phase
-	PROJECTS,
+	PROJECTS, ##Projects Phase - here, completed Projects are Scored and their Effects carried out, and any and all new Projects are added into play
 	HN_INFLUENCE,
 	TURN_END,
 	GAME_END
@@ -636,7 +637,10 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 
 ##Update all Projects, per the Projects Phase's Rules
 func _update_projects() -> void:
-	pass
+	for project: Project in projects:
+		if project.is_project_complete() == true:
+			print("Project %s is complete, completing!" % project.project_card.card_name)
+			_complete_project(project)
 
 ##Check if there are Projects that haven't been "set"
 func _do_unset_projects_exist() -> bool:
