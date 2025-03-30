@@ -120,6 +120,8 @@ var projects: Array[Project] = [null, null, null, null] ##All Projects left to b
 
 var project_effects: PackedStringArray = [] ##Unhandled Effects, as Strings, that come about after the Completion of certain Projects
 
+var total_planned_cost: int = 0 ##The Total Planned Cost of all completed Projects
+
 ##Set up the Game
 func setup_game() -> void:
 	#Set up the Starting Draw Pile
@@ -702,6 +704,17 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 				if p.budget > 0:
 					p.time += 1
 			_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.NOBODY)
+	#If we're Transferring to Game End Phase, calculate Victory Type
+	elif phase == PHASE.GAME_END:
+		var ratio: float = float(victory_points) / float(total_planned_cost)
+		print("Ratio of Victory Points to Total Planned Costs: %.2f" % ratio)
+		
+		if ratio < 2:
+			print("This means that %s, The Country Team, is victorious!" % get_player_name(TEAM.COUNTRY))
+		elif ratio >= 3.0:
+			print("This means that %s, The Jedburgh Team, has won a Strategic Victory!" % get_player_name(TEAM.JEDBURGH))
+		else:
+			print("This means that %s, The Jedburgh Team, has won a Tactical Victory!" % get_player_name(TEAM.JEDBURGH))
 
 ##Update all Projects, per the Projects Phase's Rules
 func _update_projects() -> void:
@@ -833,3 +846,4 @@ func _complete_project(project: Project) -> void:
 	projects[slot] = null
 	project_completed.emit(slot)
 	projects_to_complete -= 1
+	total_planned_cost += project.get_planned_cost()
