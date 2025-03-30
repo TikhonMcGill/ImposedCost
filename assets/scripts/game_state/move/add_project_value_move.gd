@@ -1,4 +1,4 @@
-class_name AddValueMove
+class_name AddProjectValueMove
 extends Move
 
 ##A Move Representing adding 1 to any Value of a Project
