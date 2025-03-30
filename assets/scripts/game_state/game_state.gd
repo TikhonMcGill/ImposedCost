@@ -418,6 +418,15 @@ func get_possible_moves() -> Array[Move]:
 			operations_moves.append(new_action_card_move)
 		
 		return operations_moves
+	elif current_phase == PHASE.PROJECTS:
+		var projects_moves: Array[Move] = []
+		
+		if EFFECT_ADD_VALUE_NAME in project_effects:
+			for p: Project in projects:
+				if (p.budget < 9 or p.time < 9) and p.is_project_complete() == false:
+					projects_moves.append(AddProjectValueMove.new())
+		
+		return projects_moves
 	
 	return []
 

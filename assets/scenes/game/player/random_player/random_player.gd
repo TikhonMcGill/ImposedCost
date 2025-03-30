@@ -27,6 +27,8 @@ func take_turn() -> void:
 		move_to_take = _construct_build_network_move(move_to_take.card_to_use)
 	elif move_to_take is ManageNetworkMove:
 		move_to_take = _construct_manage_network_move(move_to_take.card_to_use)
+	elif move_to_take is AddProjectValueMove:
+		move_to_take = _construct_add_project_value_move()
 	
 	player_move_taken.emit(move_to_take)
 
@@ -204,5 +206,23 @@ func _construct_manage_network_move(card: Card) -> ManageNetworkMove:
 	final_move.position_from = chosen_position
 	final_move.stack_to = randi() % 4
 	
+	
+	return final_move
+
+##Construct an AddProjectValueMove, if that is what the Random Player chose to do
+func _construct_add_project_value_move() -> AddProjectValueMove:
+	var chosen_project: Project = _pick_random_incomplete_project()
+	
+	var possible_values: Array[Project.VALUE] = []
+	
+	if chosen_project.time < 9:
+		possible_values.append(Project.VALUE.TIME)
+	
+	if chosen_project.budget < 9:
+		possible_values.append(Project.VALUE.BUDGET)
+	
+	var final_move: AddProjectValueMove = AddProjectValueMove.new()
+	final_move.project = chosen_project
+	final_move.value = possible_values.pick_random()
 	
 	return final_move
