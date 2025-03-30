@@ -1,3 +1,6 @@
+- Fix Preload Issue
+- Keep fixing until two Random Players can play against each other
+
 Long-Term Timeline:
 	- Implementation of full Game State and changes, to follow the rules
 	- Implementation of GUI-Based Gameplay by Human Player

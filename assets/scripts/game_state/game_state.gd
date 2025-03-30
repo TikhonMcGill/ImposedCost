@@ -24,9 +24,9 @@ enum PHASE {
 	OPERATIONS_COUNTRY, ##Country Team's Turn in the Operations Phase
 	OPERATIONS_JEDBURGH, ##Jedburgh's Turn in the Operations Phase
 	PROJECTS, ##Projects Phase - here, completed Projects are Scored and their Effects carried out, and any and all new Projects are added into play
-	HN_INFLUENCE,
-	TURN_END,
-	GAME_END
+	HN_INFLUENCE, ##HN Influence Phase - Add or lower Jedburgh's Victory Points based on whose side HN Influence Track is on
+	TURN_END, ##Turn End Phase - increase Projects' Times (if budget > 0), if no Projects left, move to Game End Phase
+	GAME_END ##Game End Phase - Calculate Outcome - Country Victory, Jedburgh Tactical Victory, Jedburgh Strategic Victory
 }
 
 #region Cards
@@ -685,6 +685,7 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	#If we're transferring to the Projects Phase, do a one-time calculation of all
 	#Projects
 	if phase == PHASE.PROJECTS:
+		print("Updating Projects!")
 		_update_projects()
 	#If we're Transferring to the HN Influence Phase, do a onetime calculation of
 	#HN Influence effects on Jedburgh Victory Points, then transfer to Turn End Phase
@@ -693,17 +694,20 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 			victory_points += get_hn_influence_value()
 		else:
 			victory_points -= get_hn_influence_value()
+		print("Transferring to Turn End Phase!")
 		_transfer_to_phase(PHASE.TURN_END, TEAM.NOBODY)
 	#If we're Transferring to Turn End Phase, do onetime set of checks
 	elif phase == PHASE.TURN_END:
 		#If there are no more projects to complete, transfer to the Game End Phase
 		if projects_to_complete == 0:
+			print("No Projects left to Complete, Transferring to Game End Phase!")
 			_transfer_to_phase(PHASE.GAME_END, TEAM.NOBODY)
 		else:
 			for p: Project in projects:
 				if p.budget > 0:
 					p.time += 1
-			_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.NOBODY)
+			print("Projects still left to play, transferring back to Draw Cards Phase!")
+			_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
 	#If we're Transferring to Game End Phase, calculate Victory Type
 	elif phase == PHASE.GAME_END:
 		var ratio: float = float(victory_points) / float(total_planned_cost)
@@ -718,10 +722,18 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 
 ##Update all Projects, per the Projects Phase's Rules
 func _update_projects() -> void:
+	var any_projects_completed: bool = false
+	
 	for project: Project in projects:
 		if project.is_project_complete() == true:
 			print("Project %s is complete, completing!" % project.project_card.card_name)
 			_complete_project(project)
+			any_projects_completed = true
+	
+	#If no Projects have Been Completed, move into HN Influence Phase immediately
+	if any_projects_completed == false:
+		print("No Projects Completed, moving onto HN Influence!")
+		_transfer_to_phase(PHASE.HN_INFLUENCE, TEAM.NOBODY)
 
 ##Check if Projects must be added - if there are less than 4 Active Projects
 ##AND there are more Projects to be Played than Active Projects, return True
