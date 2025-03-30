@@ -608,6 +608,21 @@ func make_move(move: Move) -> void:
 		
 		for concealed: ActionCard in move.cards_to_conceal:
 			conceal_card(concealed)
+	elif move is AddProjectValueMove:
+		print("%s plays Move to Add Project Value!" % get_current_player_name())
+		assert(EFFECT_ADD_VALUE_NAME in project_effects, "Adding Value to Project without relevant effect being present")
+		
+		if move.value == Project.VALUE.TIME:
+			assert(move.project.time < 9, "Cannot add Value to Maximum Time of 9")
+			print("Increasing Time Value!")
+			move.project.time += 1
+		else:
+			assert(move.project.budget < 9, "Cannot add Value to Maximum Budget of 9")
+			print("Increasing Budget Value!")
+			move.project.budget += 1
+		
+		#Remove the String Name of the Add Value effect once a Value is added
+		project_effects.remove_at(project_effects.find(EFFECT_ADD_VALUE_NAME))
 	
 	#If the Move is Playing a Card in the Operations Phase, Discard the Card played and
 	#give the next player their turn

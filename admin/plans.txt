@@ -1,9 +1,4 @@
-AddValueMove:
-	Consequences:
-		- Assert that the result of the value being added to is not > 9
-		- Assert that an ADD_VALUE_EFFECT is in project_effects
-		- Add +1 to that value
-		- Erase an ADD_VALUE_EFFECT from project_effects
+AddProjectValueMove:
 	Combinations:
 		- Add AddValueMove.new() len(project_effects) times into possible moves
 		Random Player:
