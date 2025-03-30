@@ -1,10 +1,7 @@
-- IMPLEMENT HN INFLUENCE PHASE
 - IMPLEMENT TURN END PHASE
 - IMPLEMENT GAME END PHASE
 
 Plans:
-	- Implement Projects Phase, with all corollaries
-	- Implement HN Influence Phase, with all corollaries
 	- Implement Turn End Phase, with all corollaries
 	- Implement Game End Phase, with Victory Level Calculation etc.
 

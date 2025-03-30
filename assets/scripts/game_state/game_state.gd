@@ -642,6 +642,10 @@ func make_move(move: Move) -> void:
 			print("Increasing Budget Value!")
 			move.project.budget += 1
 		
+		#If the Project got completed by this move, handle the necessary effects etc.
+		if move.project.is_project_complete() == true:
+			_complete_project(move.project)
+		
 		#Remove the String Name of the Add Value effect once a Value is added
 		project_effects.remove_at(project_effects.find(EFFECT_ADD_VALUE_NAME))
 	
@@ -680,6 +684,13 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	#Projects
 	if phase == PHASE.PROJECTS:
 		_update_projects()
+	#If we're Transferring to the HN Influence Phase, do a onetime calculation of
+	#all Phases
+	elif phase == PHASE.HN_INFLUENCE:
+		if get_hn_influence_team() == TEAM.JEDBURGH:
+			victory_points += get_hn_influence_value()
+		else:
+			victory_points -= get_hn_influence_value()
 
 ##Update all Projects, per the Projects Phase's Rules
 func _update_projects() -> void:
@@ -766,6 +777,9 @@ func _get_project_select_possibilities() -> Array[Move]:
 
 ##Handle Completing a Project and its effects
 func _complete_project(project: Project) -> void:
+	print("Completing Project: %s" % project.project_card.card_name)
+	print("Victory Points of %s Before: %d" % [get_player_name(TEAM.JEDBURGH), victory_points])
+	
 	var completion_cost: int = project.budget * project.time
 	
 	var vic_points: int = completion_cost - project.get_planned_cost()
@@ -776,14 +790,17 @@ func _complete_project(project: Project) -> void:
 	#If the Project Completed is a Mine, add only half (rounded up) Victory Points
 	if project.project_card.card_name == PROJECT_MINE_NAME:
 		victory_points += ceili(vic_points / 2.0)
+		print("Victory Points of %s After: %d" % [get_player_name(TEAM.JEDBURGH), victory_points])
 		return
 	
 	#If the Project Completed is the Highway System, SUBTRACT Victory Points
 	if project.project_card.card_name == PROJECT_HIGHWAY_SYSTEM_NAME:
 		victory_points -= vic_points
+		print("Victory Points of %s After: %d" % [get_player_name(TEAM.JEDBURGH), victory_points])
 		return
 	
 	victory_points += vic_points
+	print("Victory Points of %s After: %d" % [get_player_name(TEAM.JEDBURGH), victory_points])
 	
 	#If the Project Completed is Finance System, Move HN Influence by 1 to Country
 	if project.project_card.card_name == PROJECT_FINANCE_SYSTEM_NAME:
