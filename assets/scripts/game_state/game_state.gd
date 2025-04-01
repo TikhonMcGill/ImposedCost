@@ -91,6 +91,7 @@ const EFFECT_ADD_VALUE_NAME: String = "Add 1 Value"
 
 @export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
 
+#region Game State-related Variables
 var previous_move: Move = null ##The Previous Move taken
 
 var victory_points: int = 0 ##The No. Victory Points Blue has
@@ -119,6 +120,7 @@ var projects: Array[Project] = [null, null, null, null] ##All Projects left to b
 var project_effects: PackedStringArray = [] ##Unhandled Effects, as Strings, that come about after the Completion of certain Projects
 
 var total_planned_cost: int = 0 ##The Total Planned Cost of all completed Projects
+#endregion
 
 ##Set up the Game
 func setup_game() -> void:
@@ -426,7 +428,7 @@ func get_possible_moves() -> Array[Move]:
 		
 		if EFFECT_ADD_VALUE_NAME in project_effects:
 			for p: Project in projects:
-				if (p.budget < 9 or p.time < 9) and p.is_project_complete() == false:
+				if p != null and (p.budget < 9 or p.time < 9) and p.is_project_complete() == false:
 					projects_moves.append(AddProjectValueMove.new())
 		
 		if _must_projects_be_added() == true:
@@ -515,6 +517,7 @@ func make_move(move: Move) -> void:
 	elif move is MaintainNetworkMove:
 		#If there are no cards in the Player's Hand, discard their Action Cards
 		if len(get_current_player_hand()) == 0:
+			print("%s had no cards in their hand, so discarded Action Cards from Network" % get_current_player_name())
 			for c: ActionCard in get_flattened_network(current_turn_team):
 				discard_pile.append(c)
 			
@@ -522,16 +525,17 @@ func make_move(move: Move) -> void:
 				country_network = [[], [], [], []]
 			else:
 				jedburgh_network = [[], [], [], []]
+		else:
+			#Discard all Cards to be Discarded
+			print("%s Discarded the following Cards:" % get_current_player_name())
+			for discard: Card in move.cards_to_discard:
+				print(discard.card_name)
+				discard_card(discard, current_turn_team)
 		
-		#Discard all Cards to be Discarded
-		print("%s Discarded the following Cards:" % get_current_player_name())
-		for discard: Card in move.cards_to_discard:
-			print(discard.card_name)
-			discard_card(discard, current_turn_team)
-		
-		print("Previous Arrangement of Network: ")
-		for c: Card in get_flattened_network(current_turn_team):
-			print(c.card_name)
+		if len(get_flattened_network(current_turn_team)) > 0:
+			print("Previous Arrangement of Network: ")
+			for c: Card in get_flattened_network(current_turn_team):
+				print(c.card_name)
 		
 		if current_turn_team == TEAM.COUNTRY:
 			country_network = move.new_network_order
@@ -550,9 +554,10 @@ func make_move(move: Move) -> void:
 			print("Jedburgh Player Maintained Network, moving onto Country Draw Cards Phase!")
 			_transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
 		
-		print("New Arrangement of Network: ")
-		for c: Card in get_flattened_network(current_turn_team):
-			print(c.card_name)
+		if len(get_flattened_network(current_turn_team)) > 0:
+			print("New Arrangement of Network: ")
+			for c: Card in get_flattened_network(current_turn_team):
+				print(c.card_name)
 	elif move is PassMove:
 		print("%s Passes!" % get_current_player_name())
 		
@@ -716,6 +721,7 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 				if p.budget > 0:
 					p.time += 1
 			print("Projects still left to play, transferring back to Draw Cards Phase!")
+			print("\n")
 			_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
 	#If we're Transferring to Game End Phase, calculate Victory Type
 	elif phase == PHASE.GAME_END:

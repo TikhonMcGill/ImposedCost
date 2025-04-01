@@ -62,6 +62,7 @@ func _setup_players() -> void:
 
 #Handle a Move being taken by the Game
 func handle_move_taken(move: Move) -> void:
+	await(get_tree().create_timer(0.1))
 	do_next_move()
 
 #Do the next move

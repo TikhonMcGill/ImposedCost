@@ -1,4 +1,3 @@
-- Fix Preload Issue (try using exports)
 - Keep fixing until two Random Players can play against each other
 
 Long-Term Timeline:

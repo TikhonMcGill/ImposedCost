@@ -10,7 +10,7 @@ func take_turn() -> void:
 	var moves: Array[Move] = game_state.get_possible_moves()
 	
 	if len(moves) == 0:
-		print("No moves for Random Player, returning...")
+		print("No moves for Random Player for %s, returning..." % game_state.get_player_name(my_team))
 		return
 	
 	var move_to_take: Move = moves.pick_random()
@@ -47,7 +47,8 @@ func _construct_maintain_network_move() -> MaintainNetworkMove:
 	var my_hand: Array[Card] = game_state.get_player_hand(my_team)
 	
 	#If more than 5 Cards in Network, pick 2 random cards to discard from hand
-	if len(game_state.get_flattened_network(my_team)) > 5:
+	#(COUNTING BASE)
+	if len(game_state.get_flattened_network(my_team)) > 4:
 		var first_card_to_discard: Card = my_hand.pick_random()
 		
 		var second_card_to_discard: Card = my_hand.pick_random()
@@ -93,11 +94,16 @@ func _construct_action_card_move(action_card: Card) -> ActionCardMove:
 	
 	var possible_changes: Array[ActionCardMove.CHANGE] = []
 	
+	var decreases: int = 0
+	var increases: int = 0
+	
 	for time_decrease: int in range(min(simulated_time, final_move.value)):
 		possible_changes.append(ActionCardMove.CHANGE.DECREASE_TIME)
+		decreases += 1
 	
 	for time_increase: int in range(min(9 - simulated_time, final_move.value)):
 		possible_changes.append(ActionCardMove.CHANGE.INCREASE_TIME)
+		increases += 1
 	
 	for budget_increase: int in range(min(9 - simulated_budget, final_move.value)):
 		possible_changes.append(ActionCardMove.CHANGE.INCREASE_BUDGET)
@@ -106,6 +112,14 @@ func _construct_action_card_move(action_card: Card) -> ActionCardMove:
 	
 	#Whether we're increasing the time or not, -1 = unset, 0 = no, 1 = yes
 	var increasing_time: int = -1
+	
+	#To ensure that the Random Player doesn't enter a dead end (e.g. it wants
+	#to decrease time 3 times, but only is able to do so twice), choose the
+	#direction of time increase/decrease which is larger - if tied, pick random
+	if increases > decreases:
+		increasing_time = 1
+	elif decreases > increases:
+		increasing_time = 0
 	
 	#Construct the Possible Change Combinations
 	for x in range(action_card.value):
