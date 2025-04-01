@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BaseCard" load_steps=3 format=3 uid="uid://5idsh7858e7v"]
 
 [ext_resource type="Texture2D" uid="uid://f2kaylofxpv" path="res://assets/resources/default_cards/base_cards/jedburgh_team.png" id="1_4eus0"]
-[ext_resource type="Script" path="res://assets/scripts/base_card.gd" id="1_j2heb"]
+[ext_resource type="Script" uid="uid://b7mkoisxpmija" path="res://assets/scripts/base_card.gd" id="1_j2heb"]
 
 [resource]
 script = ExtResource("1_j2heb")

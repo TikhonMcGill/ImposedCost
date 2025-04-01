@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="BaseCard" load_steps=3 format=3 uid="uid://b32wrnrj5kinr"]
 
-[ext_resource type="Script" path="res://assets/scripts/base_card.gd" id="1_gt4ki"]
+[ext_resource type="Script" uid="uid://b7mkoisxpmija" path="res://assets/scripts/base_card.gd" id="1_gt4ki"]
 [ext_resource type="Texture2D" uid="uid://bta66hkiehif1" path="res://assets/resources/default_cards/base_cards/country_team.png" id="1_mm0rk"]
 
 [resource]

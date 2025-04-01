@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cqmvug1vyaxk5"]
 
-[ext_resource type="Script" path="res://assets/scenes/game/project_container/project_container.gd" id="1_7lc6d"]
+[ext_resource type="Script" uid="uid://ob3wqgfc5mn2" path="res://assets/scenes/game/project_container/project_container.gd" id="1_7lc6d"]
 [ext_resource type="Texture2D" uid="uid://b7gejfpcrvx6y" path="res://icon.svg" id="1_ds58a"]
 
 [node name="ProjectContainer" type="VBoxContainer"]

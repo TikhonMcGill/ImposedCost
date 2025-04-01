@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://cmwfcu56vvodf"]
 
-[ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_02ocs"]
+[ext_resource type="Script" uid="uid://dxaypyym4u0xl" path="res://assets/scripts/project_card.gd" id="1_02ocs"]
 [ext_resource type="Texture2D" uid="uid://bd8mfloexg2dy" path="res://assets/resources/default_cards/projects/large_airport.png" id="1_hoiho"]
 
 [resource]

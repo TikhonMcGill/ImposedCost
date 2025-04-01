@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://nmkhwfglvn7r"]
 
-[ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_6yijg"]
+[ext_resource type="Script" uid="uid://dxaypyym4u0xl" path="res://assets/scripts/project_card.gd" id="1_6yijg"]
 [ext_resource type="Texture2D" uid="uid://durg0ovqkhjmq" path="res://assets/resources/default_cards/projects/mine.png" id="1_622hk"]
 
 [resource]

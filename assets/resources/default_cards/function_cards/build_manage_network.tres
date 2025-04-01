@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FunctionCard" load_steps=3 format=3 uid="uid://tboydcudocwk"]
 
 [ext_resource type="Texture2D" uid="uid://dklhbfx32bpkq" path="res://assets/resources/default_cards/function_cards/build_manage_network.png" id="1_mj0n6"]
-[ext_resource type="Script" path="res://assets/scripts/function_card.gd" id="1_x41hr"]
+[ext_resource type="Script" uid="uid://bkhel2muuf8ox" path="res://assets/scripts/function_card.gd" id="1_x41hr"]
 
 [resource]
 script = ExtResource("1_x41hr")

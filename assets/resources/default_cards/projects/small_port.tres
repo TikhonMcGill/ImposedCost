@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://boyma0p02kcbl"]
 
 [ext_resource type="Texture2D" uid="uid://c4nb6bj4h2smb" path="res://assets/resources/default_cards/projects/small_port.png" id="1_qf3tl"]
-[ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_ug2ef"]
+[ext_resource type="Script" uid="uid://dxaypyym4u0xl" path="res://assets/scripts/project_card.gd" id="1_ug2ef"]
 
 [resource]
 script = ExtResource("1_ug2ef")

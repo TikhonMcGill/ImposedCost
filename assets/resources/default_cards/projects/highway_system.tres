@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://g7e8p2lw8os7"]
 
-[ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_3te33"]
+[ext_resource type="Script" uid="uid://dxaypyym4u0xl" path="res://assets/scripts/project_card.gd" id="1_3te33"]
 [ext_resource type="Texture2D" uid="uid://v54dn2yogqe4" path="res://assets/resources/default_cards/projects/highway_system.png" id="1_cyvnf"]
 
 [resource]

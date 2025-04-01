@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="FunctionCard" load_steps=3 format=3 uid="uid://cnp8ku437jq08"]
 
 [ext_resource type="Texture2D" uid="uid://dsdcvlt7y8a4" path="res://assets/resources/default_cards/function_cards/influence_host_nation.png" id="1_7afl3"]
-[ext_resource type="Script" path="res://assets/scripts/function_card.gd" id="1_uk02a"]
+[ext_resource type="Script" uid="uid://bkhel2muuf8ox" path="res://assets/scripts/function_card.gd" id="1_uk02a"]
 
 [resource]
 script = ExtResource("1_uk02a")

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ProjectCard" load_steps=3 format=3 uid="uid://c75de2n0j3sxj"]
 
-[ext_resource type="Script" path="res://assets/scripts/project_card.gd" id="1_0o7bp"]
+[ext_resource type="Script" uid="uid://dxaypyym4u0xl" path="res://assets/scripts/project_card.gd" id="1_0o7bp"]
 [ext_resource type="Texture2D" uid="uid://bm8pu835eoh2g" path="res://assets/resources/default_cards/projects/administrative_system.png" id="1_ylda8"]
 
 [resource]
