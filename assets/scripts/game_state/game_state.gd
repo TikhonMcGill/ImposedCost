@@ -91,8 +91,6 @@ const EFFECT_ADD_VALUE_NAME: String = "Add 1 Value"
 
 @export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
 
-var combinatorics: CombinatoricsUtilities = CombinatoricsUtilities.new() ## Utilities for Calculating Combinatorics Calculations
-
 var previous_move: Move = null ##The Previous Move taken
 
 var victory_points: int = 0 ##The No. Victory Points Blue has
@@ -139,22 +137,12 @@ func setup_game() -> void:
 	starting_pile.append(FUNCTION_MAINTAIN_NETWORK)
 	
 	#Add Action Cards to Pile
-	for x in range(3):
-		var new_action_card: ActionCard = ActionCard.new()
-		new_action_card.value = 1
-		new_action_card.card_name = "Value 1"
-		starting_pile.append(new_action_card)
-	
-	for x in range(2):
-		var new_action_card: ActionCard = ActionCard.new()
-		new_action_card.value = 2
-		new_action_card.card_name = "Value 2"
-		starting_pile.append(new_action_card)
-	
-	var new_action_card: ActionCard = ActionCard.new()
-	new_action_card.value = 3
-	new_action_card.card_name = "Value 3"
-	starting_pile.append(new_action_card)
+	starting_pile.append(ACTION_1)
+	starting_pile.append(ACTION_1)
+	starting_pile.append(ACTION_1)
+	starting_pile.append(ACTION_2)
+	starting_pile.append(ACTION_2)
+	starting_pile.append(ACTION_3)
 	
 	assert(len(starting_pile) == 12, "Starting Draw Pile not 12 Cards")
 	
@@ -378,7 +366,7 @@ func get_possible_moves() -> Array[Move]:
 				var all_action_cards: Array[ActionCard] = get_flattened_network(current_turn_team)
 				for hand_card: Card in get_current_player_hand():
 					if hand_card is ActionCard:
-						all_action_cards.append(card)
+						all_action_cards.append(card as ActionCard)
 				
 				for action_card: ActionCard in all_action_cards:
 					var new_move_with_action_card: InfluenceHostNationMove = InfluenceHostNationMove.new()
