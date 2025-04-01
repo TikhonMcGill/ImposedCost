@@ -79,7 +79,7 @@ func _construct_maintain_network_move() -> MaintainNetworkMove:
 	return new_move
 
 ##Construct an ActionCardMove, if that is what the Random Player chose to do
-func _construct_action_card_move(action_card: ActionCard) -> ActionCardMove:
+func _construct_action_card_move(action_card: Card) -> ActionCardMove:
 	var chosen_project: Project = _pick_random_incomplete_project()
 	
 	var final_move: ActionCardMove = ActionCardMove.new()
@@ -152,14 +152,14 @@ func _construct_conceal_move(card: Card) -> ConcealMove:
 	possible_cards_to_conceal.shuffle()
 	
 	var cards_to_conceal: Array[ActionCard] = []
-	if len(cards_to_conceal) == 1:
+	if len(possible_cards_to_conceal) == 1:
 		cards_to_conceal = [possible_cards_to_conceal[0]]
 	else:
 		cards_to_conceal = [possible_cards_to_conceal[0], possible_cards_to_conceal[1]]
 	
 	var new_conceal_move: ConcealMove = ConcealMove.new()
 	new_conceal_move.card_to_use = card
-	new_conceal_move.cards_to_reveal = cards_to_conceal
+	new_conceal_move.cards_to_conceal = cards_to_conceal
 	
 	return new_conceal_move
 

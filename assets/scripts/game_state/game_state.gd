@@ -43,12 +43,6 @@ const FUNCTION_MAINTAIN_NETWORK: FunctionCard = preload("res://assets/resources/
 const FUNCTION_REVEAL_CONCEAL: FunctionCard = preload("res://assets/resources/default_cards/function_cards/reveal_conceal.tres")
 #endregion
 
-#region Action Cards
-const ACTION_1: ActionCard = preload("res://assets/resources/default_cards/action_cards/action_1.tres")
-const ACTION_2: ActionCard = preload("res://assets/resources/default_cards/action_cards/action_2.tres")
-const ACTION_3: ActionCard = preload("res://assets/resources/default_cards/action_cards/action_3.tres")
-#endregion
-
 #region Project Cards
 const PROJECT_ADMINISTRATIVE_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/administrative_system.tres")
 const PROJECT_FINANCE_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/finance_system.tres")
@@ -128,23 +122,33 @@ func setup_game() -> void:
 	var starting_pile: Array[Card] = []
 	
 	#Add Function Cards to Pile
-	starting_pile.append(FUNCTION_INFLUENCE_HOST_NATION.duplicate())
+	starting_pile.append(FUNCTION_INFLUENCE_HOST_NATION)
 	
-	starting_pile.append(FUNCTION_REVEAL_CONCEAL.duplicate())
-	starting_pile.append(FUNCTION_REVEAL_CONCEAL.duplicate())
+	starting_pile.append(FUNCTION_REVEAL_CONCEAL)
+	starting_pile.append(FUNCTION_REVEAL_CONCEAL)
 	
-	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK.duplicate())
-	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK.duplicate())
+	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK)
+	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK)
 	
-	starting_pile.append(FUNCTION_MAINTAIN_NETWORK.duplicate())
+	starting_pile.append(FUNCTION_MAINTAIN_NETWORK)
 	
 	#Add Action Cards to Pile
-	starting_pile.append(ACTION_1.duplicate())
-	starting_pile.append(ACTION_1.duplicate())
-	starting_pile.append(ACTION_1.duplicate())
-	starting_pile.append(ACTION_2.duplicate())
-	starting_pile.append(ACTION_2.duplicate())
-	starting_pile.append(ACTION_3.duplicate())
+	for x in range(3):
+		var new_action_card: ActionCard = ActionCard.new()
+		new_action_card.value = 1
+		new_action_card.card_name = "Value 1"
+		starting_pile.append(new_action_card)
+	
+	for x in range(2):
+		var new_action_card: ActionCard = ActionCard.new()
+		new_action_card.value = 2
+		new_action_card.card_name = "Value 2"
+		starting_pile.append(new_action_card)
+	
+	var new_action_card: ActionCard = ActionCard.new()
+	new_action_card.value = 3
+	new_action_card.card_name = "Value 3"
+	starting_pile.append(new_action_card)
 	
 	assert(len(starting_pile) == 12, "Starting Draw Pile not 12 Cards")
 	
@@ -292,11 +296,10 @@ func discard_card(card: Card, team: TEAM) -> void:
 	if team == TEAM.COUNTRY:
 		assert(card in country_hand, "Card to be discarded by Country Player not in Country Player's hand")
 		country_hand.erase(card)
-		discard_pile.append(card)
 	elif team == TEAM.JEDBURGH:
 		assert(card in jedburgh_hand, "Card to be discarded by Jedburgh Player not in Jedburgh Player's hand")
 		jedburgh_hand.erase(card)
-		discard_pile.append(card)
+	discard_pile.append(card)
 
 ##Discard a Particular Action Card from a Particular Team Player's Network
 ##optionally enforcing whether to reveal or discard it
@@ -349,11 +352,15 @@ func get_possible_moves() -> Array[Move]:
 						break
 				
 				if has_action_cards == true:
-					operations_moves.append(BuildNetworkMove.new())
+					var new_move: BuildNetworkMove = BuildNetworkMove.new()
+					new_move.card_to_use = card
+					operations_moves.append(new_move)
 				
 				#Determine if can Manage Network - only possible if Network has Action Cards
 				if len(get_flattened_network(current_turn_team)) > 0:
-					operations_moves.append(ManageNetworkMove.new())
+					var new_move: ManageNetworkMove = ManageNetworkMove.new()
+					new_move.card_to_use = card
+					operations_moves.append(new_move)
 				
 				#Handle Degrade Network Function Aspect
 				operations_moves.append_array(_get_degrade_network_possibilities(card))
@@ -682,9 +689,17 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	current_phase = phase
 	current_turn_team = player
 	
+	#If we're transferring to the Draw Cards Phase, and the Draw Pile is empty,
+	#shuffle the Discard Pile and make it the new Draw Pile
+	if phase == PHASE.DRAW_CARDS_JEDBURGH or phase == PHASE.DRAW_CARDS_COUNTRY:
+		if len(draw_pile) == 0:
+			print("Draw pile empty, returning discard pile!")
+			draw_pile += discard_pile
+			draw_pile.shuffle()
+			discard_pile = []
 	#If we're transferring to the Projects Phase, do a one-time calculation of all
 	#Projects
-	if phase == PHASE.PROJECTS:
+	elif phase == PHASE.PROJECTS:
 		print("Updating Projects!")
 		_update_projects()
 	#If we're Transferring to the HN Influence Phase, do a onetime calculation of
