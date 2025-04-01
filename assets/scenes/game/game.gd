@@ -1,8 +1,8 @@
 extends Node
 
-const RANDOM_PLAYER_SCENE: PackedScene = preload("res://assets/scenes/game/player/random_player/random_player.tscn")
+const RANDOM_PLAYER_SCENE: PackedScene = preload("uid://cl5rbc50mn6yi")
 
-const PROJECT_CONTAINER_SCENE: PackedScene = preload("res://assets/scenes/game/project_container/project_container.tscn")
+const PROJECT_CONTAINER_SCENE: PackedScene = preload("uid://cqmvug1vyaxk5")
 
 var game_state: GameState = GameState.new()
 

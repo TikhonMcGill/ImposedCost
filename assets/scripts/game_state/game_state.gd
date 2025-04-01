@@ -32,29 +32,35 @@ enum PHASE {
 #region Cards
 
 #region Base Cards
-const BASE_COUNTRY: BaseCard = preload("res://assets/resources/default_cards/base_cards/country_team.tres")
-const BASE_JEDBURGH: BaseCard = preload("res://assets/resources/default_cards/base_cards/jedburgh_team.tres")
+var BASE_COUNTRY: BaseCard = ResourceLoader.load("uid://b32wrnrj5kinr")
+var BASE_JEDBURGH: BaseCard = ResourceLoader.load("uid://5idsh7858e7v")
 #endregion
 
 #region Function Cards
-const FUNCTION_BUILD_MANAGE_NETWORK: FunctionCard = preload("res://assets/resources/default_cards/function_cards/build_manage_network.tres")
-const FUNCTION_INFLUENCE_HOST_NATION: FunctionCard = preload("res://assets/resources/default_cards/function_cards/influence_host_nation.tres")
-const FUNCTION_MAINTAIN_NETWORK: FunctionCard = preload("res://assets/resources/default_cards/function_cards/maintain_network.tres")
-const FUNCTION_REVEAL_CONCEAL: FunctionCard = preload("res://assets/resources/default_cards/function_cards/reveal_conceal.tres")
+var FUNCTION_BUILD_MANAGE_NETWORK: FunctionCard = ResourceLoader.load("uid://tboydcudocwk")
+var FUNCTION_INFLUENCE_HOST_NATION: FunctionCard = ResourceLoader.load("uid://cnp8ku437jq08")
+var FUNCTION_MAINTAIN_NETWORK: FunctionCard = ResourceLoader.load("uid://b82w25ds73ca2")
+var FUNCTION_REVEAL_CONCEAL: FunctionCard = ResourceLoader.load("uid://xigyuo4vs6th")
+#endregion
+
+#region Action Cards
+var ACTION_1: ActionCard = ResourceLoader.load("uid://1lk18ql5qrjc")
+var ACTION_2: ActionCard = ResourceLoader.load("uid://gaa57k8bfdr7")
+var ACTION_3: ActionCard = ResourceLoader.load("uid://cx7md82o7thfb")
 #endregion
 
 #region Project Cards
-const PROJECT_ADMINISTRATIVE_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/administrative_system.tres")
-const PROJECT_FINANCE_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/finance_system.tres")
-const PROJECT_HIGHWAY_SYSTEM: ProjectCard = preload("res://assets/resources/default_cards/projects/highway_system.tres")
+var PROJECT_ADMINISTRATIVE_SYSTEM: ProjectCard = ResourceLoader.load("uid://c75de2n0j3sxj")
+var PROJECT_FINANCE_SYSTEM: ProjectCard = ResourceLoader.load("uid://5kjlbcyjr00l")
+var PROJECT_HIGHWAY_SYSTEM: ProjectCard = ResourceLoader.load("uid://g7e8p2lw8os7")
 
-const PROJECT_SMALL_AIRPORT: ProjectCard = preload("res://assets/resources/default_cards/projects/small_airport.tres")
-const PROJECT_LARGE_AIRPORT: ProjectCard = preload("res://assets/resources/default_cards/projects/large_airport.tres")
+var PROJECT_SMALL_AIRPORT: ProjectCard = ResourceLoader.load("uid://i6lrvyomlfpb")
+var PROJECT_LARGE_AIRPORT: ProjectCard = ResourceLoader.load("uid://cmwfcu56vvodf")
 
-const PROJECT_SMALL_PORT: ProjectCard = preload("res://assets/resources/default_cards/projects/small_port.tres")
-const PROJECT_LARGE_PORT: ProjectCard = preload("res://assets/resources/default_cards/projects/large_port.tres")
+var PROJECT_SMALL_PORT: ProjectCard = ResourceLoader.load("uid://boyma0p02kcbl")
+var PROJECT_LARGE_PORT: ProjectCard = ResourceLoader.load("uid://cy6lcskh1cuer")
 
-const PROJECT_MINE: ProjectCard = preload("res://assets/resources/default_cards/projects/mine.tres")
+var PROJECT_MINE: ProjectCard = ResourceLoader.load("uid://nmkhwfglvn7r")
 #endregion
 
 #endregion

@@ -1,7 +1,3 @@
-Godot 4.4 Migration:
-	- Replace all Preloads with UIDs
-	- Make sure all Scripts have UIDs, if not already
-
 - Fix Preload Issue (try using exports)
 - Keep fixing until two Random Players can play against each other
 
