@@ -198,11 +198,13 @@ func is_card_concealed(card: Card) -> bool:
 ##Reveal a Card
 func reveal_card(card: Card) -> void:
 	assert(card not in revealed_cards, "Card to be revealed already revealed")
+	print("Revealed Card %s!" % card.card_name)
 	revealed_cards.append(card)
 
 ##Conceal a Card
 func conceal_card(card: Card) -> void:
 	assert(card in revealed_cards, "Card to be concealed not revealed")
+	print("Concealed Card %s!" % card.card_name)
 	revealed_cards.erase(card)
 
 ##Get the Value on the HN Influence Track

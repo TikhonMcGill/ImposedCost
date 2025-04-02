@@ -121,25 +121,33 @@ func _construct_action_card_move(action_card: Card) -> ActionCardMove:
 	elif decreases > increases:
 		increasing_time = 0
 	
+	#No. Changes made
+	var changes_constructed: int = 0
+	
 	#Construct the Possible Change Combinations
-	for x in range(action_card.value):
+	while changes_constructed < action_card.value:
 		var chosen_change: ActionCardMove.CHANGE = possible_changes.pop_front()
 		
 		if increasing_time == -1:
 			if chosen_change == ActionCardMove.CHANGE.INCREASE_TIME:
 				increasing_time = 1
 				final_move.changes.append(chosen_change)
+				changes_constructed += 1
 			elif chosen_change == ActionCardMove.CHANGE.DECREASE_TIME:
 				increasing_time = 0
 				final_move.changes.append(chosen_change)
+				changes_constructed += 1
 		else:
 			if chosen_change == ActionCardMove.CHANGE.DECREASE_TIME and increasing_time == 0:
 				final_move.changes.append(chosen_change)
+				changes_constructed += 1
 			elif chosen_change == ActionCardMove.CHANGE.INCREASE_TIME and increasing_time == 1:
 				final_move.changes.append(chosen_change)
+				changes_constructed += 1
 		
 		if chosen_change == ActionCardMove.CHANGE.INCREASE_BUDGET:
 			final_move.changes.append(chosen_change)
+			changes_constructed += 1
 	
 	return final_move
 
