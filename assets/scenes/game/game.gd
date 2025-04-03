@@ -100,7 +100,7 @@ func create_project_container(project: Project, slot: int) -> ProjectContainer:
 #Blacken a Project Container, implying it is completed
 func _darken_project_container(slot: int) -> void:
 	var new_tween: Tween = create_tween()
-	new_tween.tween_property(project_container_container.get_child(slot), "modulate", Color.BLACK, 0.5)
+	new_tween.tween_property(project_container_container.get_child(slot).get_child(0), "modulate", Color.BLACK, 0.5)
 	await new_tween.finished
 
 func _setup_game() -> void:

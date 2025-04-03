@@ -479,7 +479,6 @@ func make_move(move: Move) -> void:
 			else:
 				print("Moving onto HN Influence Phase!")
 				_transfer_to_phase(PHASE.HN_INFLUENCE, TEAM.NOBODY)
-	
 	elif move is DrawCardMove:
 		print("Drawing Card!")
 		var card: Card = draw_random_card(current_turn_team)

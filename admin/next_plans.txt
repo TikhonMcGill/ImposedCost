@@ -29,7 +29,7 @@ Finalization:
 	Themes etc. accordingly:
 		- Color the PanelContainers in the HNInfluenceTrack
 	- Add own font, maybe a theme as well
-	- Customizable No. Projects
+	- Tweening Project Influence Tracker
 	- Utility-Based Player
 	- MAYBE Minimax
 	- Icon
