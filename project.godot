@@ -23,6 +23,7 @@ GameManager="*res://assets/scripts/game_manager.gd"
 
 [debug]
 
+settings/gdscript/max_call_stack=2047
 gdscript/warnings/untyped_declaration=2
 
 [rendering]

@@ -36,7 +36,7 @@ func take_turn() -> void:
 func _pick_random_incomplete_project() -> Project:
 	var chosen_project: Project = game_state.projects.pick_random()
 	
-	while chosen_project.is_project_complete() == true:
+	while chosen_project == null or chosen_project.is_project_complete() == true:
 		chosen_project = game_state.projects.pick_random()
 	
 	return chosen_project

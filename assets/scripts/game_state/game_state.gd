@@ -297,7 +297,11 @@ func discard_card(card: Card, team: TEAM) -> void:
 	elif team == TEAM.JEDBURGH:
 		assert(card in jedburgh_hand, "Card to be discarded by Jedburgh Player not in Jedburgh Player's hand")
 		jedburgh_hand.erase(card)
+	
 	discard_pile.append(card)
+	#Reveal Card after it is discarded
+	if is_card_revealed(card) == false:
+		reveal_card(card)
 
 ##Discard a Particular Action Card from a Particular Team Player's Network
 ##optionally enforcing whether to reveal or discard it
@@ -840,6 +844,11 @@ func _complete_project(project: Project) -> void:
 	var slot: int = projects.find(project)
 	assert(slot != -1, "Project to Complete not in Game State's Projects")
 	
+	projects[slot] = null
+	project_completed.emit(slot)
+	projects_to_complete -= 1
+	total_planned_cost += project.get_planned_cost()
+	
 	#If the Project Completed is a Mine, add only half (rounded up) Victory Points
 	if project.project_card.card_name == PROJECT_MINE_NAME:
 		victory_points += ceili(vic_points / 2.0)
@@ -871,8 +880,3 @@ func _complete_project(project: Project) -> void:
 	if project.project_card.card_name == PROJECT_LARGE_AIRPORT_NAME or project.project_card.card_name == PROJECT_LARGE_PORT_NAME:
 		project_effects.append(EFFECT_ADD_VALUE_NAME)
 		project_effects.append(EFFECT_ADD_VALUE_NAME)
-	
-	projects[slot] = null
-	project_completed.emit(slot)
-	projects_to_complete -= 1
-	total_planned_cost += project.get_planned_cost()
