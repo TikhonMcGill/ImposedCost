@@ -43,8 +43,6 @@ func _setup_players() -> void:
 	if GameManager.settings.jedburgh_team_player == GameManager.settings.PLAYER.RANDOM:
 		jedburgh_player = RANDOM_PLAYER_SCENE.instantiate()
 	
-	var random_player_2: RandomPlayer = RANDOM_PLAYER_SCENE.instantiate()
-	
 	add_child(country_player)
 	add_child(jedburgh_player)
 	
@@ -62,7 +60,7 @@ func _setup_players() -> void:
 
 #Handle a Move being taken by the Game
 func handle_move_taken(move: Move) -> void:
-	await(get_tree().create_timer(0.1))
+	await(get_tree().create_timer(0.1).timeout)
 	do_next_move()
 
 #Do the next move
@@ -101,7 +99,9 @@ func create_project_container(project: Project, slot: int) -> ProjectContainer:
 
 #Blacken a Project Container, implying it is completed
 func _darken_project_container(slot: int) -> void:
-	project_container_container.get_child(slot).modulate = Color.BLACK
+	var new_tween: Tween = create_tween()
+	new_tween.tween_property(project_container_container.get_child(slot), "modulate", Color.BLACK, 0.5)
+	await new_tween.finished
 
 func _setup_game() -> void:
 	randomize()

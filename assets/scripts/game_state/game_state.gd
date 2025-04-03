@@ -724,8 +724,9 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 			_transfer_to_phase(PHASE.GAME_END, TEAM.NOBODY)
 		else:
 			for p: Project in projects:
-				if p.budget > 0:
-					p.time += 1
+				if p != null:
+					if p.budget > 0:
+						p.time += 1
 			print("Projects still left to play, transferring back to Draw Cards Phase!")
 			print("\n")
 			_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)

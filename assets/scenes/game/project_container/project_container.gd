@@ -22,3 +22,4 @@ func _process(delta: float) -> void:
 func set_project(project: Project) -> void:
 	my_project = project
 	project_card_texture_rect.texture = project.project_card.card_image
+	modulate = Color.WHITE

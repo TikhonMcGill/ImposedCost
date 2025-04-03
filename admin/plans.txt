@@ -1,3 +1,6 @@
+All Issues:
+	- Still issues with Use HN Influence
+
 - Keep fixing until two Random Players can play against each other
 
 Long-Term Timeline:
