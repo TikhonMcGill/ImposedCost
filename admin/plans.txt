@@ -1,5 +1,4 @@
 All Issues:
-	- Still issues with Use HN Influence
 	- When AddProjectValueMove is played, instead of attempting to move onto the next Phase,
 	it just gets stuck there (need, likely, a helper function to handle the transition)
 	- "Card to be discarded not in Player's Network" Assertion Faulure Periodically,

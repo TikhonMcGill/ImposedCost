@@ -85,7 +85,12 @@ func _construct_action_card_move(action_card: Card) -> ActionCardMove:
 	
 	var final_move: ActionCardMove = ActionCardMove.new()
 	final_move.card_to_use = action_card
-	final_move.value = action_card.value
+	
+	if action_card is ActionCard:
+		final_move.value = action_card.value
+	elif action_card.card_name == GameState.FUNCTION_INFLUENCE_HN_NAME:
+		final_move.value = game_state.get_hn_influence_value()
+	
 	final_move.project = chosen_project
 	
 	#Construct possible changes
