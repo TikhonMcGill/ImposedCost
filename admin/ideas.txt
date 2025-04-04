@@ -43,3 +43,5 @@ of different moves, potentially? E.g. instead of an ActionCardMove, could have a
 IncreaseTimeMove, etc., played one-by-one until the Action Card is revealed or discarded, maybe?
 
 Could say, for Victory Points, "*JEDBURGH NAME* On track to make Victory of type X", or "on track to lose" etc.
+
+Allow, as Gamerule, for time to exceed 9, maybe even become negative

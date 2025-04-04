@@ -91,6 +91,8 @@ func _construct_action_card_move(action_card: Card) -> ActionCardMove:
 	elif action_card.card_name == GameState.FUNCTION_INFLUENCE_HN_NAME:
 		final_move.value = game_state.get_hn_influence_value()
 	
+	var simulated_value: int = final_move.value
+	
 	final_move.project = chosen_project
 	
 	#Construct possible changes
@@ -130,7 +132,7 @@ func _construct_action_card_move(action_card: Card) -> ActionCardMove:
 	var changes_constructed: int = 0
 	
 	#Construct the Possible Change Combinations
-	while changes_constructed < action_card.value:
+	while changes_constructed < simulated_value:
 		var chosen_change: ActionCardMove.CHANGE = possible_changes.pop_front()
 		
 		if increasing_time == -1:

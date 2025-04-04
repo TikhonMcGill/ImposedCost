@@ -655,13 +655,12 @@ func make_move(move: Move) -> void:
 			print("Increasing Budget Value!")
 			move.project.budget += 1
 		
-		#If the Project got completed by this move, handle the necessary effects etc.
-		if move.project.is_project_complete() == true:
-			_complete_project(move.project)
-		
 		#Remove the String Name of the Add Value effect once a Value is added
 		project_effects.remove_at(project_effects.find(EFFECT_ADD_VALUE_NAME))
-	
+		
+		#Check whether we're staying Projects Phase or moving on
+		_check_transfer_from_projects()
+
 	#If the Move is Playing a Card in the Operations Phase, Discard the Card played and
 	#give the next player their turn
 	if move is PlayCardMove:
@@ -746,7 +745,7 @@ func _update_projects() -> void:
 	var any_projects_completed: bool = false
 	
 	for project: Project in projects:
-		if project.is_project_complete() == true:
+		if project != null and project.is_project_complete() == true:
 			print("Project %s is complete, completing!" % project.project_card.card_name)
 			_complete_project(project)
 			any_projects_completed = true
@@ -755,6 +754,18 @@ func _update_projects() -> void:
 	if any_projects_completed == false:
 		print("No Projects Completed, moving onto HN Influence!")
 		_transfer_to_phase(PHASE.HN_INFLUENCE, TEAM.NOBODY)
+
+##Check whether to Transfer from the Projects Phase to the HN Influence Phase
+func _check_transfer_from_projects() -> void:
+	if EFFECT_ADD_VALUE_NAME in project_effects:
+		print("Still unplayed Project Effects, staying in Projects Phase")
+		return
+	
+	if _must_projects_be_added() == true:
+		print("Projects must still be added, staying in Projects Phase!")
+		return
+	
+	_update_projects()
 
 ##Check if Projects must be added - if there are less than 4 Active Projects
 ##AND there are more Projects to be Played than Active Projects, return True
@@ -844,25 +855,17 @@ func _complete_project(project: Project) -> void:
 	var slot: int = projects.find(project)
 	assert(slot != -1, "Project to Complete not in Game State's Projects")
 	
-	projects[slot] = null
-	project_completed.emit(slot)
-	projects_to_complete -= 1
-	total_planned_cost += project.get_planned_cost()
-	
 	#If the Project Completed is a Mine, add only half (rounded up) Victory Points
 	if project.project_card.card_name == PROJECT_MINE_NAME:
 		victory_points += ceili(vic_points / 2.0)
 		print("Victory Points of %s After: %d" % [get_player_name(TEAM.JEDBURGH), victory_points])
-		return
-	
 	#If the Project Completed is the Highway System, SUBTRACT Victory Points
-	if project.project_card.card_name == PROJECT_HIGHWAY_SYSTEM_NAME:
+	elif project.project_card.card_name == PROJECT_HIGHWAY_SYSTEM_NAME:
 		victory_points -= vic_points
 		print("Victory Points of %s After: %d" % [get_player_name(TEAM.JEDBURGH), victory_points])
-		return
-	
-	victory_points += vic_points
-	print("Victory Points of %s After: %d" % [get_player_name(TEAM.JEDBURGH), victory_points])
+	else:
+		victory_points += vic_points
+		print("Victory Points of %s After: %d" % [get_player_name(TEAM.JEDBURGH), victory_points])
 	
 	#If the Project Completed is Finance System, Move HN Influence by 1 to Country
 	if project.project_card.card_name == PROJECT_FINANCE_SYSTEM_NAME:
@@ -880,3 +883,9 @@ func _complete_project(project: Project) -> void:
 	if project.project_card.card_name == PROJECT_LARGE_AIRPORT_NAME or project.project_card.card_name == PROJECT_LARGE_PORT_NAME:
 		project_effects.append(EFFECT_ADD_VALUE_NAME)
 		project_effects.append(EFFECT_ADD_VALUE_NAME)
+	
+	projects[slot] = null
+	project_completed.emit(slot)
+	projects_to_complete -= 1
+	total_planned_cost += project.get_planned_cost()
+	_check_transfer_from_projects()

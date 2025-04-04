@@ -1,11 +1,13 @@
 All Issues:
-	- When AddProjectValueMove is played, instead of attempting to move onto the next Phase,
-	it just gets stuck there (need, likely, a helper function to handle the transition)
 	- "Card to be discarded not in Player's Network" Assertion Faulure Periodically,
 	specifically for Degrade Network
 	- Doesn't seem to be correctly setting Project Container - likely need to
 	have them be there by default, and just setting them per-slot instead of
 	this instantiation nonsense
+	- Infinite Loop at Game End, it seems
+	- Time Increases go far beyond 9, the maximum
+	- Card to be concealed not revealed
+	- Card to be revealed already revealed
 
 - Keep fixing until two Random Players can play against each other
 - Add note about progress to HaWo for Meeting 32
