@@ -128,6 +128,8 @@ func _construct_action_card_move(action_card: Card) -> ActionCardMove:
 	elif decreases > increases:
 		increasing_time = 0
 	
+	print("Decreases: %d, Increases: %d" % [decreases, increases])
+	
 	#No. Changes made
 	var changes_constructed: int = 0
 	

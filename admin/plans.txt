@@ -3,7 +3,6 @@ All Issues:
 	specifically for Degrade Network
 	- Not adding new Project at end of Projects Phase
 	- Infinite Loop at Game End, it seems
-	- Time Increases go far beyond 9, the maximum
 	- Card to be concealed not revealed
 	- Card to be revealed already revealed
 
