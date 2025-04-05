@@ -16,6 +16,11 @@ func _process(delta: float) -> void:
 	if my_project != null:
 		time_label.text = "Time: %d" % my_project.time
 		budget_label.text = "Budget: %d" % my_project.budget
+		project_label.text = my_project.project_card.card_name
+	else:
+		time_label.text = "Time: COMPLETED"
+		budget_label.text = "Budget: COMPLETED"
+		project_label.text = "COMPLETED"
 
 ##Set the Project Container's Project
 func set_project(project: Project) -> void:

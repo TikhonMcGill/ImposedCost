@@ -44,3 +44,6 @@ Finalization:
 	- Add Comments EVERYWHERE as much as possible
 	- MIT-Licensed GitHub Project
 	- Link on LinkedIn as well
+	- Having an "Empty Project" Sprite instead of the Godot Logo for the ProjectContainer at start
+	- Add Tweens
+	- Add sounds
