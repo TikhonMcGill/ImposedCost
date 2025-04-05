@@ -3,32 +3,37 @@
 [ext_resource type="Script" uid="uid://ob3wqgfc5mn2" path="res://assets/scenes/game/project_container/project_container.gd" id="1_7lc6d"]
 [ext_resource type="Texture2D" uid="uid://b7gejfpcrvx6y" path="res://icon.svg" id="1_ds58a"]
 
-[node name="ProjectContainer" type="VBoxContainer"]
+[node name="ProjectContainer" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_7lc6d")
 
-[node name="ProjectLabel" type="Label" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="ProjectLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 text = "Project A"
 
-[node name="HSeparator2" type="HSeparator" parent="."]
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="ProjectCardTextureRect" type="TextureRect" parent="."]
+[node name="ProjectCardTextureRect" type="TextureRect" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 texture = ExtResource("1_ds58a")
 stretch_mode = 5
 
-[node name="HSeparator" type="HSeparator" parent="."]
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="ProjectNameLabel" type="Label" parent="."]
+[node name="TimeLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="TimeLabel" type="Label" parent="."]
-layout_mode = 2
-
-[node name="BudgetLabel" type="Label" parent="."]
+[node name="BudgetLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2

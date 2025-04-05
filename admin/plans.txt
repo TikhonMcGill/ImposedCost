@@ -1,9 +1,7 @@
 All Issues:
 	- "Card to be discarded not in Player's Network" Assertion Faulure Periodically,
 	specifically for Degrade Network
-	- Doesn't seem to be correctly setting Project Container - likely need to
-	have them be there by default, and just setting them per-slot instead of
-	this instantiation nonsense
+	- Not adding new Project at end of Projects Phase
 	- Infinite Loop at Game End, it seems
 	- Time Increases go far beyond 9, the maximum
 	- Card to be concealed not revealed

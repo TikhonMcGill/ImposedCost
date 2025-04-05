@@ -78,23 +78,13 @@ func handle_country_player_move(move: Move) -> void:
 func handle_jedburgh_player_move(move: Move) -> void:
 	game_state.make_move(move)
 
-#Create a Project Container, inserting it into a specific slot
-func create_project_container(project: Project, slot: int) -> ProjectContainer:
+#Set a Project Container's Project In a Specific Slot
+func set_container_project(project: Project, slot: int) -> void:
 	var letter_indices: PackedStringArray = ["A","B","C","D"]
 	
-	#Create a Project Container for the Project
-	var new_container: ProjectContainer = PROJECT_CONTAINER_SCENE.instantiate()
-	
 	#If the Container for the relevant Project Slot is occupied, delete its children
-	var project_container: PanelContainer = project_container_container.get_child(slot)
-	if project_container.get_child_count() > 0:
-		for c: Node in project_container.get_children():
-			c.queue_free()
-	project_container.add_child(new_container)
-	
-	new_container.set_project(project)
-	
-	return new_container
+	var project_container: ProjectContainer = project_container_container.get_child(slot)
+	project_container.set_project(project)
 
 #Blacken a Project Container, implying it is completed
 func _darken_project_container(slot: int) -> void:
@@ -110,7 +100,7 @@ func _setup_game() -> void:
 	
 	game_state.projects_to_complete = GameManager.settings.projects_to_complete
 	game_state.move_taken.connect(handle_move_taken)
-	game_state.project_set.connect(create_project_container)
+	game_state.project_set.connect(set_container_project)
 	game_state.project_completed.connect(_darken_project_container)
 	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)
 	
