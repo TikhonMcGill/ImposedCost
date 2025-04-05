@@ -93,7 +93,6 @@ func create_project_container(project: Project, slot: int) -> ProjectContainer:
 	project_container.add_child(new_container)
 	
 	new_container.set_project(project)
-	new_container.project_label.text = "Project %s" % letter_indices[slot]
 	
 	return new_container
 
