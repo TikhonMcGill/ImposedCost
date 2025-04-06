@@ -94,7 +94,8 @@ const EFFECT_ADD_VALUE_NAME: String = "Add 1 Value"
 #region Game State-related Variables
 var previous_move: Move = null ##The Previous Move taken
 
-var victory_points: int = 0 ##The No. Victory Points Blue has
+var victory_points: int = 0: ##The No. Victory Points Blue has
+	set = _set_victory_points 
 
 var draw_pile: Array[Card] ##The Draw Pile
 var discard_pile: Array[Card] ##The Discard Pile
@@ -780,6 +781,10 @@ func _must_projects_be_added() -> bool:
 		return true
 	
 	return false
+
+##Set Victory Points
+func _set_victory_points(new_val: int) -> void:
+	victory_points = maxi(0, new_val)
 
 ##Set Host Nation Influence
 func _set_hn_influence(new_val: int) -> void:

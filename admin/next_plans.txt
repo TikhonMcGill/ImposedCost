@@ -21,8 +21,8 @@ Gamerules:
 		- Replaces - Move HN Influence by Action Card Value when Influence HN Played
 	- We don't know if, when no cards in hand, discarding action cards means discarding ALL of them, or to
 	the corresponding amount - will assume all of them, for now
-
-- Add Defeat, Strategic, Tactial Victories as Customizable Gamerule Ratios
+	- Whether to allow Negative Victory Points or not
+	- Add Defeat, Strategic, Tactial Victories as Customizable Gamerule Ratios
 
 Finalization:
 	- Set color for Players, by default Red for Country, blue for Jedburgh, and update
