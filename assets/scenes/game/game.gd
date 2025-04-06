@@ -80,8 +80,6 @@ func handle_jedburgh_player_move(move: Move) -> void:
 
 #Set a Project Container's Project In a Specific Slot
 func set_container_project(project: Project, slot: int) -> void:
-	var letter_indices: PackedStringArray = ["A","B","C","D"]
-	
 	#If the Container for the relevant Project Slot is occupied, delete its children
 	var project_container: ProjectContainer = project_container_container.get_child(slot)
 	project_container.set_project(project)

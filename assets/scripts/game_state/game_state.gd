@@ -174,14 +174,6 @@ func draw_card(card: Card, team: TEAM) -> Card:
 		jedburgh_hand.append(card)
 		return card
 	
-	#If the Draw Pile is empty, shuffle the discard pile and add it to the draw pile
-	if len(draw_pile) == 0:
-		discard_pile.shuffle()
-		for c in discard_pile:
-			draw_pile.append(c)
-	
-	discard_pile = []
-	
 	return null
 
 ##Draw Random Card
@@ -312,6 +304,7 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 	#If we're enforcing the conceal_reveal rule, and the card is concealed, we
 	#reveal it, but don't discard it, hence the return
 	if enforce_conceal_reveal == true and is_card_concealed(card) == true:
+		print("The Action Card is concealed, revealing instead of discarding!")
 		reveal_card(card)
 		return
 	
@@ -329,6 +322,10 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 					stack.erase(action_card)
 					discard_pile.append(action_card)
 					return
+	
+	#Reveal Card after it is discarded, if it is concealed
+	if is_card_concealed(card) == true:
+		reveal_card(card)
 
 ##TODO Get all Possible Game Moves
 func get_possible_moves() -> Array[Move]:
@@ -618,6 +615,7 @@ func make_move(move: Move) -> void:
 			assert(card in get_current_player_hand(), "Action Card to add to Network not in player's hand")
 		
 		for i: int in range(len(move.action_cards_to_add)):
+			get_current_player_hand().erase(move.action_cards_to_add[i])
 			get_current_player_network()[move.stacks_to_add_to[i]].insert(move.indices_to_add_to[i], move.action_cards_to_add[i])
 			conceal_card(move.action_cards_to_add[i])
 	elif move is ManageNetworkMove:
@@ -698,7 +696,9 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	if phase == PHASE.DRAW_CARDS_JEDBURGH or phase == PHASE.DRAW_CARDS_COUNTRY:
 		if len(draw_pile) == 0:
 			print("Draw pile empty, returning discard pile!")
-			draw_pile += discard_pile
+			
+			for d: Card in discard_pile:
+				draw_pile.append(d)
 			draw_pile.shuffle()
 			discard_pile = []
 	#If we're transferring to the Projects Phase, do a one-time calculation of all
