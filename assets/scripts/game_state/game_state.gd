@@ -164,6 +164,7 @@ func draw_card(card: Card, team: TEAM) -> Card:
 	assert(card in draw_pile, "Card %s not in Draw Pile" % card.card_name)
 	
 	draw_pile.erase(card)
+	card.card_history.append("Drawn by %s" % get_player_name(team))
 	
 	if team == TEAM.COUNTRY:
 		print("Country Team Drew Card: %s" % card.card_name)
@@ -193,12 +194,14 @@ func reveal_card(card: Card) -> void:
 	assert(card not in revealed_cards, "Card to be revealed already revealed")
 	print("Revealed Card %s!" % card.card_name)
 	revealed_cards.append(card)
+	card.card_history.append("Revealed")
 
 ##Conceal a Card
 func conceal_card(card: Card) -> void:
 	assert(card in revealed_cards, "Card to be concealed not revealed")
 	print("Concealed Card %s!" % card.card_name)
 	revealed_cards.erase(card)
+	card.card_history.append("Concealed")
 
 ##Get the Value on the HN Influence Track
 func get_hn_influence_value() -> int:
@@ -292,6 +295,7 @@ func discard_card(card: Card, team: TEAM) -> void:
 		jedburgh_hand.erase(card)
 	
 	discard_pile.append(card)
+	card.card_history.append("Discarded from hand of %s" % get_player_name(team))
 	#Reveal Card after it is discarded
 	if is_card_revealed(card) == false:
 		reveal_card(card)
@@ -305,6 +309,7 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 	#reveal it, but don't discard it, hence the return
 	if enforce_conceal_reveal == true and is_card_concealed(card) == true:
 		print("The Action Card is concealed, revealing instead of discarding!")
+		card.card_history.append("Revealed instead of Discarded from Network of %s" % get_player_name(team))
 		reveal_card(card)
 		return
 	
@@ -314,6 +319,7 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 				if card == action_card:
 					stack.erase(action_card)
 					discard_pile.append(action_card)
+					card.card_history.append("Discarded from Network of %s" % get_player_name(team))
 					return
 	else:
 		for stack: Array in jedburgh_network:
@@ -321,6 +327,7 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 				if card == action_card:
 					stack.erase(action_card)
 					discard_pile.append(action_card)
+					card.card_history.append("Discarded from Network of %s" % get_player_name(team))
 					return
 	
 	#Reveal Card after it is discarded, if it is concealed
@@ -461,6 +468,7 @@ func make_move(move: Move) -> void:
 		
 		print("Project Selected: %s, Put into Slot %s" % [move.project_card_to_select.card_name, slot_names[move.project_slot]])
 		project_set.emit(new_project, move.project_slot)
+		move.project_card_to_select.card_history.append("Selected as Project")
 		
 		if current_phase == PHASE.SETUP:
 			if _must_projects_be_added() == true:
@@ -583,6 +591,8 @@ func make_move(move: Move) -> void:
 		
 		if move.action_card_to_play_with != null:
 			print("%s plays Influence Host Nation with Action Card, for total of %d Influence Change!" % [get_current_player_name(), influence_change])
+			move.card_to_use.card_history.append("Played by %s with an Action Card, for total value of %d" % [get_current_player_name(), influence_change])
+			move.action_card_to_play_with.card_history.append("%s used Action Card with Influence Host Nation, for total influence change of %d" % [get_current_player_name(), influence_change])
 			
 			if move.action_card_to_play_with in get_current_player_hand():
 				discard_card(move.action_card_to_play_with, current_turn_team)
@@ -608,6 +618,7 @@ func make_move(move: Move) -> void:
 				move.project.budget += 1
 				print("\tIncreased Budget")
 		print("")
+		move.card_to_use.card_history.append("Played as an Action Card with Value %d" % move.value)
 	elif move is BuildNetworkMove:
 		print("%s playing Build Network!" % get_current_player_name())
 		
@@ -617,6 +628,7 @@ func make_move(move: Move) -> void:
 		for i: int in range(len(move.action_cards_to_add)):
 			get_current_player_hand().erase(move.action_cards_to_add[i])
 			get_current_player_network()[move.stacks_to_add_to[i]].insert(move.indices_to_add_to[i], move.action_cards_to_add[i])
+			move.action_cards_to_add[i].card_history.append("Added to Stack %s of Network of %s in Build Network Move" % [["A", "B", "C", "D"][move.indices_to_add_to[i]], get_current_player_name()])
 			conceal_card(move.action_cards_to_add[i])
 	elif move is ManageNetworkMove:
 		print("%s playing Manage Network!" % get_current_player_name())
@@ -626,10 +638,14 @@ func make_move(move: Move) -> void:
 		var moved_action_card: ActionCard = get_current_player_network()[move.stack_from][move.position_from]
 		get_current_player_network()[move.stack_from].remove_at(move.position_from)
 		get_current_player_network()[move.stack_to].append(moved_action_card)
+		
+		var slot_names: PackedStringArray = ["A", "B", "C", "D"]
+		moved_action_card.card_history.append("In Manage Network Move, moved by %s from Slot %s to Slot %s" % [get_current_player_name(), slot_names[move.stack_from], slot_names[move.stack_to]])
 	elif move is DegradeNetworkMove:
 		print("%s playing Degrade Network!" % get_current_player_name())
 		assert(is_card_revealed(move.enemy_card_to_discard) == true, "Enemy Card to Discard for Degrade Network is not Revealed")
 		
+		move.enemy_card_to_discard.card_history.append("%s Discarded Card from Network of %s via Degrade Network Move" % [get_current_player_name(), get_player_name(get_opposing_player())])
 		discard_card_from_network(move.enemy_card_to_discard, get_opposing_player(), false)
 	elif move is RevealMove:
 		print("%s plays Reveal Move!" % get_current_player_name())

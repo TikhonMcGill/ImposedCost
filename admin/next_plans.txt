@@ -38,8 +38,6 @@ Finalization:
 	- Send to Brian, HaWo
 	- (Look into Game Dev Constitution, if exists)
 	- Organize plans into something worth discussing
-	- Call with Brian, HaWo, discuss my implementation - in particular, make sure I've got
-	Gamerules right
 	- Implement feedback
 	- Add Comments EVERYWHERE as much as possible
 	- MIT-Licensed GitHub Project
@@ -47,3 +45,9 @@ Finalization:
 	- Having an "Empty Project" Sprite instead of the Godot Logo for the ProjectContainer at start
 	- Add Tweens
 	- Add sounds
+
+Brian-HaWo Call:
+	- Call with Brian, HaWo, discuss my implementation - in particular, make sure I've got
+	Gamerules right
+	- Mention interesting deadlock I had - Country Team had all the "Value" Cards, whilst the
+	Jedburgh Team had all the "Build/Manage Network" Cards, but no Network, producing a deadlock
