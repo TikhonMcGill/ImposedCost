@@ -129,23 +129,23 @@ func setup_game() -> void:
 	var starting_pile: Array[Card] = []
 	
 	#Add Function Cards to Pile
-	starting_pile.append(FUNCTION_INFLUENCE_HOST_NATION)
+	starting_pile.append(FUNCTION_INFLUENCE_HOST_NATION.duplicate())
 	
-	starting_pile.append(FUNCTION_REVEAL_CONCEAL)
-	starting_pile.append(FUNCTION_REVEAL_CONCEAL)
+	starting_pile.append(FUNCTION_REVEAL_CONCEAL.duplicate())
+	starting_pile.append(FUNCTION_REVEAL_CONCEAL.duplicate())
 	
-	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK)
-	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK)
+	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK.duplicate())
+	starting_pile.append(FUNCTION_BUILD_MANAGE_NETWORK.duplicate())
 	
-	starting_pile.append(FUNCTION_MAINTAIN_NETWORK)
+	starting_pile.append(FUNCTION_MAINTAIN_NETWORK.duplicate())
 	
 	#Add Action Cards to Pile
-	starting_pile.append(ACTION_1)
-	starting_pile.append(ACTION_1)
-	starting_pile.append(ACTION_1)
-	starting_pile.append(ACTION_2)
-	starting_pile.append(ACTION_2)
-	starting_pile.append(ACTION_3)
+	starting_pile.append(ACTION_1.duplicate())
+	starting_pile.append(ACTION_1.duplicate())
+	starting_pile.append(ACTION_1.duplicate())
+	starting_pile.append(ACTION_2.duplicate())
+	starting_pile.append(ACTION_2.duplicate())
+	starting_pile.append(ACTION_3.duplicate())
 	
 	assert(len(starting_pile) == 12, "Starting Draw Pile not 12 Cards")
 	
@@ -169,13 +169,13 @@ func draw_card(card: Card, team: TEAM) -> Card:
 	if team == TEAM.COUNTRY:
 		print("Country Team Drew Card: %s" % card.card_name)
 		country_hand.append(card)
+		card_drawn.emit(card)
 		return card
 	else:
 		print("Jedburgh Team Drew Card: %s" % card.card_name)
 		jedburgh_hand.append(card)
+		card_drawn.emit(card)
 		return card
-	
-	return null
 
 ##Draw Random Card
 func draw_random_card(team: TEAM) -> Card:
@@ -320,7 +320,6 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 					stack.erase(action_card)
 					discard_pile.append(action_card)
 					card.card_history.append("Discarded from Network of %s" % get_player_name(team))
-					return
 	else:
 		for stack: Array in jedburgh_network:
 			for action_card: ActionCard in stack:
@@ -328,7 +327,6 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 					stack.erase(action_card)
 					discard_pile.append(action_card)
 					card.card_history.append("Discarded from Network of %s" % get_player_name(team))
-					return
 	
 	#Reveal Card after it is discarded, if it is concealed
 	if is_card_concealed(card) == true:
@@ -370,6 +368,7 @@ func get_possible_moves() -> Array[Move]:
 					operations_moves.append(new_move)
 				
 				#Handle Degrade Network Function Aspect
+				print("Getting possibilities of degrading network using Build/Manage/Degrade Network Card!")
 				operations_moves.append_array(_get_degrade_network_possibilities(card))
 			elif card.card_name == FUNCTION_INFLUENCE_HN_NAME:
 				var new_move: InfluenceHostNationMove = InfluenceHostNationMove.new()
@@ -392,6 +391,7 @@ func get_possible_moves() -> Array[Move]:
 				#Handle aspect of using HN Influence if on own track and influence value > 0
 				if get_hn_influence_team() == current_turn_team and get_hn_influence_value() > 0:
 					#Add Possibilities of using the Card as a Degrade Network
+					print("Getting possibilities of degrading network using Use HN Influence!")
 					operations_moves.append_array(_get_degrade_network_possibilities(card))
 					
 					#Add Possibility of using the Card as an Action Card
@@ -660,6 +660,7 @@ func make_move(move: Move) -> void:
 	elif move is AddProjectValueMove:
 		print("%s plays Move to Add Project Value!" % get_current_player_name())
 		assert(EFFECT_ADD_VALUE_NAME in project_effects, "Adding Value to Project without relevant effect being present")
+		assert(move.project.is_project_complete() == false, "Addinv Value to Project that's already completed")
 		
 		if move.value == Project.VALUE.TIME:
 			assert(move.project.time < 9, "Cannot add Value to Maximum Time of 9")
@@ -809,8 +810,11 @@ func _set_hn_influence(new_val: int) -> void:
 
 ##Get possible Degrade Network Possibilities
 func _get_degrade_network_possibilities(card_to_play: Card) -> Array[DegradeNetworkMove]:
+	print(get_current_player_name() + " is getting degrade network possibilities!")
+	
 	var possibilities: Array[DegradeNetworkMove] = []
 	
+	print("Opposing Player is %s" % get_player_name(get_opposing_player()))
 	for stack: Array in get_opposing_player_network():
 		if len(stack) > 0:
 			var topmost_card: ActionCard = stack[-1]
@@ -820,6 +824,7 @@ func _get_degrade_network_possibilities(card_to_play: Card) -> Array[DegradeNetw
 				new_degrade_move.card_to_use = card_to_play
 				new_degrade_move.enemy_card_to_discard = topmost_card
 				possibilities.append(new_degrade_move)
+				topmost_card.card_history.append("Became a Candidate for the Discard Network Move")
 	
 	return possibilities
 

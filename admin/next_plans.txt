@@ -2,6 +2,9 @@
 of Network
 - Add printing of "stacks" when printing MaintainNetwork, or a "Print Network" method
 which prints the network nicely (i.e. the cards in it, and their status revealed or concealed)
+- Increment "current turn" after Turn End Phase
+- Add Label showing current Turn
+- Add Turn text to Card History as well
 
 Minimum Viable Product:
 	- 4 Projects at Game Start
@@ -23,6 +26,8 @@ Gamerules:
 	the corresponding amount - will assume all of them, for now
 	- Whether to allow Negative Victory Points or not
 	- Add Defeat, Strategic, Tactial Victories as Customizable Gamerule Ratios
+	- Whether to allow Time to exceed 9
+	- Whether to allow Budget to exceed 9
 
 Finalization:
 	- Set color for Players, by default Red for Country, blue for Jedburgh, and update

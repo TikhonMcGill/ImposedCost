@@ -59,7 +59,7 @@ func _setup_players() -> void:
 	jedburgh_team_player.player_move_taken.connect(handle_jedburgh_player_move)
 
 #Handle a Move being taken by the Game
-func handle_move_taken(move: Move) -> void:
+func handle_move_taken(_move: Move) -> void:
 	await(get_tree().create_timer(0.1).timeout)
 	do_next_move()
 
