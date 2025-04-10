@@ -400,8 +400,6 @@ func get_possible_moves() -> Array[Move]:
 					new_action_move.value = get_hn_influence_value()
 					operations_moves.append(new_action_move)
 			elif card.card_name == FUNCTION_REVEAL_CONCEAL_NAME:
-				#TODO Handle the Reveal/Conceal Function Card Functions
-				
 				#Check if Own Network has any Revealed Cards
 				var own_network_revealed: bool = get_flattened_network(current_turn_team).any(is_card_revealed)
 				
@@ -526,13 +524,8 @@ func make_move(move: Move) -> void:
 				print("Jedburgh Team plays first in Operations Phase!")
 				_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
 	elif move is MaintainNetworkMove:
-		#If there are no cards in the Player's Hand, discard their Action Cards
-		if len(get_current_player_hand()) == 0:
-			print("%s had no cards in their hand, so discarded Action Cards from Network" % get_current_player_name())
-			for c: ActionCard in get_flattened_network(current_turn_team):
-				discard_card_from_network(c, current_turn_team, false)
-		else:
-			#Discard all Cards to be Discarded
+		if len(get_current_player_hand()) > 0:
+			#Discard all Cards to be Discarded, if there are Cards in the Player's hand
 			print("%s Discarded the following Cards:" % get_current_player_name())
 			for discard: Card in move.cards_to_discard:
 				print(discard.card_name)
