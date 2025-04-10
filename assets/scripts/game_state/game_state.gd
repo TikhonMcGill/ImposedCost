@@ -530,12 +530,7 @@ func make_move(move: Move) -> void:
 		if len(get_current_player_hand()) == 0:
 			print("%s had no cards in their hand, so discarded Action Cards from Network" % get_current_player_name())
 			for c: ActionCard in get_flattened_network(current_turn_team):
-				discard_pile.append(c)
-			
-			if current_turn_team == TEAM.COUNTRY:
-				country_network = [[], [], [], []]
-			else:
-				jedburgh_network = [[], [], [], []]
+				discard_card_from_network(c, current_turn_team, false)
 		else:
 			#Discard all Cards to be Discarded
 			print("%s Discarded the following Cards:" % get_current_player_name())
@@ -818,6 +813,8 @@ func _get_degrade_network_possibilities(card_to_play: Card) -> Array[DegradeNetw
 	for stack: Array in get_opposing_player_network():
 		if len(stack) > 0:
 			var topmost_card: ActionCard = stack[-1]
+			
+			assert(topmost_card not in get_flattened_network(current_turn_team), "Card Discard Candidate in Own Network")
 			
 			if is_card_revealed(topmost_card) == true:
 				var new_degrade_move: DegradeNetworkMove = DegradeNetworkMove.new()
