@@ -1,8 +1,4 @@
 All Issues:
-	- "Card to be discarded not in Player's Network" Assertion Failure Periodically,
-	specifically for Degrade Network
-	- For whatever reason, for Degrade Network, Country Team looks at OWN NETWORK, thus
-	failing to discard it
 	- Infinite Loop at Game End, it seems
 	- Card to be revealed already revealed
 

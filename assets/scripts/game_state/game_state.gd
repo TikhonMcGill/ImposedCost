@@ -185,6 +185,20 @@ func draw_random_card(team: TEAM) -> Card:
 func is_card_revealed(card: Card) -> bool:
 	return card in revealed_cards
 
+##Determine if a Particular Action Card is in a Network
+func is_card_in_network(card: ActionCard, team: TEAM) -> bool:
+	if team == TEAM.COUNTRY:
+		for stack: Array in country_network:
+			for action_card: ActionCard in stack:
+				if action_card == card:
+					return true
+	elif team == TEAM.JEDBURGH:
+		for stack: Array in jedburgh_network:
+			for action_card: ActionCard in stack:
+				if action_card == card:
+					return true
+	return false
+
 ##Determine if a Particular Card is Concealed
 func is_card_concealed(card: Card) -> bool:
 	return is_card_revealed(card) == false
@@ -236,7 +250,7 @@ func get_current_player_name() -> String:
 
 ##Get a Player's Network
 func get_player_network(team: TEAM) -> Array:
-	if current_turn_team == TEAM.COUNTRY:
+	if team == TEAM.COUNTRY:
 		return country_network
 	else:
 		return jedburgh_network
@@ -803,11 +817,15 @@ func _get_degrade_network_possibilities(card_to_play: Card) -> Array[DegradeNetw
 	var possibilities: Array[DegradeNetworkMove] = []
 	
 	print("Opposing Player is %s" % get_player_name(get_opposing_player()))
-	for stack: Array in get_opposing_player_network():
+	
+	var opposing_network: Array = get_opposing_player_network()
+	var my_network: Array = get_current_player_network()
+	
+	for stack: Array in opposing_network:
 		if len(stack) > 0:
 			var topmost_card: ActionCard = stack[-1]
 			
-			assert(topmost_card not in get_flattened_network(current_turn_team), "Card Discard Candidate in Own Network")
+			assert(is_card_in_network(topmost_card, current_turn_team) == false, "Card Discard Candidate in Own Network")
 			
 			if is_card_revealed(topmost_card) == true:
 				var new_degrade_move: DegradeNetworkMove = DegradeNetworkMove.new()
