@@ -346,7 +346,7 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 	if is_card_concealed(card) == true:
 		reveal_card(card)
 
-##TODO Get all Possible Game Moves
+##Get all Possible Game Moves
 func get_possible_moves() -> Array[Move]:
 	#In the Setup Phase, the only Possible Moves are the Country Team placing down a Project Card
 	#into the relevant slot
@@ -449,7 +449,7 @@ func get_possible_moves() -> Array[Move]:
 	elif current_phase == PHASE.PROJECTS:
 		var projects_moves: Array[Move] = []
 		
-		if EFFECT_ADD_VALUE_NAME in project_effects:
+		if EFFECT_ADD_VALUE_NAME in project_effects and _count_active_projects() > 0:
 			for p: Project in projects:
 				if p != null and (p.budget < 9 or p.time < 9) and p.is_project_complete() == false:
 					projects_moves.append(AddProjectValueMove.new())
@@ -461,7 +461,7 @@ func get_possible_moves() -> Array[Move]:
 	
 	return []
 
-##TODO Carry out the Selected Move
+##Carry out the Selected Move
 func make_move(move: Move) -> void:
 	if move is SelectProjectMove:
 		assert(move.project_slot >= 0 and move.project_slot <= 3, "Incorrect Slot Index")
@@ -662,7 +662,7 @@ func make_move(move: Move) -> void:
 	elif move is AddProjectValueMove:
 		print("%s plays Move to Add Project Value!" % get_current_player_name())
 		assert(EFFECT_ADD_VALUE_NAME in project_effects, "Adding Value to Project without relevant effect being present")
-		assert(move.project.is_project_complete() == false, "Addinv Value to Project that's already completed")
+		assert(move.project.is_project_complete() == false, "Adding Value to Project that's already completed")
 		
 		if move.value == Project.VALUE.TIME:
 			assert(move.project.time < 9, "Cannot add Value to Maximum Time of 9")
@@ -672,6 +672,10 @@ func make_move(move: Move) -> void:
 			assert(move.project.budget < 9, "Cannot add Value to Maximum Budget of 9")
 			print("Increasing Budget Value!")
 			move.project.budget += 1
+		
+		#If the Project is now completed, handle completion effects
+		if move.project.is_project_complete() == true:
+			_complete_project(move.project)
 		
 		#Remove the String Name of the Add Value effect once a Value is added
 		project_effects.remove_at(project_effects.find(EFFECT_ADD_VALUE_NAME))
@@ -776,7 +780,7 @@ func _update_projects() -> void:
 
 ##Check whether to Transfer from the Projects Phase to the HN Influence Phase
 func _check_transfer_from_projects() -> void:
-	if EFFECT_ADD_VALUE_NAME in project_effects:
+	if EFFECT_ADD_VALUE_NAME in project_effects and _count_active_projects() > 0:
 		print("Still unplayed Project Effects, staying in Projects Phase")
 		return
 	

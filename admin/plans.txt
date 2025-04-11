@@ -1,5 +1,4 @@
 All Issues:
-	- Infinite Loop at Game End, it seems
 	- Card to be revealed already revealed
 
 - Keep fixing until two Random Players can play against each other
