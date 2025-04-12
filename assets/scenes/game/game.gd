@@ -8,6 +8,7 @@ var game_state: GameState = GameState.new()
 
 var country_team_player: Player
 var jedburgh_team_player: Player
+var project_containers: Array[ProjectContainer]
 
 @onready var project_container_container: HBoxContainer = $GameBoard/ProjectContainerContainer
 @onready var host_nation_influence_track: HostNationInfluenceTrack = $GameBoard/HostNationInfluenceTrack
@@ -80,16 +81,20 @@ func handle_jedburgh_player_move(move: Move) -> void:
 
 #Set a Project Container's Project In a Specific Slot
 func set_container_project(project: Project, slot: int) -> void:
-	#If the Container for the relevant Project Slot is occupied, delete its children
-	var project_container: ProjectContainer = project_container_container.get_child(slot)
-	project_container.set_project(project)
+	project_containers[slot].set_project(project)
 
 #Blacken a Project Container, implying it is completed
 func _darken_project_container(slot: int) -> void:
-	project_container_container.get_child(slot).modulate = Color.BLACK
+	project_containers[slot].modulate = Color.BLACK
+	project_containers[slot].my_project = null
 
 func _setup_game() -> void:
 	randomize()
+	
+	for c: Node in project_container_container.get_children():
+		assert(c is ProjectContainer, "Project Container Container has Node other than ProjectContainer")
+		project_containers.append(c)
+	
 	_setup_players()
 	
 	game_state.setup_game()
