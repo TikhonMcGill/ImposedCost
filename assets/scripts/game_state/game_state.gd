@@ -449,7 +449,7 @@ func get_possible_moves() -> Array[Move]:
 	elif current_phase == PHASE.PROJECTS:
 		var projects_moves: Array[Move] = []
 		
-		if EFFECT_ADD_VALUE_NAME in project_effects and _count_active_projects() > 0:
+		if EFFECT_ADD_VALUE_NAME in project_effects:
 			for p: Project in projects:
 				if p != null and (p.budget < 9 or p.time < 9) and p.is_project_complete() == false:
 					projects_moves.append(AddProjectValueMove.new())
@@ -780,7 +780,7 @@ func _update_projects() -> void:
 
 ##Check whether to Transfer from the Projects Phase to the HN Influence Phase
 func _check_transfer_from_projects() -> void:
-	if EFFECT_ADD_VALUE_NAME in project_effects and _count_active_projects() > 0:
+	if EFFECT_ADD_VALUE_NAME in project_effects:
 		print("Still unplayed Project Effects, staying in Projects Phase")
 		return
 	
@@ -892,6 +892,9 @@ func _complete_project(project: Project) -> void:
 	var slot: int = projects.find(project)
 	assert(slot != -1, "Project to Complete not in Game State's Projects")
 	
+	projects[slot] = null
+	projects_to_complete -= 1
+	
 	#If the Project Completed is a Mine, add only half (rounded up) Victory Points
 	if project.project_card.card_name == PROJECT_MINE_NAME:
 		victory_points += ceili(vic_points / 2.0)
@@ -913,16 +916,17 @@ func _complete_project(project: Project) -> void:
 		host_nation_influence -= 2
 	
 	#If the Project Completed is Small Airport or Port, add 1 Add Value Effect
-	if project.project_card.card_name == PROJECT_SMALL_AIRPORT_NAME or project.project_card.card_name == PROJECT_SMALL_PORT_NAME:
+	if (project.project_card.card_name == PROJECT_SMALL_AIRPORT_NAME or project.project_card.card_name == PROJECT_SMALL_PORT_NAME) and _count_active_projects() > 0:
 		project_effects.append(EFFECT_ADD_VALUE_NAME)
 	
 	#If the Project Completed is Large Airport or Port, add 2 Add Value Effects
 	if project.project_card.card_name == PROJECT_LARGE_AIRPORT_NAME or project.project_card.card_name == PROJECT_LARGE_PORT_NAME:
-		project_effects.append(EFFECT_ADD_VALUE_NAME)
-		project_effects.append(EFFECT_ADD_VALUE_NAME)
+		if _count_active_projects() > 1:
+			project_effects.append(EFFECT_ADD_VALUE_NAME)
+			project_effects.append(EFFECT_ADD_VALUE_NAME)
+		elif _count_active_projects() > 0:
+			project_effects.append(EFFECT_ADD_VALUE_NAME)
 	
-	projects[slot] = null
 	project_completed.emit(slot)
-	projects_to_complete -= 1
 	total_planned_cost += project.get_planned_cost()
 	_check_transfer_from_projects()
