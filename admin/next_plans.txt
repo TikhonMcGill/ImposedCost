@@ -26,8 +26,8 @@ Gamerules:
 	the corresponding amount - will assume all of them, for now
 	- Whether to allow Negative Victory Points or not
 	- Add Defeat, Strategic, Tactial Victories as Customizable Gamerule Ratios
-	- Whether to allow Time to exceed 9
-	- Whether to allow Budget to exceed 9
+	- Whether to allow Project Time to exceed 9
+	- Whether to allow Project Budget to exceed 9
 
 Finalization:
 	- Set color for Players, by default Red for Country, blue for Jedburgh, and update
