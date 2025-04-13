@@ -17,14 +17,15 @@ func _process(delta: float) -> void:
 		time_label.text = "Time: %d" % my_project.time
 		budget_label.text = "Budget: %d" % my_project.budget
 		project_label.text = my_project.project_card.card_name
+		modulate = Color.WHITE
 	else:
 		time_label.text = "Time: COMPLETED"
 		budget_label.text = "Budget: COMPLETED"
 		project_label.text = "COMPLETED"
+		modulate = Color.BLACK
 
 ##Set the Project Container's Project
 func set_project(project: Project) -> void:
 	my_project = project
 	project_card_texture_rect.texture = project.project_card.card_image
 	project_label.text = my_project.project_card.card_name
-	modulate = Color.WHITE

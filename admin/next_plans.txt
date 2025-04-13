@@ -56,3 +56,4 @@ Brian-HaWo Call:
 	Gamerules right
 	- Mention interesting deadlock I had - Country Team had all the "Value" Cards, whilst the
 	Jedburgh Team had all the "Build/Manage Network" Cards, but no Network, producing a deadlock
+	- Mention that, when two Players play completely randomly, it seems to favor the Country Team

@@ -83,9 +83,8 @@ func handle_jedburgh_player_move(move: Move) -> void:
 func set_container_project(project: Project, slot: int) -> void:
 	project_containers[slot].set_project(project)
 
-#Blacken a Project Container, implying it is completed
-func _darken_project_container(slot: int) -> void:
-	project_containers[slot].modulate = Color.BLACK
+#Complete a Project Container, implying it is completed
+func _complete_project_container(slot: int) -> void:
 	project_containers[slot].my_project = null
 
 func _setup_game() -> void:
@@ -102,7 +101,7 @@ func _setup_game() -> void:
 	game_state.projects_to_complete = GameManager.settings.projects_to_complete
 	game_state.move_taken.connect(handle_move_taken)
 	game_state.project_set.connect(set_container_project)
-	game_state.project_completed.connect(_darken_project_container)
+	game_state.project_completed.connect(_complete_project_container)
 	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)
 	
 	country_team_player.take_turn()
