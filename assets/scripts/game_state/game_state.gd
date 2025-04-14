@@ -916,15 +916,15 @@ func _complete_project(project: Project) -> void:
 		host_nation_influence -= 2
 	
 	#If the Project Completed is Small Airport or Port, add 1 Add Value Effect
-	if (project.project_card.card_name == PROJECT_SMALL_AIRPORT_NAME or project.project_card.card_name == PROJECT_SMALL_PORT_NAME) and _count_active_projects() > 0:
+	if (project.project_card.card_name == PROJECT_SMALL_AIRPORT_NAME or project.project_card.card_name == PROJECT_SMALL_PORT_NAME) and projects_to_complete > 0:
 		project_effects.append(EFFECT_ADD_VALUE_NAME)
 	
 	#If the Project Completed is Large Airport or Port, add 2 Add Value Effects
 	if project.project_card.card_name == PROJECT_LARGE_AIRPORT_NAME or project.project_card.card_name == PROJECT_LARGE_PORT_NAME:
-		if _count_active_projects() > 1:
+		if projects_to_complete > 1:
 			project_effects.append(EFFECT_ADD_VALUE_NAME)
 			project_effects.append(EFFECT_ADD_VALUE_NAME)
-		elif _count_active_projects() > 0:
+		elif projects_to_complete > 0:
 			project_effects.append(EFFECT_ADD_VALUE_NAME)
 	
 	project_completed.emit(slot)

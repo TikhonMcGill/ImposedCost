@@ -45,3 +45,9 @@ IncreaseTimeMove, etc., played one-by-one until the Action Card is revealed or d
 Could say, for Victory Points, "*JEDBURGH NAME* On track to make Victory of type X", or "on track to lose" etc.
 
 Allow, as Gamerule, for time to exceed 9, maybe even become negative
+
+As gamerule, could have COMPLETER of Admin or Finance system gain HN influence (i.e. Team that
+played Action Card to complete that Card - still biased towards Country Team, as they have the benefit
+of AddProjectMoves)
+
+Could have a Tactical, Strategic Defeat as well, not just Defeat
