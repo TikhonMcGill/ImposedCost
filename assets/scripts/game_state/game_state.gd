@@ -433,6 +433,8 @@ func get_possible_moves() -> Array[Move]:
 					operations_moves.append(new_reveal_move)
 		
 		#Handle playing Topmost Action Cards (if any) in the Player's Network
+		#They can only be played if there are any Projects left to play
+		
 		var topmost_action_cards: Array[ActionCard]
 		for stack: Array in get_current_player_network():
 			#If any cards in the stack, append the topmost (last) one to topmost

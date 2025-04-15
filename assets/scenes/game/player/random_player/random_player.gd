@@ -33,10 +33,10 @@ func take_turn() -> void:
 	player_move_taken.emit(move_to_take)
 
 ##Pick a Random Project that isn't completed
-func _pick_random_incomplete_project() -> Project:
+func _pick_random_incomplete_project(action_card_move: bool = false) -> Project:
 	var chosen_project: Project = game_state.projects.pick_random()
 	
-	while chosen_project == null or chosen_project.is_project_complete() == true:
+	while chosen_project == null or (action_card_move == false and chosen_project.is_project_complete() == true):
 		chosen_project = game_state.projects.pick_random()
 	
 	return chosen_project
@@ -81,7 +81,7 @@ func _construct_maintain_network_move() -> MaintainNetworkMove:
 
 ##Construct an ActionCardMove, if that is what the Random Player chose to do
 func _construct_action_card_move(action_card: Card) -> ActionCardMove:
-	var chosen_project: Project = _pick_random_incomplete_project()
+	var chosen_project: Project = _pick_random_incomplete_project(true)
 	
 	var final_move: ActionCardMove = ActionCardMove.new()
 	final_move.card_to_use = action_card
