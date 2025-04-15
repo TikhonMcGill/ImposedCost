@@ -5,10 +5,11 @@ which prints the network nicely (i.e. the cards in it, and their status revealed
 - Increment "current turn" after Turn End Phase
 - Add Label showing current Turn
 - Add Turn text to Card History as well
+- Check reminders
+- Consider some kind of refactor to e.g. only check if a Project is Complete in the Projects
+Phase, otherwise allow selecting it normally
 
 Minimum Viable Product:
-	- 4 Projects at Game Start
-	- Once all 4 Projects complete, end game
 	- UI-Based Human Player
 	- Random Player
 
@@ -57,3 +58,7 @@ Brian-HaWo Call:
 	- Mention interesting deadlock I had - Country Team had all the "Value" Cards, whilst the
 	Jedburgh Team had all the "Build/Manage Network" Cards, but no Network, producing a deadlock
 	- Mention that, when two Players play completely randomly, it seems to favor the Country Team
+
+Reminders:
+	- Can play Action Card even if project "complete", so long as it's during Action Phase,
+	so keep that in mind for Human Player

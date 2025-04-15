@@ -782,6 +782,10 @@ func _update_projects() -> void:
 
 ##Check whether to Transfer from the Projects Phase to the HN Influence Phase
 func _check_transfer_from_projects() -> void:
+	#If there are no more Projects Remaining to play, remove all Project Effects
+	if projects_to_complete == 0:
+		project_effects = []
+	
 	if EFFECT_ADD_VALUE_NAME in project_effects:
 		print("Still unplayed Project Effects, staying in Projects Phase")
 		return
