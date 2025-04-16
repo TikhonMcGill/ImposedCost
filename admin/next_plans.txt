@@ -8,6 +8,7 @@ which prints the network nicely (i.e. the cards in it, and their status revealed
 - Check reminders
 - Consider some kind of refactor to e.g. only check if a Project is Complete in the Projects
 Phase, otherwise allow selecting it normally
+- Print Resulting Victory as Label, with button to return to Main Menu
 
 Minimum Viable Product:
 	- UI-Based Human Player

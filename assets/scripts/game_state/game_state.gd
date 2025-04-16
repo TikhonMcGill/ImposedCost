@@ -679,8 +679,8 @@ func make_move(move: Move) -> void:
 		if move.project.is_project_complete() == true:
 			_complete_project(move.project)
 		
-		#Remove the String Name of the Add Value effect once a Value is added
-		project_effects.remove_at(project_effects.find(EFFECT_ADD_VALUE_NAME))
+		#Remove Add Value effect once a Value is added
+		project_effects.remove_at(0)
 		
 		#Check whether we're staying Projects Phase or moving on
 		_check_transfer_from_projects()
