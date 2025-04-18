@@ -1,18 +1,5 @@
-- Add Graphical Networks to Players - Cards (topmost visible) around corresponding sides
-of Network
-- Add printing of "stacks" when printing MaintainNetwork, or a "Print Network" method
-which prints the network nicely (i.e. the cards in it, and their status revealed or concealed)
-- Increment "current turn" after Turn End Phase
-- Add Label showing current Turn
-- Add Turn text to Card History as well
-- Check reminders
-- Consider some kind of refactor to e.g. only check if a Project is Complete in the Projects
-Phase, otherwise allow selecting it normally
-- Print Resulting Victory as Label, with button to return to Main Menu
-
 Minimum Viable Product:
 	- UI-Based Human Player
-	- Random Player
 
 Gamerules:
 	- We don't know yet if the effects of completing a Project are on a RANDOM other project,
