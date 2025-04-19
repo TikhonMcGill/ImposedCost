@@ -8,6 +8,7 @@ signal move_taken(move: Move) ##Emitted when a Move has been Taken
 signal host_nation_influence_changed(new_hn_influence: int) ##Emitted when HN Influence Changes
 signal project_set(project: Project, slot: int) ##Emitted when a Specific Project is set in a specific slot
 signal project_completed(slot: int) ##Emitted when a Project in a Specific Slot is Completed
+signal game_over(ratio: float, result: String) ##Emitted when the Game is over, with the ratio and result
 
 enum TEAM{
 	COUNTRY, ##The Country Team (Red)
@@ -759,12 +760,19 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 		var ratio: float = float(victory_points) / float(total_planned_cost)
 		print("Ratio of Victory Points to Total Planned Costs: %.2f" % ratio)
 		
+		var victor_text: String = ""
+		
 		if ratio < 2:
 			print("This means that %s, The Country Team, is victorious!" % get_player_name(TEAM.COUNTRY))
+			victor_text = "Victor: %s" % get_player_name(TEAM.COUNTRY)
 		elif ratio >= 3.0:
 			print("This means that %s, The Jedburgh Team, has won a Strategic Victory!" % get_player_name(TEAM.JEDBURGH))
+			victor_text = "Victor: %s (Strategic Victory)" % get_player_name(TEAM.JEDBURGH)
 		else:
 			print("This means that %s, The Jedburgh Team, has won a Tactical Victory!" % get_player_name(TEAM.JEDBURGH))
+			victor_text = "Victor: %s (Tactical Victory)" % get_player_name(TEAM.JEDBURGH)
+		
+		game_over.emit(ratio, victor_text)
 
 ##Update all Projects, per the Projects Phase's Rules
 func _update_projects() -> void:

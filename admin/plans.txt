@@ -1,6 +1,3 @@
-Step 1:
-	- Print Resulting Victory as Label, with button to return to Main Menu
-
 Step 2 - Better UI:
 	- Check reminders
 	- Create a "GameCard" Control, which represents a Card

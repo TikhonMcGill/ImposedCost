@@ -1,5 +1,7 @@
 extends Node
 
+const MAIN_MENU_PATH: String = "uid://csqyjihnbesyu"
+
 const RANDOM_PLAYER_SCENE: PackedScene = preload("uid://cl5rbc50mn6yi")
 
 const PROJECT_CONTAINER_SCENE: PackedScene = preload("uid://cqmvug1vyaxk5")
@@ -17,6 +19,9 @@ var project_containers: Array[ProjectContainer]
 
 @onready var projects_to_complete_label: Label = $GameBoard/ProjectsToCompleteLabel
 @onready var victory_points_label: Label = $GameBoard/VictoryPointsLabel
+
+@onready var victor_label: Label = $GameBoard/VictorLabel
+@onready var back_to_main_menu_button: Button = $GameBoard/BackToMainMenuButton
 
 func _ready() -> void:
 	_setup_game()
@@ -90,6 +95,18 @@ func set_container_project(project: Project, slot: int) -> void:
 func _complete_project_container(slot: int) -> void:
 	project_containers[slot].my_project = null
 
+#Handle Ending the Game
+func _handle_game_over(ratio: float, v_text: String) -> void:
+	victor_label.text = "Ratio: %.2f, %s" % [ratio, v_text]
+	
+	current_turn_label.hide()
+	projects_to_complete_label.hide()
+	project_container_container.hide()
+	host_nation_influence_track.hide()
+	
+	victor_label.show()
+	back_to_main_menu_button.show()
+
 func _setup_game() -> void:
 	randomize()
 	
@@ -106,5 +123,10 @@ func _setup_game() -> void:
 	game_state.project_set.connect(set_container_project)
 	game_state.project_completed.connect(_complete_project_container)
 	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)
+	game_state.game_over.connect(_handle_game_over)
 	
 	country_team_player.take_turn()
+
+#Go back to the Main Menu when the Button is Pressed
+func _on_back_to_main_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file(MAIN_MENU_PATH)
