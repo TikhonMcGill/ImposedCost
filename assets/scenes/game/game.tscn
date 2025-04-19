@@ -14,6 +14,13 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="CurrentTurnLabel" type="Label" parent="GameBoard"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "Current Turn Goes Here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ProjectsToCompleteLabel" type="Label" parent="GameBoard"]
 layout_mode = 2
 

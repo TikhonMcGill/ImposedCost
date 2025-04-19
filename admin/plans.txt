@@ -1,7 +1,4 @@
 Step 1:
-	- Check reminders
-	- Increment "current turn" after Turn End Phase
-	- Add Label showing current Turn
 	- Print Resulting Victory as Label, with button to return to Main Menu
 
 Step 2 - Better UI:

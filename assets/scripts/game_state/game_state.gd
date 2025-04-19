@@ -753,6 +753,7 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 			print("Projects still left to play, transferring back to Draw Cards Phase!")
 			print("\n")
 			_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
+			current_turn += 1
 	#If we're Transferring to Game End Phase, calculate Victory Type
 	elif phase == PHASE.GAME_END:
 		var ratio: float = float(victory_points) / float(total_planned_cost)

@@ -10,6 +10,8 @@ var country_team_player: Player
 var jedburgh_team_player: Player
 var project_containers: Array[ProjectContainer]
 
+@onready var current_turn_label: Label = $GameBoard/CurrentTurnLabel
+
 @onready var project_container_container: HBoxContainer = $GameBoard/ProjectContainerContainer
 @onready var host_nation_influence_track: HostNationInfluenceTrack = $GameBoard/HostNationInfluenceTrack
 
@@ -20,6 +22,7 @@ func _ready() -> void:
 	_setup_game()
 
 func _process(delta: float) -> void:
+	current_turn_label.text = "Current Turn: %d" % game_state.current_turn
 	projects_to_complete_label.text = "Projects Left to Complete: %d" % game_state.projects_to_complete
 	victory_points_label.text = "%s's Victory Points: %d" % [game_state.get_player_name(GameState.TEAM.JEDBURGH), game_state.victory_points]
 
