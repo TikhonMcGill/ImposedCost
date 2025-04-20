@@ -49,14 +49,13 @@ text = "Customize Country Team Player"
 [node name="CountryPlayerSelect" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 selected = 0
-item_count = 4
+item_count = 3
 popup/item_0/text = "Player Type: Human"
+popup/item_0/id = 0
 popup/item_1/text = "Player Type: Random Player"
 popup/item_1/id = 1
 popup/item_2/text = "Player Type: Utility Computer Player (UCP)"
 popup/item_2/id = 2
-popup/item_3/text = "Player Type: Minimax Player"
-popup/item_3/id = 3
 
 [node name="CountryNameEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -72,14 +71,13 @@ text = "Customize Jedburgh Team Player"
 [node name="JedburghPlayerSelect" type="OptionButton" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 selected = 0
-item_count = 4
+item_count = 3
 popup/item_0/text = "Player Type: Human"
+popup/item_0/id = 0
 popup/item_1/text = "Player Type: Random Player"
 popup/item_1/id = 1
 popup/item_2/text = "Player Type: Utility Computer Player (UCP)"
 popup/item_2/id = 2
-popup/item_3/text = "Player Type: Minimax Player"
-popup/item_3/id = 3
 
 [node name="JedburghNameEdit" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

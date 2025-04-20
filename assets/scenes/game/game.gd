@@ -36,12 +36,12 @@ func _process(delta: float) -> void:
 func _setup_players() -> void:
 	assert(
 		GameManager.settings.country_team_player in [GameManager.settings.PLAYER.RANDOM, GameManager.settings.PLAYER.HUMAN],
-		"Utility, Minimax not Implemented yet"
+		"Utility not Implemented yet"
 	)
 	
 	assert(
 		GameManager.settings.jedburgh_team_player in [GameManager.settings.PLAYER.RANDOM, GameManager.settings.PLAYER.HUMAN],
-		"Utility, Minimax not Implemented yet"
+		"Utility not Implemented yet"
 	)
 	
 	var country_player: Player
