@@ -3,6 +3,7 @@ extends Node
 const MAIN_MENU_PATH: String = "uid://csqyjihnbesyu"
 
 const RANDOM_PLAYER_SCENE: PackedScene = preload("uid://cl5rbc50mn6yi")
+const HUMAN_PLAYER_SCENE: PackedScene = preload("uid://xsqhafv5gbm1")
 
 const PROJECT_CONTAINER_SCENE: PackedScene = preload("uid://cqmvug1vyaxk5")
 
@@ -34,13 +35,13 @@ func _process(delta: float) -> void:
 #Based on GameManager set Players, set up the Players for each Team
 func _setup_players() -> void:
 	assert(
-		GameManager.settings.country_team_player in [GameManager.settings.PLAYER.RANDOM],
-		"Human, Utility, Minimax not Implemented yet"
+		GameManager.settings.country_team_player in [GameManager.settings.PLAYER.RANDOM, GameManager.settings.PLAYER.HUMAN],
+		"Utility, Minimax not Implemented yet"
 	)
 	
 	assert(
-		GameManager.settings.jedburgh_team_player in [GameManager.settings.PLAYER.RANDOM],
-		"Human, Utility, Minimax not Implemented yet"
+		GameManager.settings.jedburgh_team_player in [GameManager.settings.PLAYER.RANDOM, GameManager.settings.PLAYER.HUMAN],
+		"Utility, Minimax not Implemented yet"
 	)
 	
 	var country_player: Player
@@ -48,9 +49,13 @@ func _setup_players() -> void:
 	
 	if GameManager.settings.country_team_player == GameManager.settings.PLAYER.RANDOM:
 		country_player = RANDOM_PLAYER_SCENE.instantiate()
+	elif GameManager.settings.country_team_player == GameManager.settings.PLAYER.HUMAN:
+		country_player = HUMAN_PLAYER_SCENE.instantiate()
 	
 	if GameManager.settings.jedburgh_team_player == GameManager.settings.PLAYER.RANDOM:
 		jedburgh_player = RANDOM_PLAYER_SCENE.instantiate()
+	elif GameManager.settings.jedburgh_team_player == GameManager.settings.PLAYER.HUMAN:
+		jedburgh_player = HUMAN_PLAYER_SCENE.instantiate()
 	
 	add_child(country_player)
 	add_child(jedburgh_player)
