@@ -1,10 +1,12 @@
 Step 2 - Human Player:
-	- List all Moves that can be taken here
-	- For each Move, produce a Plan for a GUI-Based Controller for the Player to
-	make moves with
-	- Implement that
-	- Make sure the Player can play Imposed Cost
-	- Play to the point where, 10 Games in a Row, the Human Player plays without issues
+	- Make sure the Player can play Imposed Cost as the Country Player, by launching the
+	Game and playing as them, noting down where there's no functionality, implementing
+	that functionality, until I can play as Country Human Player against Random
+	Jedburgh Player 10 games in row
+	- Make sure the Player can play Imposed Cost as the Jedburgh Player, by launching the
+	Game and playing as them, noting down where there's no functionality, implementing
+	that functionality, until I can play as Jedburgh Human Player against Random
+	Country Player 10 games in row
 	- Make sure Hotseat Multiplayer Works as well (10 games in row without issues)
 
 Step 3 - Utility Player:
