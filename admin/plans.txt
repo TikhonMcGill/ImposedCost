@@ -1,5 +1,5 @@
 CardSelector:
-	- Is an HBoxContainer
+	- Is a PanelContainer with HScrollContainer and HBoxContainer
 	- Has a signal, "card_selected", with Card as argument
 	- Has method "select_card", which takes a card argument and emits card_selected
 	with it
