@@ -1,3 +1,33 @@
+CardSelectElement:
+	- Is a VBoxContainer with a CardContainer as first element, "Select" Button as
+	second element
+	- Has a "my_card" value, which, when set, also sets CardContainer's Element
+	- Has "card_selected" signal, with Card as arg
+	- When select button pressed, emits a "card_selected" signal, with my_card
+
+CardSelector:
+	- Is an HBoxContainer
+	- Has a signal, "card_selected", with Card as argument
+	- Has method "select_card", which takes a card argument and emits card_selected
+	with it
+	Has a method "populate_with_cards":
+		- Takes Array of Cards
+		- Clears existing CardSelectors
+		- Creates CardSelector for each card
+		- Connect its card_selected to select_card
+	- Add CardSelector to HumanPlayer, as part of a Popup Window
+
+Human Player Project Selection:
+	Update ProjectContainer:
+		- Add a "Select Slot" Button to ProjectContainer, not visible by Default
+		- Add signal "slot_selected", taking int argument
+		- When pressed, emit signal "slot_selected", with the slot of the Project being
+		its child index
+		- Connect "slot_selected" to a Method in Game to "set_selected_slot"
+
+- For HumanPlayer will likely need some reusable "CardSelector" which takes list of
+cards, populates UI, and lets Player select which one to use
+
 Step 2 - Human Player:
 	- Make sure the Player can play Imposed Cost as the Country Player, by launching the
 	Game and playing as them, noting down where there's no functionality, implementing
