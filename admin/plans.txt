@@ -1,10 +1,3 @@
-CardSelectElement:
-	- Is a VBoxContainer with a CardContainer as first element, "Select" Button as
-	second element
-	- Has a "my_card" value, which, when set, also sets CardContainer's Element
-	- Has "card_selected" signal, with Card as arg
-	- When select button pressed, emits a "card_selected" signal, with my_card
-
 CardSelector:
 	- Is an HBoxContainer
 	- Has a signal, "card_selected", with Card as argument

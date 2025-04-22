@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bav0yjk4fh1je"]
+
+[ext_resource type="PackedScene" uid="uid://drayitnoa2eks" path="res://assets/scenes/game/player/human_player/card_container/card_container.tscn" id="1_6e3gm"]
+[ext_resource type="Script" uid="uid://8ryqm7jqwrsa" path="res://assets/scenes/game/player/human_player/card_selector/card_select_element/card_select_element.gd" id="1_8d4ac"]
+
+[node name="CardSelectElement" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8d4ac")
+
+[node name="CardContainer" parent="." instance=ExtResource("1_6e3gm")]
+layout_mode = 2
+
+[node name="SelectButton" type="Button" parent="."]
+layout_mode = 2
+text = "Select Card"
+
+[connection signal="pressed" from="SelectButton" to="." method="_select_card"]

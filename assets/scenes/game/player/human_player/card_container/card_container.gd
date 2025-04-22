@@ -14,3 +14,5 @@ func _set_card(card: Card) -> void:
 	card_name_label.text = card.card_name
 	card_texture_rect.texture = card.card_image
 	card_description_label.text = card.card_description
+	
+	my_card = card
