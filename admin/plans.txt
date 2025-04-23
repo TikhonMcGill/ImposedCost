@@ -1,5 +1,3 @@
-- Make CardContainer values fixed Minimum, Maximum Size (as these are cards, not UI elements)
-
 CardSelector:
 	- Is a PanelContainer with HScrollContainer and HBoxContainer
 	- Has a signal, "card_selected", with Card as argument
