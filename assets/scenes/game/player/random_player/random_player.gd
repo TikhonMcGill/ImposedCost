@@ -30,7 +30,7 @@ func take_turn() -> void:
 	elif move_to_take is AddProjectValueMove:
 		move_to_take = _construct_add_project_value_move()
 	
-	player_move_taken.emit(move_to_take)
+	take_move(move_to_take)
 
 ##Pick a Random Project that isn't completed
 func _pick_random_incomplete_project(action_card_move: bool = false) -> Project:

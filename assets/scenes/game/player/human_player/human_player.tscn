@@ -1,6 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://xsqhafv5gbm1"]
+[gd_scene load_steps=3 format=3 uid="uid://xsqhafv5gbm1"]
 
 [ext_resource type="Script" uid="uid://btxxarmvyr7dq" path="res://assets/scenes/game/player/human_player/human_player.gd" id="1_b03wv"]
+[ext_resource type="PackedScene" uid="uid://bjldw7i7tt3by" path="res://assets/scenes/game/player/human_player/card_selector/card_selector.tscn" id="2_l7hdk"]
 
 [node name="HumanPlayer" type="Node"]
 script = ExtResource("1_b03wv")
+
+[node name="CardSelector" parent="." instance=ExtResource("2_l7hdk")]
+anchors_preset = 12
+anchor_top = 1.0
+grow_vertical = 0

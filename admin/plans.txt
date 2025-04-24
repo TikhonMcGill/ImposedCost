@@ -1,14 +1,3 @@
-Human Player Project Selection:
-	Update ProjectContainer:
-		- Add a "Select Slot" Button to ProjectContainer, not visible by Default
-		- Add signal "slot_selected", taking int argument
-		- When pressed, emit signal "slot_selected", with the slot of the Project being
-		its child index
-		- Connect "slot_selected" to a Method in Game to "set_selected_slot"
-
-- For HumanPlayer will likely need some reusable "CardSelector" which takes list of
-cards, populates UI, and lets Player select which one to use
-
 Step 2 - Human Player:
 	- Make sure the Player can play Imposed Cost as the Country Player, by launching the
 	Game and playing as them, noting down where there's no functionality, implementing

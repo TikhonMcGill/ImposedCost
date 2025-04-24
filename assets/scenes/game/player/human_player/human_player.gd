@@ -3,12 +3,11 @@ extends Player
 
 ##A Player that takes their moves using GUI
 
+@onready var card_selector: CardSelector = $CardSelector ##The UI Element with which the Player will select Cards
+
 func take_turn() -> void:
 	if is_my_turn() == false:
 		return
-	
-	print("Human Player not fully implemented, so returning")
-	return
 	
 	var moves: Array[Move] = game_state.get_possible_moves()
 	
@@ -16,24 +15,47 @@ func take_turn() -> void:
 		print("No moves for Random Player for %s, returning..." % game_state.get_player_name(my_team))
 		return
 	
-	var move_to_take: Move = moves.pick_random()
+	if game_state.must_projects_be_added() == true:
+		var possibilities: Array[Card] = []
+		
+		for p: SelectProjectMove in game_state.get_project_select_possibilities():
+			if p.project_card_to_select not in possibilities:
+				possibilities.append(p.project_card_to_select)
+		
+		card_selector.populate_with_cards(possibilities)
+		
+		var chosen_project: ProjectCard = await card_selector.card_selected
+		
+		var move_to_take: SelectProjectMove = SelectProjectMove.new()
+		
+		for i in range(game_state.projects.size()):
+			if game_state.projects[i] == null:
+				move_to_take.project_slot = i
+				break
+		
+		move_to_take.project_card_to_select = chosen_project
+		
+		take_move(move_to_take)
+		
 	
-	if move_to_take is MaintainNetworkMove:
-		move_to_take = _construct_maintain_network_move()
-	elif move_to_take is ActionCardMove:
-		move_to_take = _construct_action_card_move(move_to_take.card_to_use)
-	elif move_to_take is RevealMove:
-		move_to_take = _construct_reveal_move(move_to_take.card_to_use)
-	elif move_to_take is ConcealMove:
-		move_to_take = _construct_conceal_move(move_to_take.card_to_use)
-	elif move_to_take is BuildNetworkMove:
-		move_to_take = _construct_build_network_move(move_to_take.card_to_use)
-	elif move_to_take is ManageNetworkMove:
-		move_to_take = _construct_manage_network_move(move_to_take.card_to_use)
-	elif move_to_take is AddProjectValueMove:
-		move_to_take = _construct_add_project_value_move()
-	
-	player_move_taken.emit(move_to_take)
+	#var move_to_take: Move = moves.pick_random()
+	#
+	#if move_to_take is MaintainNetworkMove:
+		#move_to_take = _construct_maintain_network_move()
+	#elif move_to_take is ActionCardMove:
+		#move_to_take = _construct_action_card_move(move_to_take.card_to_use)
+	#elif move_to_take is RevealMove:
+		#move_to_take = _construct_reveal_move(move_to_take.card_to_use)
+	#elif move_to_take is ConcealMove:
+		#move_to_take = _construct_conceal_move(move_to_take.card_to_use)
+	#elif move_to_take is BuildNetworkMove:
+		#move_to_take = _construct_build_network_move(move_to_take.card_to_use)
+	#elif move_to_take is ManageNetworkMove:
+		#move_to_take = _construct_manage_network_move(move_to_take.card_to_use)
+	#elif move_to_take is AddProjectValueMove:
+		#move_to_take = _construct_add_project_value_move()
+	#
+	#player_move_taken.emit(move_to_take)
 
 ##Pick a Random Project that isn't completed
 func _pick_random_incomplete_project(action_card_move: bool = false) -> Project:

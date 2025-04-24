@@ -22,7 +22,7 @@ func populate_with_cards(cards: Array[Card]) -> void:
 		var new_select_element: CardSelectElement = CARD_SELECT_ELEMENT_SCENE.instantiate()
 		card_select_element_container.add_child(new_select_element)
 		new_select_element.my_card = card
-		new_select_element.card_selected.connect(_select_card.bind(card))
+		new_select_element.card_selected.connect(_select_card)
 
 ##Select a Particular Card
 func _select_card(card: Card) -> void:

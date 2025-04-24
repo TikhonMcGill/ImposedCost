@@ -352,7 +352,7 @@ func get_possible_moves() -> Array[Move]:
 	#In the Setup Phase, the only Possible Moves are the Country Team placing down a Project Card
 	#into the relevant slot
 	if current_phase == PHASE.SETUP:
-		return _get_project_select_possibilities()
+		return get_project_select_possibilities()
 	elif current_phase == PHASE.DRAW_CARDS_JEDBURGH or current_phase == PHASE.DRAW_CARDS_COUNTRY:
 		return [DrawCardMove.new()]
 	elif current_phase == PHASE.MAINTAIN_NETWORK_COUNTRY or current_phase == PHASE.MAINTAIN_NETWORK_JEDBURGH:
@@ -457,8 +457,8 @@ func get_possible_moves() -> Array[Move]:
 				if p != null and (p.budget < 9 or p.time < 9) and p.is_project_complete() == false:
 					projects_moves.append(AddProjectValueMove.new())
 		
-		if _must_projects_be_added() == true:
-			projects_moves += _get_project_select_possibilities()
+		if must_projects_be_added() == true:
+			projects_moves += get_project_select_possibilities()
 		
 		return projects_moves
 	
@@ -486,14 +486,14 @@ func make_move(move: Move) -> void:
 		move.project_card_to_select.card_history.append("Selected as Project")
 		
 		if current_phase == PHASE.SETUP:
-			if _must_projects_be_added() == true:
+			if must_projects_be_added() == true:
 				print("Still some Unset Projects, staying in Setup Phase!")
 			else:
 				#If all cards set, Move onto Draw Cards Phase
 				print("Moving onto Draw Cards Phase!")
 				_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
 		elif current_phase == PHASE.PROJECTS:
-			if _must_projects_be_added() == true:
+			if must_projects_be_added() == true:
 				print("Still some Unset Projects, staying in Projects Phase")
 			elif EFFECT_ADD_VALUE_NAME in project_effects:
 				print("Still unplayed Project Effects, staying in Projects Phase")
@@ -799,7 +799,7 @@ func _check_transfer_from_projects() -> void:
 		print("Still unplayed Project Effects, staying in Projects Phase")
 		return
 	
-	if _must_projects_be_added() == true:
+	if must_projects_be_added() == true:
 		print("Projects must still be added, staying in Projects Phase!")
 		return
 	
@@ -807,7 +807,7 @@ func _check_transfer_from_projects() -> void:
 
 ##Check if Projects must be added - if there are less than 4 Active Projects
 ##AND there are more Projects to be Played than Active Projects, return True
-func _must_projects_be_added() -> bool:
+func must_projects_be_added() -> bool:
 	#E.g. we have 3 Active Projects out of 4, with 5 projects left to play
 	# 5 > 3, so yes, projects must be added
 	
@@ -856,7 +856,7 @@ func _get_degrade_network_possibilities(card_to_play: Card) -> Array[DegradeNetw
 	return possibilities
 
 ##Get possible Project Selection Possibilities
-func _get_project_select_possibilities() -> Array[Move]:
+func get_project_select_possibilities() -> Array[Move]:
 	var possibilities: Array[Move] = []
 	
 	var all_projects: Array[ProjectCard] = [

@@ -39,6 +39,7 @@ Finalization:
 	- Having an "Empty Project" Sprite instead of the Godot Logo for the ProjectContainer at start
 	- Add Tweens
 	- Add sounds
+	- Let Player choose exact slot to put Project Cards into
 
 Brian-HaWo Call:
 	- Call with Brian, HaWo, discuss my implementation - in particular, make sure I've got
