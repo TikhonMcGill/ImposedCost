@@ -1,37 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://xsqhafv5gbm1"]
+[gd_scene load_steps=2 format=3 uid="uid://xsqhafv5gbm1"]
 
 [ext_resource type="Script" uid="uid://btxxarmvyr7dq" path="res://assets/scenes/game/player/human_player/human_player.gd" id="1_b03wv"]
-[ext_resource type="PackedScene" uid="uid://bjldw7i7tt3by" path="res://assets/scenes/game/player/human_player/card_selector/card_selector.tscn" id="2_l7hdk"]
 
 [node name="HumanPlayer" type="Node"]
 script = ExtResource("1_b03wv")
-
-[node name="CardSelector" parent="." instance=ExtResource("2_l7hdk")]
-visible = false
-anchors_preset = 12
-anchor_top = 1.0
-grow_vertical = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="DrawnCardLabel" type="Label" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "You Drew Card: X"
-
-[node name="DrawCardButton" type="Button" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Draw Card"
-
-[node name="PassButton" type="Button" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-
-[connection signal="pressed" from="VBoxContainer/DrawCardButton" to="." method="_on_draw_card_button_pressed"]
