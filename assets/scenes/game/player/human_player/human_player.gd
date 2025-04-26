@@ -19,7 +19,6 @@ func take_turn() -> void:
 		return
 	
 	card_selector.hide()
-	drawn_card_label.hide()
 	draw_card_button.hide()
 	
 	if game_state.must_projects_be_added() == true:
@@ -47,10 +46,13 @@ func take_turn() -> void:
 	elif game_state.current_phase == GameState.PHASE.DRAW_CARDS_COUNTRY or game_state.current_phase == GameState.PHASE.DRAW_CARDS_JEDBURGH:
 		print("SHOWING DRAW CARD BUTTON!")
 		draw_card_button.show()
+		drawn_card_label.hide()
+
+func _populate_buttons(possible_moves: Array[Move]) -> void:
+	pass
 
 func _on_draw_card_button_pressed() -> void:
 	take_move(DrawCardMove.new())
-	var card: Card = await game_state.card_drawn
-	
-	drawn_card_label.text = "Drew Card: %s" % game_state.get_player_hand(my_team)[-1].card_name
+	var card: Card = game_state.get_player_hand(my_team)[-1]
+	drawn_card_label.text = "Drew Card: %s" % card.card_name
 	drawn_card_label.show()

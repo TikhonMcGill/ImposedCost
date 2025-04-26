@@ -30,4 +30,8 @@ visible = false
 layout_mode = 2
 text = "Draw Card"
 
+[node name="PassButton" type="Button" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
 [connection signal="pressed" from="VBoxContainer/DrawCardButton" to="." method="_on_draw_card_button_pressed"]
