@@ -24,6 +24,12 @@ var project_containers: Array[ProjectContainer]
 @onready var victor_label: Label = $GameBoard/VictorLabel
 @onready var back_to_main_menu_button: Button = $GameBoard/BackToMainMenuButton
 
+#region Human UI-Related Nodes
+@onready var card_selector: CardSelector = $GameBoard/HumanUI/CardSelector
+@onready var card_drawn_label: Label = $GameBoard/HumanUI/CardDrawnLabel
+@onready var draw_card_button: Button = $GameBoard/HumanUI/DrawCardButton
+#endregion
+
 func _ready() -> void:
 	_setup_game()
 

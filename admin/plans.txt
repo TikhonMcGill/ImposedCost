@@ -1,5 +1,4 @@
 Refactor HumanPlayer:
-	- Make CardSelector, Draw Cards Button part of Game Scene
 	- Make Game Scene handle Card Selections etc.
 
 Step 2 - Human Player:
