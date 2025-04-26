@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bhuq1yrd5xvgf"]
+[gd_scene load_steps=5 format=3 uid="uid://bhuq1yrd5xvgf"]
 
 [ext_resource type="Script" uid="uid://dbckof6gs7uaj" path="res://assets/scenes/game/game.gd" id="1_u5a5u"]
 [ext_resource type="PackedScene" uid="uid://c6is68qvrlrb2" path="res://assets/scenes/game/host_nation_influence_track/host_nation_influence_track.tscn" id="2_0bv3r"]
 [ext_resource type="PackedScene" uid="uid://cqmvug1vyaxk5" path="res://assets/scenes/game/project_container/project_container.tscn" id="2_oblms"]
+[ext_resource type="PackedScene" uid="uid://bjldw7i7tt3by" path="res://assets/scenes/game/player/human_player/card_selector/card_selector.tscn" id="4_sy1gd"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_u5a5u")
@@ -54,6 +55,21 @@ layout_mode = 2
 
 [node name="HostNationInfluenceTrack" parent="GameBoard" instance=ExtResource("2_0bv3r")]
 layout_mode = 2
+
+[node name="HumanUI" type="VBoxContainer" parent="GameBoard"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardSelector" parent="GameBoard/HumanUI" instance=ExtResource("4_sy1gd")]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CardDrawnLabel" type="Label" parent="GameBoard/HumanUI"]
+layout_mode = 2
+
+[node name="DrawCardButton" type="Button" parent="GameBoard/HumanUI"]
+layout_mode = 2
+text = "Draw Card"
 
 [node name="BackToMainMenuButton" type="Button" parent="GameBoard"]
 visible = false
