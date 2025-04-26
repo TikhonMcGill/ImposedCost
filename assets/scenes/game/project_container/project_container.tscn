@@ -32,15 +32,8 @@ stretch_mode = 5
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
 layout_mode = 2
 
-[node name="SelectButton" type="Button" parent="VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "Select"
-
 [node name="TimeLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 
 [node name="BudgetLabel" type="Label" parent="VBoxContainer"]
 layout_mode = 2
-
-[connection signal="pressed" from="VBoxContainer/SelectButton" to="." method="_on_select_button_pressed"]

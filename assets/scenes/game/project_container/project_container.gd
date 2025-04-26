@@ -12,8 +12,6 @@ signal slot_selected(slot: int)
 @onready var time_label: Label = $VBoxContainer/TimeLabel
 @onready var budget_label: Label = $VBoxContainer/BudgetLabel
 
-@onready var select_button: Button = $VBoxContainer/SelectButton
-
 var my_project: Project ##The Project this Container represents, updated per-frame
 
 func _process(delta: float) -> void:
@@ -33,7 +31,6 @@ func set_project(project: Project) -> void:
 	my_project = project
 	project_card_texture_rect.texture = project.project_card.card_image
 	project_label.text = my_project.project_card.card_name
-	select_button.hide()
 
 func _on_select_button_pressed() -> void:
 	slot_selected.emit(get_index())
