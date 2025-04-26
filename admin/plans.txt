@@ -1,3 +1,7 @@
+Refactor HumanPlayer:
+	- Make CardSelector, Draw Cards Button part of Game Scene
+	- Make Game Scene handle Card Selections etc.
+
 Step 2 - Human Player:
 	- Make sure the Player can play Imposed Cost as the Country Player, by launching the
 	Game and playing as them, noting down where there's no functionality, implementing
