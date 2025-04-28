@@ -1,5 +1,38 @@
-Refactor HumanPlayer:
-	- Make Game Scene handle Card Selections etc.
+Step 2.1 - Game Board Components:
+	New Signals for GameState:
+		- turn_completed - emitted when the Turn End phase is over, with the new current_turn
+		- victory_points_changed - emitted when Victory Points changed, with new VPs
+		(emitted in a setter)
+	- VictorLabel - Extends Label, has method "show_winner_text", taking ratio and
+	text as arguments, setting label with them
+	- CurrentTurnlabel - Extends Label, shows the Game State's current_turn via method taking int
+	- ProjectsToCompleteLabel - Extends Label, shows the Game State's projects_to_complete (ditto)
+	- VictoryPointsLabel - Extends Label, shows Jedburgh's Victory Points from GameState
+	(with Player Name) (ditto)
+	ProjectContainerContainer:
+		- contains 4 ProjectContainers, when GameState's project_set
+		signal called, updates Container at Relevant slot, or, if project completed, blackens
+		Container at that slot (setting its project to null)
+		- Has method set_container_project (move from Game), taking project, slot int
+		- Has method complete_project_container (move from Game), taking slot int
+	- HostNationInfluenceTrack - works as before
+	- Delete HumanUI From GameBoard in Game
+	GameBoard:
+		- Make GameBoard its own object, with each of these components as onreadies (basically
+		just save the Game's GameBoard as a scene)
+		- Add a "game_state" variable, which is GameState, to GameBoard
+		Inject Dependencies:
+			- Create "_set_game_state" setter with new GameState
+			- Connect GameState's game_over to VictorLabel's method
+			- Connect GameState's turn_completed to CurrentTurnLabel's method
+			- Connect GameState's project_completed to ProjectsToCompleteLabel's method
+			- Connect GameState's victory_points_changed to VictoryPointLabel's method
+			- Connect GameState's project_set to ProjectContainerContainer's set_container_project
+			- Connect GameState's project_completed to ProjectContainerContainer's complete_project_container
+			- Connect GameState's host_nation_influence_changed to HostNationInfluenceTrack's set_hn_influence
+		- Test that the game works as before with Two Random Players
+	- HandContainer (FLESH OUT)
+	- NetworkContainer (FLESH OUT)
 
 Step 2 - Human Player:
 	- Make sure the Player can play Imposed Cost as the Country Player, by launching the
