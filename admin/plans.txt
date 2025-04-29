@@ -1,4 +1,10 @@
 Step 2.1 - Game Board Components:
+	Revealed/Concealed Refactor:
+		- Instead of having cards in a "concealed" etc. Array, just have each card have a 
+		"concealed" bool, which is false by default
+		- Refactor is_card_revealed and is_card_concealed methods to handle this
+		- Refactor conceal_card and revealed_card methods to handle this
+		- Run and fix the game until it works with refactor as expected
 	New Signals for GameState:
 		- turn_completed - emitted when the Turn End phase is over, with the new current_turn
 		- victory_points_changed - emitted when Victory Points changed, with new VPs
@@ -31,8 +37,55 @@ Step 2.1 - Game Board Components:
 			- Connect GameState's project_completed to ProjectContainerContainer's complete_project_container
 			- Connect GameState's host_nation_influence_changed to HostNationInfluenceTrack's set_hn_influence
 		- Test that the game works as before with Two Random Players
-	- HandContainer (FLESH OUT)
-	- NetworkContainer (FLESH OUT)
+	HandContainer:
+		- Is a UI Container displaying a specific Team Player's Hand
+		- Is a ScrollContainer with an HBoxContainer, as an onready ("card_container_container")
+		- Has a "hand_team" var, a GameState.TEAM
+		- Has a "perspective_team" var, a GameState.TEAM
+		- Has a prefab const for CardContainer
+		- Has a game_state var, a GameState
+		- In process, if perspective_team is not NOBODY, AND hand_team != perspective_team,
+		hide, else show, also assert that hand_team is not NOBODY
+		Method visualize_hand:
+			- If not visible, return (no point visualizing that you can't see)
+			- Delete all Children of card_container_container
+			- Get hand using game_state, an Array of Cards
+			Go through each card:
+				- Instantiate new CardContainer Prefab
+				- Set its card to the card
+		- Add Two HandContainers to GameBoard, one for Country (up top), one for Jedburgh (at bottom,
+		below track)
+		- Connect GameState's card_drawn to visualize_hand
+		- Ditto for GameState's move_taken
+		- Test that everything works
+		- Rearrange the UI more prettily as needed (will likely start looking cluttered)
+	NetworkContainer:
+		- To CardContainer, add "visualize_concealed", which blackens card image color,
+		hides description, sets Card Name to "CONCEALED"
+		- Add "visualize_revealed", which does the opposite
+		- To CardContainer, when setting a card, depending on if concealed or revealed,
+		visualize_concealed or visualize_revealed
+		- A CardContainer in the center
+		- 4 Anchored CardContainers
+		- A network_team var, GameState.TEAM
+		- A perspective_team var, GameState.TEAM
+		- Const for Country Base Card
+		- Const for Jedburgh Base Card
+		visualize_network method:
+			- Based on network_team, set central CardContainer's image to Country or
+			Jedburgh Base Card, with Base Card Image, Description hidden, and Card
+			Name label = player name
+			- For each slot, get the topmost ([-1]) card
+			- If no cards in that slot, set modulate of that CardContainer to 0
+			- Otherwise, set CardContainer's Card to the topmost ActionCard, with
+			Description = Value of Action Card
+			- If network_team != perspective_team, and perspective_team is not NOBODY,
+			AND the Action Card is concealed, call visualize_concealed,
+			otherwise visualize_revealed
+		- Connect GameState's move_taken to visualize_network
+		- Add two NetworkContainers - one on left for Country, one on right for Jedburgh,
+		to GameBoard
+		- Make them work with game visualization
 
 Step 2 - Human Player:
 	- Make sure the Player can play Imposed Cost as the Country Player, by launching the
