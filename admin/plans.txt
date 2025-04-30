@@ -87,16 +87,50 @@ Step 2.1 - Game Board Components:
 		to GameBoard
 		- Make them work with game visualization
 
-Step 2 - Human Player:
-	- Make sure the Player can play Imposed Cost as the Country Player, by launching the
-	Game and playing as them, noting down where there's no functionality, implementing
-	that functionality, until I can play as Country Human Player against Random
-	Jedburgh Player 10 games in row
-	- Make sure the Player can play Imposed Cost as the Jedburgh Player, by launching the
-	Game and playing as them, noting down where there's no functionality, implementing
-	that functionality, until I can play as Jedburgh Human Player against Random
-	Country Player 10 games in row
-	- Make sure Hotseat Multiplayer Works as well (10 games in row without issues)
+Step 2.2 - Game Board Separation:
+	- Rename GameBoard to ObserverBoard
+
+Step 2.3 - Human Player:
+	ActionCardMove:
+		- project
+		- value
+		- changes
+	AddProjectValueMove:
+		- project
+		- value
+	BuildNetworkMove:
+		- action_cards_to_add
+		- stacks_to_add_to
+		- indices_to_add_to
+	ConcealMove:
+		- cards_to_conceal
+	DegradeNetworkMove:
+		- enemy_card_to_discard
+	- DrawCardMove
+	InfluenceHostNationMove:
+		- action_card_to_play_with
+	MaintainNetworkMove:
+		- cards_to_discard
+		- new_network_order
+	ManageNetworkMove:
+		- stack_from
+		- position_from
+		- stack_to
+	- PassMove
+	RevealMove:
+		- cards_to_reveal
+	SelectProjectMove:
+		- project_card_to_select
+		- project_slot
+	
+	Testing:
+		- Make sure the Player can play Imposed Cost as the Country Player, by launching the
+		Game and playing as them, until I can play as Country Human Player against Random
+		Jedburgh Player 10 FULL games in row
+		- Make sure the Player can play Imposed Cost as the Jedburgh Player, by launching the
+		Game and playing as them, until I can play as Jedburgh Human Player against Random
+		Country Player 10 FULL games in row
+		- Make sure Hotseat Multiplayer Works as well (10 games in row without issues)
 
 Step 3 - Utility Player:
 	- Play 5 Games as the Country Team, taking note of strategies that work best
