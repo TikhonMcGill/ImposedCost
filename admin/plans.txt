@@ -1,13 +1,11 @@
 Step 2.1 - Game Board Components:
-	Streamlined Game States:
-		Test:
-			- Make sure that the game works - should run 5 times with 2 Random Players without Issue
 	Revealed/Concealed Refactor:
 		- Instead of having cards in a "concealed" etc. Array, just have each card have a 
 		"concealed" bool, which is false by default
 		- Refactor is_card_revealed and is_card_concealed methods to handle this
 		- Refactor conceal_card and revealed_card methods to handle this
 		- Run and fix the game until it works with refactor as expected
+		- Assert that card to be concealed is of ActionCard Type
 	New Signals for GameState:
 		- turn_completed - emitted when the Turn End phase is over, with the new current_turn
 		- victory_points_changed - emitted when Victory Points changed, with new VPs
@@ -92,6 +90,7 @@ Step 2.1 - Game Board Components:
 		- Make them work with game visualization
 
 Step 2.2 - Game Board Separation:
+	- Remove Human Player-related UI from Game
 	- Rename GameBoard to ObserverBoard
 
 Step 2.3 - Human Player:
