@@ -1,12 +1,5 @@
 Step 2.1 - Game Board Components:
 	Streamlined Game States:
-		Make Draw Cards State Streamlined:
-			- Remove DRAW_CARDS_JEDBURGH and DRAW_CARDS_COUNTRY
-			- Add new DRAW_CARDS State instead
-			- When all Projects Added, transfer to DRAW_CARDS, with it being Jedburgh's Turn
-			- When DrawCardMove taken, instead of checking for STATE, check for CURRENT_TURN_TEAM
-			instead - if Jedburgh, give Country Team shot, otherwise transfer to Operations,
-			with turn team, not State, set by HN influence (use get_first_operations_phase_player)
 		Make Maintain Network State Streamlined:
 			- Remove MAINTAIN_NETWORK_JEDBURGH and MAINTAIN_NETWORK_COUNTRY
 			- Add new MAINTAIN_NETWORK State instead

@@ -20,8 +20,7 @@ enum TEAM{
 
 enum PHASE {
 	SETUP, ##In the Setup Phase, the Country Team Player places 4 Project Cards in the ABCD Boxes
-	DRAW_CARDS_JEDBURGH, ##Part 1 of the Draw Cards Phase - Jedburgh Drawing a Card
-	DRAW_CARDS_COUNTRY, ##Part 2 of the Draw Cards Phase - Country Drawing a Card
+	DRAW_CARDS, ##In Draw Cards Phase, each Player draws a card
 	MAINTAIN_NETWORK_JEDBURGH, ##Jedburgh Drew the "Maintain Network" Card, and its effects are executed,
 	MAINTAIN_NETWORK_COUNTRY, ##The Country Team drew the "Maintain Network" Card, and its effects are executed
 	OPERATIONS, ##Operations Phase
@@ -364,7 +363,7 @@ func get_possible_moves() -> Array[Move]:
 	#into the relevant slot
 	if current_phase == PHASE.SETUP:
 		return get_project_select_possibilities()
-	elif current_phase == PHASE.DRAW_CARDS_JEDBURGH or current_phase == PHASE.DRAW_CARDS_COUNTRY:
+	elif current_phase == PHASE.DRAW_CARDS:
 		return [DrawCardMove.new()]
 	elif current_phase == PHASE.MAINTAIN_NETWORK_COUNTRY or current_phase == PHASE.MAINTAIN_NETWORK_JEDBURGH:
 		return [MaintainNetworkMove.new()]
@@ -502,7 +501,7 @@ func make_move(move: Move) -> void:
 			else:
 				#If all cards set, Move onto Draw Cards Phase
 				print("Moving onto Draw Cards Phase!")
-				_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
+				_transfer_to_phase(PHASE.DRAW_CARDS, TEAM.JEDBURGH)
 		elif current_phase == PHASE.PROJECTS:
 			if must_projects_be_added() == true:
 				print("Still some Unset Projects, staying in Projects Phase")
@@ -537,10 +536,10 @@ func make_move(move: Move) -> void:
 					_transfer_to_phase(PHASE.MAINTAIN_NETWORK_COUNTRY, TEAM.COUNTRY)
 		
 		#If it is Jedburgh that drew a card, time for the Country Team to do so as well
-		if current_phase == PHASE.DRAW_CARDS_JEDBURGH:
-			_transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
+		if current_turn_team == TEAM.JEDBURGH:
+			_transfer_to_phase(PHASE.DRAW_CARDS, TEAM.COUNTRY)
 		#Otherwise, if it was the Country Team that drew a card, move onto Operations phase
-		elif current_phase == PHASE.DRAW_CARDS_COUNTRY:
+		else:
 			print("Draw Cards Phase over!")
 			
 			#Transfer to Operations Phase, determining who's first using Helper Func
@@ -568,7 +567,7 @@ func make_move(move: Move) -> void:
 		else:
 			jedburgh_network = move.new_network_order
 			print("Jedburgh Player Maintained Network, moving onto Country Draw Cards Phase!")
-			_transfer_to_phase(PHASE.DRAW_CARDS_COUNTRY, TEAM.COUNTRY)
+			_transfer_to_phase(PHASE.DRAW_CARDS, TEAM.COUNTRY)
 		
 		if len(get_flattened_network(current_turn_team)) > 0:
 			print("New Arrangement of Network: ")
@@ -720,7 +719,7 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 	
 	#If we're transferring to the Draw Cards Phase, and the Draw Pile is empty,
 	#shuffle the Discard Pile and make it the new Draw Pile
-	if phase == PHASE.DRAW_CARDS_JEDBURGH or phase == PHASE.DRAW_CARDS_COUNTRY:
+	if phase == PHASE.DRAW_CARDS:
 		if len(draw_pile) == 0:
 			print("Draw pile empty, returning discard pile!")
 			
@@ -754,7 +753,7 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 					p.time += 1
 			print("Projects still left to play, transferring back to Draw Cards Phase!")
 			print("\n")
-			_transfer_to_phase(PHASE.DRAW_CARDS_JEDBURGH, TEAM.JEDBURGH)
+			_transfer_to_phase(PHASE.DRAW_CARDS, TEAM.JEDBURGH)
 			current_turn += 1
 	#If we're Transferring to Game End Phase, calculate Victory Type
 	elif phase == PHASE.GAME_END:
