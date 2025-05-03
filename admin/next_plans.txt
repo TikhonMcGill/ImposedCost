@@ -1,3 +1,21 @@
+Step 3 - Utility Player:
+	- Play 5 Games as the Country Team, taking note of strategies that work best
+	- Play 5 Games as Jedburgh, taking note of strategies that work best
+	- Make the Utility Player derive the Random Player
+	- In their Move Construction Methods, make them pick the move with the Highest Utility,
+	based on my notes (if utilities tied, pick randomly)
+
+Step 4 - Polish and Demo:
+	- Polish the game as I see fit
+	- Get Brian and HaWo's feedback
+	- Update as needed
+	- Publish, onto next Move
+
+Long-Term Timeline:
+	- Implementation of GUI-Based Gameplay by Human Player
+	- Creation of Utility Computer Player, based on my understanding of the game
+	- Polish of the Game as I see fit (refer to Finalization part of plan)
+
 Minimum Viable Product:
 	- UI-Based Human Player
 

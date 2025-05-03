@@ -3,12 +3,14 @@ extends Resource
 
 ##A Resource representing the Game State
 
+#region Signals
 signal card_drawn(card: Card) ##Emitted when a Card is drawn
 signal move_taken(move: Move) ##Emitted when a Move has been Taken
 signal host_nation_influence_changed(new_hn_influence: int) ##Emitted when HN Influence Changes
 signal project_set(project: Project, slot: int) ##Emitted when a Specific Project is set in a specific slot
 signal project_completed(slot: int) ##Emitted when a Project in a Specific Slot is Completed
 signal game_over(ratio: float, result: String) ##Emitted when the Game is over, with the ratio and result
+#endregion
 
 enum TEAM{
 	COUNTRY, ##The Country Team (Red)
@@ -22,8 +24,7 @@ enum PHASE {
 	DRAW_CARDS_COUNTRY, ##Part 2 of the Draw Cards Phase - Country Drawing a Card
 	MAINTAIN_NETWORK_JEDBURGH, ##Jedburgh Drew the "Maintain Network" Card, and its effects are executed,
 	MAINTAIN_NETWORK_COUNTRY, ##The Country Team drew the "Maintain Network" Card, and its effects are executed
-	OPERATIONS_COUNTRY, ##Country Team's Turn in the Operations Phase
-	OPERATIONS_JEDBURGH, ##Jedburgh's Turn in the Operations Phase
+	OPERATIONS, ##Operations Phase
 	PROJECTS, ##Projects Phase - here, completed Projects are Scored and their Effects carried out, and any and all new Projects are added into play
 	HN_INFLUENCE, ##HN Influence Phase - Add or lower Jedburgh's Victory Points based on whose side HN Influence Track is on
 	TURN_END, ##Turn End Phase - increase Projects' Times (if budget > 0), if no Projects left, move to Game End Phase
@@ -64,8 +65,6 @@ var PROJECT_LARGE_PORT: ProjectCard = ResourceLoader.load("uid://cy6lcskh1cuer")
 var PROJECT_MINE: ProjectCard = ResourceLoader.load("uid://nmkhwfglvn7r")
 #endregion
 
-#endregion
-
 #region Card Names
 
 const FUNCTION_BUILD_MANAGE_DEGRADE_NETWORK_NAME: String = "Build/Manage Network"
@@ -93,6 +92,7 @@ const EFFECT_ADD_VALUE_NAME: String = "Add 1 Value"
 @export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
 
 #region Game State-related Variables
+var previous_player: TEAM = TEAM.NOBODY ##The Previous Team Player that took their move
 var previous_move: Move = null ##The Previous Move taken
 
 var victory_points: int = 0: ##The No. Victory Points Blue has
@@ -238,6 +238,15 @@ func get_hn_influence_team() -> TEAM:
 	
 	return TEAM.JEDBURGH
 
+##Get the First Player who plays in the Operations Phase
+func get_first_operations_phase_player() -> TEAM:
+	if host_nation_influence < 0:
+		print("Country Team plays first in Operations Phase!")
+		return TEAM.COUNTRY
+	else:
+		print("Jedburgh Team plays first in Operations Phase!")
+		return TEAM.JEDBURGH
+
 ##Get a Player's Name, as "Player Name(Color)", e.g. "Jedburgh (Blue)"
 func get_player_name(team: TEAM) -> String:
 	if team == TEAM.COUNTRY:
@@ -288,6 +297,8 @@ func get_flattened_network(team: TEAM) -> Array[ActionCard]:
 				flattened_network.append(card)
 	
 	return flattened_network
+
+##Get the First Operations Phase Player
 
 ##Get a Player's Hand
 func get_player_hand(team: TEAM) -> Array[Card]:
@@ -357,7 +368,7 @@ func get_possible_moves() -> Array[Move]:
 		return [DrawCardMove.new()]
 	elif current_phase == PHASE.MAINTAIN_NETWORK_COUNTRY or current_phase == PHASE.MAINTAIN_NETWORK_JEDBURGH:
 		return [MaintainNetworkMove.new()]
-	elif current_phase == PHASE.OPERATIONS_COUNTRY or current_phase == PHASE.OPERATIONS_JEDBURGH:
+	elif current_phase == PHASE.OPERATIONS:
 		#Prepare Moves, Passing is an available move by default
 		var operations_moves: Array[Move] = [PassMove.new()]
 		
@@ -519,7 +530,6 @@ func make_move(move: Move) -> void:
 					discarded += 1
 				
 				print("Discarded %d Action Cards!" % discarded)
-				
 			else:
 				if current_turn_team == TEAM.JEDBURGH:
 					_transfer_to_phase(PHASE.MAINTAIN_NETWORK_JEDBURGH, TEAM.JEDBURGH)
@@ -533,13 +543,8 @@ func make_move(move: Move) -> void:
 		elif current_phase == PHASE.DRAW_CARDS_COUNTRY:
 			print("Draw Cards Phase over!")
 			
-			#Determine who plays first in the Operations Phase
-			if host_nation_influence < 0:
-				print("Country Team plays first in Operations Phase!")
-				_transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
-			else:
-				print("Jedburgh Team plays first in Operations Phase!")
-				_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+			#Transfer to Operations Phase, determining who's first using Helper Func
+			_transfer_to_phase(PHASE.OPERATIONS, get_first_operations_phase_player())
 	elif move is MaintainNetworkMove:
 		if len(get_current_player_hand()) > 0:
 			#Discard all Cards to be Discarded, if there are Cards in the Player's hand
@@ -558,13 +563,8 @@ func make_move(move: Move) -> void:
 			
 			print("Country Player Maintained Network, moving onto Operations Phase!")
 			
-			#Determine who plays first in the Operations Phase
-			if host_nation_influence < 0:
-				print("Country Team plays first in Operations Phase!")
-				_transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
-			else:
-				print("Jedburgh Team plays first in Operations Phase!")
-				_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+			#Transfer to Operations Phase, determining who's first using Helper Func
+			_transfer_to_phase(PHASE.OPERATIONS, get_first_operations_phase_player())
 		else:
 			jedburgh_network = move.new_network_order
 			print("Jedburgh Player Maintained Network, moving onto Country Draw Cards Phase!")
@@ -582,9 +582,9 @@ func make_move(move: Move) -> void:
 			_transfer_to_phase(PHASE.PROJECTS, TEAM.COUNTRY)
 		else:
 			if current_turn_team == TEAM.COUNTRY:
-				_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
+				_transfer_to_phase(PHASE.OPERATIONS, TEAM.JEDBURGH)
 			else:
-				_transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
+				_transfer_to_phase(PHASE.OPERATIONS, TEAM.COUNTRY)
 	elif move is InfluenceHostNationMove:
 		var influence_change: int = move.get_influence_change()
 		
@@ -694,12 +694,13 @@ func make_move(move: Move) -> void:
 		else:
 			discard_card(move.card_to_use, current_turn_team)
 		
-		if current_phase == PHASE.OPERATIONS_COUNTRY:
-			_transfer_to_phase(PHASE.OPERATIONS_JEDBURGH, TEAM.JEDBURGH)
-		elif current_phase == PHASE.OPERATIONS_JEDBURGH:
-			_transfer_to_phase(PHASE.OPERATIONS_COUNTRY, TEAM.COUNTRY)
+		if current_turn_team == TEAM.COUNTRY:
+			_transfer_to_phase(PHASE.OPERATIONS, TEAM.JEDBURGH)
+		elif current_phase == TEAM.JEDBURGH:
+			_transfer_to_phase(PHASE.OPERATIONS, TEAM.COUNTRY)
 	
 	previous_move = move
+	previous_player = current_turn_team
 	move_taken.emit(move)
 
 ##Count No. Active Projects
