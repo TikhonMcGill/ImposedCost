@@ -1,11 +1,4 @@
 Step 2.1 - Game Board Components:
-	Revealed/Concealed Refactor:
-		- Instead of having cards in a "concealed" etc. Array, just have each card have a 
-		"concealed" bool, which is false by default
-		- Refactor is_card_revealed and is_card_concealed methods to handle this
-		- Refactor conceal_card and revealed_card methods to handle this
-		- Run and fix the game until it works with refactor as expected
-		- Assert that card to be concealed is of ActionCard Type
 	New Signals for GameState:
 		- turn_completed - emitted when the Turn End phase is over, with the new current_turn
 		- victory_points_changed - emitted when Victory Points changed, with new VPs

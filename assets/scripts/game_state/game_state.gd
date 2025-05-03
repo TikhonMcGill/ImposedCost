@@ -99,8 +99,6 @@ var victory_points: int = 0: ##The No. Victory Points Blue has
 var draw_pile: Array[Card] ##The Draw Pile
 var discard_pile: Array[Card] ##The Discard Pile
 
-var revealed_cards: Array[Card] ##All Cards that have the "Revealed" Status
-
 var host_nation_influence: int = 0: ##The Influence of each team in the Host Nation - negative = Red Influence, Positive = Blue Influence
 	set = _set_hn_influence
 
@@ -148,10 +146,6 @@ func setup_game() -> void:
 	
 	assert(len(starting_pile) == 12, "Starting Draw Pile not 12 Cards")
 	
-	#Go through the Starting Pile, adding all of it to the Revealed Cards Array
-	for card: Card in starting_pile:
-		revealed_cards.append(card)
-	
 	#Shuffle the Pile, making the Draw Pile it
 	starting_pile.shuffle()
 	draw_pile = starting_pile
@@ -181,8 +175,8 @@ func draw_random_card(team: TEAM) -> Card:
 	return draw_card(draw_pile[0], team)
 
 ##Determine if a Particular Card is Revealed
-func is_card_revealed(card: Card) -> bool:
-	return card in revealed_cards
+func is_card_revealed(card: ActionCard) -> bool:
+	return card.is_concealed == false
 
 ##Determine if a Particular Action Card is in a Network
 func is_card_in_network(card: ActionCard, team: TEAM) -> bool:
@@ -199,21 +193,19 @@ func is_card_in_network(card: ActionCard, team: TEAM) -> bool:
 	return false
 
 ##Determine if a Particular Card is Concealed
-func is_card_concealed(card: Card) -> bool:
+func is_card_concealed(card: ActionCard) -> bool:
 	return is_card_revealed(card) == false
 
-##Reveal a Card
-func reveal_card(card: Card) -> void:
-	assert(card not in revealed_cards, "Card to be revealed already revealed")
+##Reveal an Action Card
+func reveal_card(card: ActionCard) -> void:
+	assert(card.is_concealed == true, "Card to be revealed already revealed")
 	print("Revealed Card %s!" % card.card_name)
-	revealed_cards.append(card)
 	card.card_history.append("Revealed")
 
-##Conceal a Card
-func conceal_card(card: Card) -> void:
-	assert(card in revealed_cards, "Card to be concealed not revealed")
+##Conceal an Action Card
+func conceal_card(card: ActionCard) -> void:
+	assert(card.is_concealed == false, "Card to be concealed not revealed")
 	print("Concealed Card %s!" % card.card_name)
-	revealed_cards.erase(card)
 	card.card_history.append("Concealed")
 
 ##Get the Value on the HN Influence Track
@@ -320,9 +312,6 @@ func discard_card(card: Card, team: TEAM) -> void:
 	
 	discard_pile.append(card)
 	card.card_history.append("Discarded from hand of %s" % get_player_name(team))
-	#Reveal Card after it is discarded
-	if is_card_revealed(card) == false:
-		reveal_card(card)
 
 ##Discard a Particular Action Card from a Particular Team Player's Network
 ##optionally enforcing whether to reveal or discard it
@@ -351,10 +340,6 @@ func discard_card_from_network(card: ActionCard, team: TEAM, enforce_conceal_rev
 					stack.erase(action_card)
 					discard_pile.append(action_card)
 					card.card_history.append("Discarded from Network of %s" % get_player_name(team))
-	
-	#Reveal Card after it is discarded, if it is concealed
-	if is_card_concealed(card) == true:
-		reveal_card(card)
 
 ##Get all Possible Game Moves
 func get_possible_moves() -> Array[Move]:
@@ -632,7 +617,9 @@ func make_move(move: Move) -> void:
 			get_current_player_hand().erase(move.action_cards_to_add[i])
 			get_current_player_network()[move.stacks_to_add_to[i]].insert(move.indices_to_add_to[i], move.action_cards_to_add[i])
 			move.action_cards_to_add[i].card_history.append("Added to Stack %s of Network of %s in Build Network Move" % [["A", "B", "C", "D"][move.indices_to_add_to[i]], get_current_player_name()])
-			conceal_card(move.action_cards_to_add[i])
+			#Conceal the Action Card to place, if not already
+			if is_card_revealed(move.action_cards_to_add[i]) == true:
+				conceal_card(move.action_cards_to_add[i])
 	elif move is ManageNetworkMove:
 		print("%s playing Manage Network!" % get_current_player_name())
 		
