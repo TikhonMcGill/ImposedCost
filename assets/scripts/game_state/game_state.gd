@@ -21,8 +21,7 @@ enum TEAM{
 enum PHASE {
 	SETUP, ##In the Setup Phase, the Country Team Player places 4 Project Cards in the ABCD Boxes
 	DRAW_CARDS, ##In Draw Cards Phase, each Player draws a card
-	MAINTAIN_NETWORK_JEDBURGH, ##Jedburgh Drew the "Maintain Network" Card, and its effects are executed,
-	MAINTAIN_NETWORK_COUNTRY, ##The Country Team drew the "Maintain Network" Card, and its effects are executed
+	MAINTAIN_NETWORK, ##Special State for when a "Maintain Network" Card is drawn and its effects
 	OPERATIONS, ##Operations Phase
 	PROJECTS, ##Projects Phase - here, completed Projects are Scored and their Effects carried out, and any and all new Projects are added into play
 	HN_INFLUENCE, ##HN Influence Phase - Add or lower Jedburgh's Victory Points based on whose side HN Influence Track is on
@@ -365,7 +364,7 @@ func get_possible_moves() -> Array[Move]:
 		return get_project_select_possibilities()
 	elif current_phase == PHASE.DRAW_CARDS:
 		return [DrawCardMove.new()]
-	elif current_phase == PHASE.MAINTAIN_NETWORK_COUNTRY or current_phase == PHASE.MAINTAIN_NETWORK_JEDBURGH:
+	elif current_phase == PHASE.MAINTAIN_NETWORK:
 		return [MaintainNetworkMove.new()]
 	elif current_phase == PHASE.OPERATIONS:
 		#Prepare Moves, Passing is an available move by default
@@ -531,9 +530,9 @@ func make_move(move: Move) -> void:
 				print("Discarded %d Action Cards!" % discarded)
 			else:
 				if current_turn_team == TEAM.JEDBURGH:
-					_transfer_to_phase(PHASE.MAINTAIN_NETWORK_JEDBURGH, TEAM.JEDBURGH)
+					_transfer_to_phase(PHASE.MAINTAIN_NETWORK, TEAM.JEDBURGH)
 				else:
-					_transfer_to_phase(PHASE.MAINTAIN_NETWORK_COUNTRY, TEAM.COUNTRY)
+					_transfer_to_phase(PHASE.MAINTAIN_NETWORK, TEAM.COUNTRY)
 		
 		#If it is Jedburgh that drew a card, time for the Country Team to do so as well
 		if current_turn_team == TEAM.JEDBURGH:

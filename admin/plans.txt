@@ -1,12 +1,5 @@
 Step 2.1 - Game Board Components:
 	Streamlined Game States:
-		Make Maintain Network State Streamlined:
-			- Remove MAINTAIN_NETWORK_JEDBURGH and MAINTAIN_NETWORK_COUNTRY
-			- Add new MAINTAIN_NETWORK State instead
-			- Transfer to Maintain Network State with current_turn_team's turn, not
-			the strange if-statement to separate states
-			- Transfer from Maintain Network State to either DRAW_CARDS or OPERATIONS,
-			using get_first_operations_phase_player method
 		Test:
 			- Make sure that the game works - should run 5 times with 2 Random Players without Issue
 	Revealed/Concealed Refactor:
