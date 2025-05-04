@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkdsibrlut8m"]
+
+[ext_resource type="Script" uid="uid://brfkynbjyabcy" path="res://assets/scenes/game/game_board/current_turn_label/current_turn_label.gd" id="1_4iqv0"]
+
+[node name="CurrentTurnLabel" type="Label"]
+theme_override_font_sizes/font_size = 18
+text = "Current Turn Goes Here"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_4iqv0")
