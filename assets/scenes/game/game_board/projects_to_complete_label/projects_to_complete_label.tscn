@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwdg85lo6bacx"]
+
+[ext_resource type="Script" uid="uid://ckbg8kfljb7r1" path="res://assets/scenes/game/game_board/projects_to_complete_label/projects_to_complete_label.gd" id="1_d8yh0"]
+
+[node name="ProjectsToCompleteLabel" type="Label"]
+script = ExtResource("1_d8yh0")
