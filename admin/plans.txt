@@ -1,10 +1,4 @@
 Step 2.1 - Game Board Components:
-	ProjectContainerContainer:
-		- contains 4 ProjectContainers, when GameState's project_set
-		signal called, updates Container at Relevant slot, or, if project completed, blackens
-		Container at that slot (setting its project to null)
-		- Has method set_container_project (move from Game), taking project, slot int
-		- Has method complete_project_container (move from Game), taking slot int
 	- HostNationInfluenceTrack - works as before
 	- Delete HumanUI From GameBoard in Game
 	GameBoard:

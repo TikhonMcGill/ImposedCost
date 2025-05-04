@@ -98,14 +98,6 @@ func handle_country_player_move(move: Move) -> void:
 func handle_jedburgh_player_move(move: Move) -> void:
 	game_state.make_move(move)
 
-#Set a Project Container's Project In a Specific Slot
-func set_container_project(project: Project, slot: int) -> void:
-	project_containers[slot].set_project(project)
-
-#Complete a Project Container, implying it is completed
-func _complete_project_container(slot: int) -> void:
-	project_containers[slot].my_project = null
-
 #Handle Ending the Game
 func _handle_game_over(ratio: float, v_text: String) -> void:
 	victor_label.text = "Ratio: %.2f, %s" % [ratio, v_text]
@@ -131,8 +123,8 @@ func _setup_game() -> void:
 	
 	game_state.projects_to_complete = GameManager.settings.projects_to_complete
 	game_state.move_taken.connect(handle_move_taken)
-	game_state.project_set.connect(set_container_project)
-	game_state.project_completed.connect(_complete_project_container)
+	#game_state.project_set.connect(set_container_project)
+	#game_state.project_completed.connect(_complete_project_container)
 	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)
 	game_state.game_over.connect(_handle_game_over)
 	

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://55k4rbxnjh54"]
+
+[ext_resource type="Script" uid="uid://byr8yrxc1vwlh" path="res://assets/scenes/game/game_board/project_container_container/project_container_container.gd" id="1_j248b"]
+[ext_resource type="PackedScene" uid="uid://cqmvug1vyaxk5" path="res://assets/scenes/game/game_board/project_container_container/project_container/project_container.tscn" id="1_y63a8"]
+
+[node name="ProjectContainerContainer" type="HBoxContainer" node_paths=PackedStringArray("project_containers")]
+size_flags_vertical = 3
+script = ExtResource("1_j248b")
+project_containers = [NodePath("ProjectAContainer"), NodePath("ProjectBContainer"), NodePath("ProjectCContainer"), NodePath("ProjectDContainer")]
+
+[node name="ProjectAContainer" parent="." instance=ExtResource("1_y63a8")]
+layout_mode = 2
+
+[node name="ProjectBContainer" parent="." instance=ExtResource("1_y63a8")]
+layout_mode = 2
+
+[node name="ProjectCContainer" parent="." instance=ExtResource("1_y63a8")]
+layout_mode = 2
+
+[node name="ProjectDContainer" parent="." instance=ExtResource("1_y63a8")]
+layout_mode = 2
