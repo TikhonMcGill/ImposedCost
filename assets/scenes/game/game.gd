@@ -5,38 +5,16 @@ const MAIN_MENU_PATH: String = "uid://csqyjihnbesyu"
 const RANDOM_PLAYER_SCENE: PackedScene = preload("uid://cl5rbc50mn6yi")
 const HUMAN_PLAYER_SCENE: PackedScene = preload("uid://xsqhafv5gbm1")
 
-const PROJECT_CONTAINER_SCENE: PackedScene = preload("uid://cqmvug1vyaxk5")
-
 var game_state: GameState = GameState.new()
 
 var country_team_player: Player
 var jedburgh_team_player: Player
-var project_containers: Array[ProjectContainer]
 
-@onready var current_turn_label: Label = $GameBoard/CurrentTurnLabel
-
-@onready var project_container_container: HBoxContainer = $GameBoard/ProjectContainerContainer
-@onready var host_nation_influence_track: HostNationInfluenceTrack = $GameBoard/HostNationInfluenceTrack
-
-@onready var projects_to_complete_label: Label = $GameBoard/ProjectsToCompleteLabel
-@onready var victory_points_label: Label = $GameBoard/VictoryPointsLabel
-
-@onready var victor_label: Label = $GameBoard/VictorLabel
+@onready var game_board: GameBoard = $GameBoard
 @onready var back_to_main_menu_button: Button = $GameBoard/BackToMainMenuButton
-
-#region Human UI-Related Nodes
-@onready var card_selector: CardSelector = $GameBoard/HumanUI/CardSelector
-@onready var card_drawn_label: Label = $GameBoard/HumanUI/CardDrawnLabel
-@onready var draw_card_button: Button = $GameBoard/HumanUI/DrawCardButton
-#endregion
 
 func _ready() -> void:
 	_setup_game()
-
-func _process(delta: float) -> void:
-	current_turn_label.text = "Current Turn: %d" % game_state.current_turn
-	projects_to_complete_label.text = "Projects Left to Complete: %d" % game_state.projects_to_complete
-	victory_points_label.text = "%s's Victory Points: %d" % [game_state.get_player_name(GameState.TEAM.JEDBURGH), game_state.victory_points]
 
 #Based on GameManager set Players, set up the Players for each Team
 func _setup_players() -> void:
@@ -98,24 +76,8 @@ func handle_country_player_move(move: Move) -> void:
 func handle_jedburgh_player_move(move: Move) -> void:
 	game_state.make_move(move)
 
-#Handle Ending the Game
-func _handle_game_over(ratio: float, v_text: String) -> void:
-	victor_label.text = "Ratio: %.2f, %s" % [ratio, v_text]
-	
-	current_turn_label.hide()
-	projects_to_complete_label.hide()
-	project_container_container.hide()
-	host_nation_influence_track.hide()
-	
-	victor_label.show()
-	back_to_main_menu_button.show()
-
 func _setup_game() -> void:
 	randomize()
-	
-	for c: Node in project_container_container.get_children():
-		assert(c is ProjectContainer, "Project Container Container has Node other than ProjectContainer")
-		project_containers.append(c)
 	
 	_setup_players()
 	
@@ -123,12 +85,14 @@ func _setup_game() -> void:
 	
 	game_state.projects_to_complete = GameManager.settings.projects_to_complete
 	game_state.move_taken.connect(handle_move_taken)
-	#game_state.project_set.connect(set_container_project)
-	#game_state.project_completed.connect(_complete_project_container)
-	game_state.host_nation_influence_changed.connect(host_nation_influence_track.set_hn_influence)
 	game_state.game_over.connect(_handle_game_over)
 	
+	game_board.game_state = game_state
+	
 	country_team_player.take_turn()
+
+func _handle_game_over(_ratio: float, _text: String) -> void:
+	back_to_main_menu_button.show()
 
 #Go back to the Main Menu when the Button is Pressed
 func _on_back_to_main_menu_button_pressed() -> void:

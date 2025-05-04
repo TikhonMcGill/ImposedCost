@@ -1,40 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bhuq1yrd5xvgf"]
+[gd_scene load_steps=3 format=3 uid="uid://bhuq1yrd5xvgf"]
 
 [ext_resource type="Script" uid="uid://dbckof6gs7uaj" path="res://assets/scenes/game/game.gd" id="1_u5a5u"]
-[ext_resource type="PackedScene" uid="uid://c6is68qvrlrb2" path="res://assets/scenes/game/game_board/host_nation_influence_track/host_nation_influence_track.tscn" id="2_0bv3r"]
-[ext_resource type="PackedScene" uid="uid://cdgnbaa7ua3pt" path="res://assets/scenes/game/game_board/victor_label/victor_label.tscn" id="2_krlks"]
-[ext_resource type="PackedScene" uid="uid://bkdsibrlut8m" path="res://assets/scenes/game/game_board/current_turn_label/current_turn_label.tscn" id="3_suxfe"]
-[ext_resource type="PackedScene" uid="uid://dwdg85lo6bacx" path="res://assets/scenes/game/game_board/projects_to_complete_label/projects_to_complete_label.tscn" id="4_iuiwi"]
-[ext_resource type="PackedScene" uid="uid://ci5jxy6b0n6md" path="res://assets/scenes/game/game_board/victory_points_label/victory_points_label.tscn" id="5_ab1nb"]
-[ext_resource type="PackedScene" uid="uid://55k4rbxnjh54" path="res://assets/scenes/game/game_board/project_container_container/project_container_container.tscn" id="6_ab1nb"]
+[ext_resource type="PackedScene" uid="uid://cpffm8drbukx2" path="res://assets/scenes/game/game_board/game_board.tscn" id="2_7b4ci"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_u5a5u")
 
-[node name="GameBoard" type="VBoxContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VictorLabel" parent="GameBoard" instance=ExtResource("2_krlks")]
-layout_mode = 2
-
-[node name="CurrentTurnLabel" parent="GameBoard" instance=ExtResource("3_suxfe")]
-layout_mode = 2
-
-[node name="ProjectsToCompleteLabel" parent="GameBoard" instance=ExtResource("4_iuiwi")]
-layout_mode = 2
-
-[node name="VictoryPointsLabel" parent="GameBoard" instance=ExtResource("5_ab1nb")]
-layout_mode = 2
-
-[node name="ProjectContainerContainer" parent="GameBoard" instance=ExtResource("6_ab1nb")]
-layout_mode = 2
-
-[node name="HostNationInfluenceTrack" parent="GameBoard" instance=ExtResource("2_0bv3r")]
-layout_mode = 2
+[node name="GameBoard" parent="." instance=ExtResource("2_7b4ci")]
 
 [node name="BackToMainMenuButton" type="Button" parent="GameBoard"]
 visible = false
@@ -42,3 +14,5 @@ layout_mode = 2
 text = "Back to Main Menu"
 
 [connection signal="pressed" from="GameBoard/BackToMainMenuButton" to="." method="_on_back_to_main_menu_button_pressed"]
+
+[editable path="GameBoard"]

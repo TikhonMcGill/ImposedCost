@@ -10,5 +10,5 @@ func set_container_project(project: Project, slot: int) -> void:
 	project_containers[slot].set_project(project)
 
 ##Complete a Project Container, implying it is completed
-func _complete_project_container(slot: int) -> void:
+func complete_project_container(slot: int) -> void:
 	project_containers[slot].my_project = null
