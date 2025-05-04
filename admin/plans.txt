@@ -1,5 +1,4 @@
 Step 2.1 - Game Board Components:
-	- HostNationInfluenceTrack - works as before
 	- Delete HumanUI From GameBoard in Game
 	GameBoard:
 		- Make GameBoard its own object, with each of these components as onreadies (basically
