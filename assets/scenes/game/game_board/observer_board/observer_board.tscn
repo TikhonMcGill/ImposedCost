@@ -1,14 +1,14 @@
 [gd_scene load_steps=8 format=3 uid="uid://cpffm8drbukx2"]
 
 [ext_resource type="PackedScene" uid="uid://cdgnbaa7ua3pt" path="res://assets/scenes/game/game_board/victor_label/victor_label.tscn" id="1_dsi5m"]
-[ext_resource type="Script" uid="uid://dj6lu3kvsca1u" path="res://assets/scenes/game/game_board/game_board.gd" id="1_ecqaw"]
+[ext_resource type="Script" uid="uid://dj6lu3kvsca1u" path="res://assets/scenes/game/game_board/observer_board/observer_board.gd" id="1_ecqaw"]
 [ext_resource type="PackedScene" uid="uid://bkdsibrlut8m" path="res://assets/scenes/game/game_board/current_turn_label/current_turn_label.tscn" id="2_ecqaw"]
 [ext_resource type="PackedScene" uid="uid://dwdg85lo6bacx" path="res://assets/scenes/game/game_board/projects_to_complete_label/projects_to_complete_label.tscn" id="3_0r1lb"]
 [ext_resource type="PackedScene" uid="uid://ci5jxy6b0n6md" path="res://assets/scenes/game/game_board/victory_points_label/victory_points_label.tscn" id="4_12tj2"]
 [ext_resource type="PackedScene" uid="uid://55k4rbxnjh54" path="res://assets/scenes/game/game_board/project_container_container/project_container_container.tscn" id="5_r5hvb"]
 [ext_resource type="PackedScene" uid="uid://c6is68qvrlrb2" path="res://assets/scenes/game/game_board/host_nation_influence_track/host_nation_influence_track.tscn" id="6_hoty0"]
 
-[node name="GameBoard" type="VBoxContainer"]
+[node name="ObserverBoard" type="VBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

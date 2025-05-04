@@ -1,18 +1,18 @@
 [gd_scene load_steps=3 format=3 uid="uid://bhuq1yrd5xvgf"]
 
 [ext_resource type="Script" uid="uid://dbckof6gs7uaj" path="res://assets/scenes/game/game.gd" id="1_u5a5u"]
-[ext_resource type="PackedScene" uid="uid://cpffm8drbukx2" path="res://assets/scenes/game/game_board/game_board.tscn" id="2_7b4ci"]
+[ext_resource type="PackedScene" uid="uid://cpffm8drbukx2" path="res://assets/scenes/game/game_board/observer_board/observer_board.tscn" id="2_7b4ci"]
 
 [node name="Game" type="Node"]
 script = ExtResource("1_u5a5u")
 
-[node name="GameBoard" parent="." instance=ExtResource("2_7b4ci")]
+[node name="ObserverBoard" parent="." instance=ExtResource("2_7b4ci")]
 
-[node name="BackToMainMenuButton" type="Button" parent="GameBoard"]
+[node name="BackToMainMenuButton" type="Button" parent="ObserverBoard"]
 visible = false
 layout_mode = 2
 text = "Back to Main Menu"
 
-[connection signal="pressed" from="GameBoard/BackToMainMenuButton" to="." method="_on_back_to_main_menu_button_pressed"]
+[connection signal="pressed" from="ObserverBoard/BackToMainMenuButton" to="." method="_on_back_to_main_menu_button_pressed"]
 
-[editable path="GameBoard"]
+[editable path="ObserverBoard"]

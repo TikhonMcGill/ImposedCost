@@ -1,7 +1,7 @@
-class_name GameBoard
+class_name ObserverBoard
 extends VBoxContainer
 
-##A UI Element representing a visualization of an Imposed Cost Game Board
+##A UI Element representing a visualization of an Imposed Cost Game Board, without Human Players
 
 var game_state: GameState: set = _set_game_state ##The Game State this Game Board is visualizing
 

@@ -10,7 +10,9 @@ var game_state: GameState = GameState.new()
 var country_team_player: Player
 var jedburgh_team_player: Player
 
-@onready var game_board: GameBoard = $GameBoard
+var no_humans: bool = true #Whether there are any Human-Controlled Players
+
+@onready var observer_board: ObserverBoard = $ObserverBoard
 @onready var back_to_main_menu_button: Button = $GameBoard/BackToMainMenuButton
 
 func _ready() -> void:
@@ -35,11 +37,13 @@ func _setup_players() -> void:
 		country_player = RANDOM_PLAYER_SCENE.instantiate()
 	elif GameManager.settings.country_team_player == GameManager.settings.PLAYER.HUMAN:
 		country_player = HUMAN_PLAYER_SCENE.instantiate()
+		no_humans = false
 	
 	if GameManager.settings.jedburgh_team_player == GameManager.settings.PLAYER.RANDOM:
 		jedburgh_player = RANDOM_PLAYER_SCENE.instantiate()
 	elif GameManager.settings.jedburgh_team_player == GameManager.settings.PLAYER.HUMAN:
 		jedburgh_player = HUMAN_PLAYER_SCENE.instantiate()
+		no_humans = false
 	
 	add_child(country_player)
 	add_child(jedburgh_player)
@@ -87,7 +91,12 @@ func _setup_game() -> void:
 	game_state.move_taken.connect(handle_move_taken)
 	game_state.game_over.connect(_handle_game_over)
 	
-	game_board.game_state = game_state
+	#If there are no humans, show the observer board
+	if no_humans == true:
+		observer_board.game_state = game_state
+		observer_board.show()
+	else:
+		observer_board.hide()
 	
 	country_team_player.take_turn()
 
