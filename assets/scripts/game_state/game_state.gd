@@ -7,9 +7,12 @@ extends Resource
 signal card_drawn(card: Card) ##Emitted when a Card is drawn
 signal move_taken(move: Move) ##Emitted when a Move has been Taken
 signal host_nation_influence_changed(new_hn_influence: int) ##Emitted when HN Influence Changes
+signal victory_points_changed(new_vps: int) ##Emitted when Jedburgh's Victory Points Change
 signal project_set(project: Project, slot: int) ##Emitted when a Specific Project is set in a specific slot
 signal project_completed(slot: int) ##Emitted when a Project in a Specific Slot is Completed
+signal turn_over(new_turn: int) ##Emitted when the Turn Ends (i.e. the Turn End Phase is over)
 signal game_over(ratio: float, result: String) ##Emitted when the Game is over, with the ratio and result
+
 #endregion
 
 enum TEAM{
@@ -741,6 +744,7 @@ func _transfer_to_phase(phase: PHASE, player: TEAM) -> void:
 			print("\n")
 			_transfer_to_phase(PHASE.DRAW_CARDS, TEAM.JEDBURGH)
 			current_turn += 1
+			turn_over.emit(current_turn)
 	#If we're Transferring to Game End Phase, calculate Victory Type
 	elif phase == PHASE.GAME_END:
 		var ratio: float = float(victory_points) / float(total_planned_cost)
@@ -809,6 +813,7 @@ func must_projects_be_added() -> bool:
 ##Set Victory Points
 func _set_victory_points(new_val: int) -> void:
 	victory_points = maxi(0, new_val)
+	victory_points_changed.emit(victory_points)
 
 ##Set Host Nation Influence
 func _set_hn_influence(new_val: int) -> void:
