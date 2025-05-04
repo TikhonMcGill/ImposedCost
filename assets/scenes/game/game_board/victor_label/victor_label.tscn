@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://cdgnbaa7ua3pt"]
+
+[ext_resource type="Script" uid="uid://d3f8vokqd4mbs" path="res://assets/scenes/game/game_board/victor_label/victor_label.gd" id="1_cpv5g"]
+
+[node name="VictorLabel" type="Label"]
+visible = false
+theme_override_font_sizes/font_size = 32
+text = "Victor Label Goes Here"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+script = ExtResource("1_cpv5g")

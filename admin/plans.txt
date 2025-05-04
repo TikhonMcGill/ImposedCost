@@ -1,6 +1,4 @@
 Step 2.1 - Game Board Components:
-	- VictorLabel - Extends Label, has method "show_winner_text", taking ratio and
-	text as arguments, setting label with them
 	- CurrentTurnlabel - Extends Label, shows the Game State's current_turn via method taking int
 	- ProjectsToCompleteLabel - Extends Label, shows the Game State's projects_to_complete (ditto)
 	- VictoryPointsLabel - Extends Label, shows Jedburgh's Victory Points from GameState

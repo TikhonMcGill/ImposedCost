@@ -12,7 +12,6 @@ signal project_set(project: Project, slot: int) ##Emitted when a Specific Projec
 signal project_completed(slot: int) ##Emitted when a Project in a Specific Slot is Completed
 signal turn_over(new_turn: int) ##Emitted when the Turn Ends (i.e. the Turn End Phase is over)
 signal game_over(ratio: float, result: String) ##Emitted when the Game is over, with the ratio and result
-
 #endregion
 
 enum TEAM{
@@ -31,8 +30,6 @@ enum PHASE {
 	TURN_END, ##Turn End Phase - increase Projects' Times (if budget > 0), if no Projects left, move to Game End Phase
 	GAME_END ##Game End Phase - Calculate Outcome - Country Victory, Jedburgh Tactical Victory, Jedburgh Strategic Victory
 }
-
-#region Cards
 
 #region Base Cards
 var BASE_COUNTRY: BaseCard = ResourceLoader.load("uid://b32wrnrj5kinr")
@@ -67,7 +64,6 @@ var PROJECT_MINE: ProjectCard = ResourceLoader.load("uid://nmkhwfglvn7r")
 #endregion
 
 #region Card Names
-
 const FUNCTION_BUILD_MANAGE_DEGRADE_NETWORK_NAME: String = "Build/Manage Network"
 const FUNCTION_INFLUENCE_HN_NAME: String = "Influence Host Nation/Use Host Nation Influence"
 const FUNCTION_MAINTAIN_NETWORK_NAME: String = "Maintain Network"
@@ -81,13 +77,10 @@ const PROJECT_SMALL_PORT_NAME: String = "Small Port"
 const PROJECT_LARGE_AIRPORT_NAME: String = "Large Airport"
 const PROJECT_LARGE_PORT_NAME: String = "Large Port"
 const PROJECT_MINE_NAME: String = "Mine"
-
 #endregion
 
 #region Effect Names
-
 const EFFECT_ADD_VALUE_NAME: String = "Add 1 Value"
-
 #endregion
 
 @export var projects_to_complete: int = 4 ##No. Projects to Complete before Game Ends (determined by players - 4 or 5 will give a short game, more than 8 will give a long and somewhat repetitive game))
