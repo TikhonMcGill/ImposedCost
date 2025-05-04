@@ -1,6 +1,4 @@
 Step 2.1 - Game Board Components:
-	- VictoryPointsLabel - Extends Label, shows Jedburgh's Victory Points from GameState
-	(with Player Name) (ditto)
 	ProjectContainerContainer:
 		- contains 4 ProjectContainers, when GameState's project_set
 		signal called, updates Container at Relevant slot, or, if project completed, blackens

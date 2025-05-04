@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://ci5jxy6b0n6md"]
+
+[ext_resource type="Script" uid="uid://dt2al4i4a6s00" path="res://assets/scenes/game/game_board/victory_points_label/victory_points_label.gd" id="1_xjv2v"]
+
+[node name="VictoryPointsLabel" type="Label"]
+script = ExtResource("1_xjv2v")

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cdgnbaa7ua3pt" path="res://assets/scenes/game/game_board/victor_label/victor_label.tscn" id="2_krlks"]
 [ext_resource type="PackedScene" uid="uid://cqmvug1vyaxk5" path="res://assets/scenes/game/project_container/project_container.tscn" id="2_oblms"]
 [ext_resource type="PackedScene" uid="uid://bkdsibrlut8m" path="res://assets/scenes/game/game_board/current_turn_label/current_turn_label.tscn" id="3_suxfe"]
-[ext_resource type="PackedScene" uid="uid://dc2ic5uoukta3" path="res://assets/scenes/game/game_board/projects_left_label/projects_left_label.tscn" id="4_iuiwi"]
+[ext_resource type="PackedScene" uid="uid://dwdg85lo6bacx" path="res://assets/scenes/game/game_board/projects_to_complete_label/projects_to_complete_label.tscn" id="4_iuiwi"]
 [ext_resource type="PackedScene" uid="uid://bjldw7i7tt3by" path="res://assets/scenes/game/player/human_player/card_selector/card_selector.tscn" id="4_sy1gd"]
 
 [node name="Game" type="Node"]
